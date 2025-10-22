@@ -1,0 +1,14 @@
+{
+    "id": "BitterJokers",
+    "name": "Bitter's Stuff",
+    "author": ["BitterDoes"],
+    "description": "wawa",
+    "prefix": "Bitters",
+	"priority": 811734,
+    "main_file": "Main.lua",
+    "badge_colour": "794cd4",
+    "dependencies": [
+        "Steamodded (>=1.0.0~ALPHA-1225a)"
+    ],
+    "version": "1.0.0"
+}
