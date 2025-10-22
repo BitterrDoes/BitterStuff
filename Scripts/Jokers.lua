@@ -202,7 +202,7 @@ SMODS.Joker {
 	end,
 
 	atlas = 'JokeJokersAtlas', -- made by daynan77
-	pos = { x = 4, y = 0 },
+	pos = { x = 1, y = 0 },
 
 	rarity = 2,
 	cost = 6, -- for now tickets = money / 2
@@ -245,10 +245,10 @@ SMODS.Joker {
 	end,
 
 	atlas = 'JokeJokersAtlas', -- made by daynan77
-	pos = { x = 1, y = 0 },
+	pos = { x = 4, y = 0 },
 
 	rarity = 2,
-	cost = 6.7, -- for now tickets = money / 2
+	cost = 6, -- for now tickets = money / 2
 
     calculate = function(self, card, context)
         if context.joker_main then
