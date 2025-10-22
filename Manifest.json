@@ -6,7 +6,7 @@
     "prefix": "Bitters",
 	"priority": 811734,
     "main_file": "Main.lua",
-    "badge_colour": "794cd4",
+    "badge_colour": "321a70",
     "dependencies": [
         "Steamodded (>=1.0.0~ALPHA-1225a)"
     ],

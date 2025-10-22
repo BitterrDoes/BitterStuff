@@ -4,11 +4,14 @@ Bitterstuff.ModsUsing = #NFS.getDirectoryItems(string.reverse(string.sub(string.
 -- Fucntions
 
 function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
-	local chunk = SMODS.load_file(file, "BalatroPit")
+	local chunk = SMODS.load_file(file, "BitterJokers")
 	if chunk then
 		local ok, func = pcall(chunk)
 		if ok then
+			print("loaded ".. file)
 			return func
+		else
+			print("Failed on ".. file)
 		end
 	end
 	return nil
@@ -35,4 +38,5 @@ function Bitterstuff.Load_Dir(directory)
 end
 
 -- okay okay, actually load the objects now
-Bitterstuff.Load_Dir("Scripts")
+Bitterstuff.Load_file("Scripts/Atlases.lua")
+Bitterstuff.Load_file("Scripts/Jokers.lua")

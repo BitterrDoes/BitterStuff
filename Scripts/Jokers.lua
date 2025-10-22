@@ -1,10 +1,12 @@
+print('ra')
+
 -- |
 -- |        people from balatro and smods server
 -- |
 
 -- Jambatro
 SMODS.Joker {
-    key = "joke_Jambatro",
+    key = "Jambatro",
 
     loc_txt = {
         name = "Jambatro",
@@ -41,7 +43,7 @@ SMODS.Joker {
 }
 -- astro
 SMODS.Joker {
-    key = "balapit_Astro", -- i dont wanna get it mixed with the other 15 astros
+    key = "Astro", -- i dont wanna get it mixed with the other 15 astros
 
     loc_txt = {
         name = "Jambatro",
@@ -49,16 +51,16 @@ SMODS.Joker {
     },
 
     blueprint_compat = true,
-	config = { extra = {mult = 3, divide = 3} },
+	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.mult, card.ability.extra.divide}}
+		return { vars = {}}
 	end,
     
 	atlas = 'JokeJokersAtlas', -- made by daynan77
 	pos = { x = 0, y = 0 },
 
-	rarity = 3,
-	cost = 6, -- for now tickets = money / 2
+	rarity = 2,
+	cost = 4, -- for now tickets = money / 2
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -97,7 +99,7 @@ SMODS.Joker {
 }
 -- ekko
 SMODS.Joker {
-    key = "joke_Ekko", -- i rly need to get a real suffix for the joke jokers
+    key = "Ekko", -- i rly need to get a real suffix for the joke jokers
 
     loc_txt = {
         name = "Ekko",
@@ -139,11 +141,11 @@ SMODS.Joker {
 }
 -- astra
 SMODS.Joker {
-    key = "joke_Astra",
+    key = "Astra",
 
     loc_txt = {
-        name = "Ekko",
-        text = {"Creates the last used Tarot or Planet card every #1# blinds", "{C:inactive}[#2#/#1#]{}", "{C:inactive,s:0.6} 'it says gullible on the ceiling' {}"}
+        name = "Astra",
+        text = {"STILL BEING MADE SELL ME!!"}
     },
 
     blueprint_compat = true,
@@ -153,10 +155,10 @@ SMODS.Joker {
 	end,
     
 	atlas = 'JokeJokersAtlas', 
-	pos = { x = 3, y = 0 },
+	pos = { x = 0, y = 1 },
 
 	rarity = 3,
-	cost = 6, -- for now tickets = money / 2
+	cost = 15, -- for now tickets = money / 2
 
     calculate = function(self, card, context)
         if context.setting_blind then
@@ -186,7 +188,7 @@ SMODS.Joker {
 
 -- piratesoftware
 SMODS.Joker {
-    key = "balapit_piratesoftware",
+    key = "piratesoftware",
     
     loc_txt = {
         name = "Pirate Software",
@@ -200,7 +202,7 @@ SMODS.Joker {
 	end,
 
 	atlas = 'JokeJokersAtlas', -- made by daynan77
-	pos = { x = 1, y = 0 },
+	pos = { x = 4, y = 0 },
 
 	rarity = 2,
 	cost = 6, -- for now tickets = money / 2
@@ -229,17 +231,17 @@ SMODS.Joker {
 
 -- yandev
 SMODS.Joker {
-    key = "balapit_yandev",
+    key = "yandev",
     
     loc_txt = {
-        name = "yandev",
-        text = {"if a joker's effect doesn't activate, trigger a random effect instead"}
+        name = "Yandare Dev",
+        text = {"if a joker's effect doesn't activate, trigger a random effect instead", "{C:inactive,s:0.6}can randomize entire deck's rank or suit!{}"}
     },
 
     blueprint_compat = true,
-	config = { extra = {chance = 1, mult = 1337} },
+	config = { extra = {chance = 1, mult = 1337, jokersUsed = 0} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.chance, card.ability.extra.mult}}
+		return { vars = {card.ability.extra.jokersUsed}}
 	end,
 
 	atlas = 'JokeJokersAtlas', -- made by daynan77
@@ -250,6 +252,76 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.joker_main then
+            card.ability.extra.jokersUsed = 0
+        elseif context.other_joker then
+            card.ability.extra.jokersUsed = (card.ability.extra.jokersUsed) + 1
+        elseif context.post_joker then
+            local effect = pseudorandom_element({ "n_mult", "n_xmult", "n_chips", "n_xchips", "n_dollars", "n_xdollars", "randSuits", "randRank", "speed", "restart"}, pseudoseed("yandevRand"))
+            print(string.sub(effect, 0, 2), string.sub(effect, 2, 3), string.sub(effect, 2, -1))
+            if string.sub(effect, 0, 2) == "n_" then
+                local number = math.floor(pseudorandom("yandevNumber") * 100 / string.sub(effect, 3, 3) == "x" and 5 or 1)
+                -- ahahahahaha
+                local variable = string.sub(effect, 3, -1)
+                if variable == "mult" then
+                    return {
+                        mult = number
+                    }
+                elseif variable == "xmult" then
+                    return {
+                        xmult = number
+                    }
+                elseif variable == "chips" then
+                    return {
+                        chips = number
+                    }
+                elseif variable == "xchips" then
+                    return {
+                        xchips = number
+                    }
+                elseif variable == "dollars" then
+                    return {
+                        dollars = number
+                    }
+                elseif variable == "xdollars" then
+                    G.GAME.dollars = G.GAME.dollars * number
+                    return {
+                        message = "X".. number,
+			            colour = G.C.MONEY
+                    }
+                else
+                end
+            end
+            -- yes i will do if then end, 5 times over without elseif
+            if effect == "randSuits" then
+                for _, other_card in pairs(G.playing_cards) do
+                    local new_suit = pseudorandom_element({ "Spades", "Hearts", "Clubs", "Diamonds" }, pseudoseed("YandevSuit"))
+                    other_card:change_suit(new_suit)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            other_card:juice_up(0.5, 0.5)
+                            return true
+                        end
+                    }))
+                end
+            end
+            if effect == "randRank" then
+                for _, other_card in pairs(G.playing_cards) do
+                    local new_rank = pseudorandom_element(SMODS.Ranks, pseudoseed("YandevSuit"))
+                    SMODS.modify_rank(other_card, new_rank)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            other_card:juice_up(0.5, 0.5)
+                            return true
+                        end
+                    }))
+                end
+            end
+            if effect == "speed" then
+                G.SETTINGS.GAMESPEED = 0.25
+            end
+            if effect == "restart" then
+                SMODS.restart_game()
+            end
         end
     end
 }
@@ -260,7 +332,7 @@ SMODS.Joker {
 
 -- Spinel (first try)
 SMODS.Joker {
-    key = "balapit_FirstTry",
+    key = "FirstTry",
     
     loc_txt = {
         name = "Spinel",
@@ -287,3 +359,7 @@ SMODS.Joker {
         end
     end
 }
+
+-- |
+-- |        other funnies
+-- |
