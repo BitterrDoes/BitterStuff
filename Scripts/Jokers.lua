@@ -46,7 +46,7 @@ SMODS.Joker {
     key = "Astro", -- i dont wanna get it mixed with the other 15 astros
 
     loc_txt = {
-        name = "Jambatro",
+        name = "Astro",
         text = {"If played hand has a scoring spade, randomize suit of all unscored cards."}
     },
 
