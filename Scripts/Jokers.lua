@@ -1,5 +1,3 @@
-print('ra')
-
 -- |
 -- |        people from balatro and smods server
 -- |

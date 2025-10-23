@@ -14,17 +14,17 @@ SMODS.Edition { -- THIS IS ONLY MEANT FOR PIRATE SOFTWARE!! This may break other
     in_shop = false,
     weight = 0,
     
-    config = { divide = 2 },
+    config = { divide = 2, nomral = 1},
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.chips } }
+        return { vars = { self.config.divide, self.config.nomral} }
     end,
 
-    calculate = function(self, card, context)
-        if context.joker_main then
-            local nomral =  G.GAME.probabilities.normal
-            G.GAME.probabilities.normal = nomral / 2
-            delay(1)
-            G.GAME.probabilities.normal = nomral
+    calculate = function(self, card, context) -- this script fucking sucks, if someone comes across this please help me :(
+        if context.pre_joker  then
+            self.config.nomral =  G.GAME.probabilities.normal
+            G.GAME.probabilities.normal = self.config.nomral / self.config.divide
+        elseif context.post_joker then
+            G.GAME.probabilities.normal = self.config.nomral
         end
     end
 }

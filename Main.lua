@@ -11,7 +11,7 @@ function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but saf
 			print("loaded ".. file)
 			return func
 		else
-			print("Failed on ".. file)
+			print("Failed on ".. file, " : ", func)
 		end
 	end
 	return nil
