@@ -1,3 +1,5 @@
+SMODS.Shader({ key = 'flipped', path = 'flipped.fs' })
+
 SMODS.Edition { -- THIS IS ONLY MEANT FOR PIRATE SOFTWARE!! This may break other jokers
     key = "unlucky",
     shader = 'flipped',
@@ -5,10 +7,9 @@ SMODS.Edition { -- THIS IS ONLY MEANT FOR PIRATE SOFTWARE!! This may break other
         name = 'Unlucky',
         label = 'Unlucky',
         text = {
-            [1] = 'Makes all jokers that depend on chance half as useful.'
+            [1] = 'Halves luck'
         }
     },
-
 
     in_shop = false,
     weight = 0,
@@ -22,15 +23,8 @@ SMODS.Edition { -- THIS IS ONLY MEANT FOR PIRATE SOFTWARE!! This may break other
         if context.joker_main then
             local nomral =  G.GAME.probabilities.normal
             G.GAME.probabilities.normal = nomral / 2
-
-            G.E_MANAGER:add_event(Event({
-                trigger = "after",
-                delay = "1",
-                func = function()
-                    G.GAME.probabilities.normal = nomral
-                end,
-            }))
-
+            delay(1)
+            G.GAME.probabilities.normal = nomral
         end
     end
 }

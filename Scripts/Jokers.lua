@@ -10,7 +10,7 @@ SMODS.Joker {
 
     loc_txt = {
         name = "Jambatro",
-        text = {"{X:mult,C:white}x#1#{} Mult{} if chips x mult isn't divisible by #2#."}
+        text = {"{X:mult,C:white}x#1#{} Mult{} if score isn't divisible by #2#."}
     },
 
     blueprint_compat = true,
@@ -26,7 +26,7 @@ SMODS.Joker {
 	cost = 3, -- for now tickets = money / 2
 
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.post_joker then
             -- main if statement
             print(G.GAME.chips * G.GAME.current_round.current_hand.mult % card.ability.extra.divide ~= 0)
             if G.GAME.chips * G.GAME.current_round.current_hand.mult % card.ability.extra.divide ~= 0 then
