@@ -10,17 +10,17 @@ SMODS.Joker {
 
     loc_txt = {
         name = "Jambatro",
-        text = {"{X:mult,C:white}x#1#{} Mult{} if hand score is divisible by #2#."}
+        text = {"{X:mult,C:white}x#1#{} Mult{} if chips x mult isn't divisible by #2#."}
     },
 
     blueprint_compat = true,
-	config = { extra = {mult = 3, divide = 3} },
+	config = { extra = {mult = 3, divide = 2} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.mult, card.ability.extra.divide}}
 	end,
     
-	atlas = 'ModdedVanilla',
-	pos = { x = 4, y = 0 },
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 0, y = 1 },
 
 	rarity = 1,
 	cost = 3, -- for now tickets = money / 2
@@ -28,10 +28,10 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             -- main if statement
-            if G.GAME.chips / card.ability.extra.divide == math.floor(G.GAME.chips / card.ability.extra.divide) then
-                print(G.GAME.chips / card.ability.extra.divide == math.floor(G.GAME.chips / card.ability.extra.divide), G.GAME.chips / card.ability.extra.divide, G.GAME.chips)
+            print(G.GAME.chips * G.GAME.current_round.current_hand.mult % card.ability.extra.divide ~= 0)
+            if G.GAME.chips * G.GAME.current_round.current_hand.mult % card.ability.extra.divide ~= 0 then
                 return {
-                    mult = card.ability.extra.mult
+                    xmult = card.ability.extra.mult
                 }    
             else
                 return {
@@ -50,7 +50,7 @@ SMODS.Joker {
         text = {"If played hand has a scoring spade, randomize suit of all unscored cards."}
     },
 
-    blueprint_compat = true,
+    blueprint_compat = false,
 	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = {}}
@@ -181,6 +181,54 @@ SMODS.Joker {
         end
     end
 }
+-- Jamirror
+SMODS.Joker {
+    key = "jamirror",
+
+    loc_txt = {
+        name = "Jamirror",
+        text = {"{C:green}#1# in 8{} to add 1 operation (^) to mult after beating boss blind", "{C:inactive}(Currently {X:mult,C:white}#4#{}){}"}
+    },
+
+    blueprint_compat = true,
+	config = { extra = {operation = 0, hip = 1.25, description = "X2"} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {G.GAME.probabilities.normal, card.ability.extra.operation, card.ability.extra.hip, card.ability.extra.description}}
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 2, y = 1 },
+
+	rarity = 4,
+	cost = 8, -- for now tickets = money / 2
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if card.ability.extra.operation == 0 then
+                return {
+                    xmult = card.ability.extra.hip
+                }
+            else
+                return {
+                    hypermult = {
+                        card.ability.extra.operation,
+                        card.ability.extra.hip
+                    }
+                }
+            end
+        elseif context.end_of_round and G.GAME.blind.boss and context.cardarea == G.jokers then
+            if SMODS.pseudorandom_probability(card, 'jamirrorchance', G.GAME.probabilities.normal, 8, 'identifier')  then
+                card.ability.extra.operation = card.ability.extra.operation + 1
+                print(card.ability.extra.operation)
+                local number = ""
+                for i=1, card.ability.extra.operation do
+                    number = number.. "^"
+                end
+                card.ability.extra.description = tostring(number.. card.ability.extra.hip)
+            end
+        end
+    end
+}
 
 -- |
 -- |        funny controversial developers
@@ -192,7 +240,7 @@ SMODS.Joker {
     
     loc_txt = {
         name = "Pirate Software",
-        text = {"{C:green}#1# іn 2{} Chance of crashing your game.", "Otherwise {X:mult,C:white}+#2#{} Mult{}"}
+        text = {"{C:green}#1# іn 2{} Chance of 'crashing' your game.", "Otherwise {X:mult,C:white}+#2#{} Mult{}"}
     },
 
     blueprint_compat = true,
@@ -214,7 +262,7 @@ SMODS.Joker {
                     trigger = "after",
                     delay = 1,
                     func = function()
-                        while true do print(":3") end -- :3
+                        SMODS.restart_game()
                     end
                 }))
                 return {
@@ -228,7 +276,6 @@ SMODS.Joker {
         end
     end
 }
-
 -- yandev
 SMODS.Joker {
     key = "yandev",
@@ -238,7 +285,7 @@ SMODS.Joker {
         text = {"if a joker's effect doesn't activate, trigger a random effect instead", "{C:inactive,s:0.6}can randomize entire deck's rank or suit!{}"}
     },
 
-    blueprint_compat = true,
+    blueprint_compat = false,
 	config = { extra = {chance = 1, mult = 1337, jokersUsed = 0} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.jokersUsed}}
@@ -288,7 +335,6 @@ SMODS.Joker {
                         message = "X".. number,
 			            colour = G.C.MONEY
                     }
-                else
                 end
             end
             -- yes i will do if then end, 5 times over without elseif
@@ -325,6 +371,35 @@ SMODS.Joker {
         end
     end
 }
+-- Normie
+SMODS.Joker {
+    key = "normie",
+
+    loc_txt = {
+        name = "Normie",
+        text = {"{X:mult,C:white}+#1#{} Mult{}"}
+    },
+
+    blueprint_compat = true,
+	config = { extra = {mult = 20} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.mult}}
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 1, y = 1 },
+
+	rarity = 1,
+	cost = 3, -- for now tickets = money / 2
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }    
+        end
+    end
+}
 
 -- |
 -- |        joker suggestions
@@ -336,7 +411,7 @@ SMODS.Joker {
     
     loc_txt = {
         name = "Spinel",
-        text = {"{X:mult,C:white}X#1#{} Mult{}", "{C:inactive,s:0.6}Suggested by FirstTry.{}"}
+        text = {"{X:mult,C:white}X#1#{} Mult{}", "Doesn't work on diamonds", "{C:inactive,s:0.6}Suggested by FirstTry.{}"}
     },
 
     blueprint_compat = true,

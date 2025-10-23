@@ -38,5 +38,4 @@ function Bitterstuff.Load_Dir(directory)
 end
 
 -- okay okay, actually load the objects now
-Bitterstuff.Load_file("Scripts/Atlases.lua")
-Bitterstuff.Load_file("Scripts/Jokers.lua")
+Bitterstuff.Load_Dir("Scripts")
