@@ -8,10 +8,10 @@ function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but saf
 	if chunk then
 		local ok, func = pcall(chunk)
 		if ok then
-			print("loaded ".. file)
+			print("Bitter's Stuff | loaded ".. file)
 			return func
 		else
-			print("Failed on ".. file, " : ", func)
+			print("Bitter's Stuff | Failed on ".. file, " : ", func)
 		end
 	end
 	return nil
@@ -39,7 +39,6 @@ end
 
 -- okay okay, actually load the objects now
 Bitterstuff.Load_Dir("Scripts")
-print(Bitterstuff.ModsUsing, " mod(s)")
 
 function Bitterstuff.reset_game_globals(init) -- i needed to put this somewhere, and this is the first thing that came to mind
 	Bitterstuff.ModsUsing = 0

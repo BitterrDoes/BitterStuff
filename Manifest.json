@@ -4,7 +4,7 @@
     "author": ["BitterDoes"],
     "description": "wawa",
     "prefix": "Bitters",
-	"priority": 811734,
+	"priority": 27,
     "main_file": "Main.lua",
     "badge_colour": "321a70",
     "dependencies": [

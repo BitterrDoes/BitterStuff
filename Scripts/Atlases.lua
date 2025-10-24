@@ -1,11 +1,4 @@
 SMODS.Atlas {
-    key = "ButtonAtlas",
-	path = "Activator.png",
-	px = 64,
-	py = 64
-}
-
-SMODS.Atlas {
 	-- Key for code to find it with
 	key = "ModdedVanilla",
 	-- The name of the file, for the code to pull the atlas from
