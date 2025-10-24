@@ -1,6 +1,6 @@
 -- variables
 Bitterstuff = SMODS.current_mod
-Bitterstuff.ModsUsing = #NFS.getDirectoryItems(string.reverse(string.sub(string.reverse(Bitterstuff.path), 9, -1))) -- i dunno how to get name of mod folder so ig this is enough
+Bitterstuff.ModsUsing = 0
 -- Fucntions
 
 function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
@@ -39,3 +39,22 @@ end
 
 -- okay okay, actually load the objects now
 Bitterstuff.Load_Dir("Scripts")
+print(Bitterstuff.ModsUsing, " mod(s)")
+
+function Bitterstuff.reset_game_globals(init) -- i needed to put this somewhere, and this is the first thing that came to mind
+	Bitterstuff.ModsUsing = 0
+	for _, mod in pairs(SMODS.Mods) do
+		if mod.disabled == nil then goto continue end
+		
+		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
+	    ::continue::
+	end
+end
+
+Bitterstuff.ModsUsing = 0
+for _, mod in pairs(SMODS.Mods) do
+	if mod.disabled == nil then goto continue end
+	
+	Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
+    ::continue::
+end

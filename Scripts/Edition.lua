@@ -10,9 +10,7 @@ SMODS.Edition { -- THIS IS ONLY MEANT FOR PIRATE SOFTWARE!! This may break other
             [1] = 'Halves luck'
         }
     },
-
     in_shop = false,
-    weight = 0,
     
     config = { divide = 2, nomral = 1},
     loc_vars = function(self, info_queue, card)

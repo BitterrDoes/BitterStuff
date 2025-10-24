@@ -6,6 +6,7 @@ SMODS.Back {
         text = {"Starts with an", "{C:enhanced,E:1}Eternal, Unlucky{}", "Pirate Software", "win ante is 7", "{C:inactive,s:0.75} 'There's snow on my face' {}"}
     },
 
+    atlas = "backatlas",
     pos = { x = 0, y = 0 },
     config = { card = "j_Bitters_piratesoftware" },
     loc_vars = function(self, info_queue, back)
