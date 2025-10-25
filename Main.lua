@@ -59,7 +59,7 @@ function Reset_card_picker_selection()
             valid_cards[#valid_cards + 1] = playing_card
         end
     end
-    local picked_card = pseudorandom_element(valid_~cards, 'card_picker' .. G.GAME.round_resets.ante)
+    local picked_card = pseudorandom_element(valid_cards, 'card_picker' .. G.GAME.round_resets.ante)
     if picked_card then
         G.GAME.current_round.card_picker_selection = {
             rank = picked_card.base.value,

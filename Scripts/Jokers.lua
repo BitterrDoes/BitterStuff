@@ -108,37 +108,38 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.joker_main then
-            local scoring_spade = false
+                    local scoring_spade = false
+                    local scored = {}
 
-            -- check if any scoring card is a spade
-            for _, c in pairs(context.scoring_hand) do
-                if c:is_suit("Spades") then
-                    scoring_spade = true
-                    break
-                end
-            end
-
-            if scoring_spade then
-                -- randomize suit of all unscored cards
-                
-                for _, other_card in pairs(G.play.cards) do
-                    if not SMODS.is_in_scoring(other_card) then
-                        local suits = { "Spades", "Hearts", "Clubs", "Diamonds" }
-                        local new_suit = pseudorandom_element(suits, pseudoseed("spade_randomizer"))
-                        other_card:change_suit(new_suit)
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                other_card:juice_up(0.5, 0.5)
-                                return true
-                            end
-                        }))
+                    -- check if any scoring card is a spade
+                    for _, c in pairs(context.scoring_hand) do
+                        if c:is_suit("Spades") then
+                            scoring_spade = true
+                            scored[c] = true
+                        end
                     end
+
+                    return { -- so other jokers wait
+                        func = function()
+                            if scoring_spade then
+                                -- randomize suit of all unscored cards
+                                for _, other_card in pairs(G.play.cards) do
+                                    if not scored[other_card] and SMODS.Suits then
+                                        local new_suit = pseudorandom_element(SMODS.Suits, pseudoseed("spade_randomizer")).key
+                                        G.E_MANAGER:add_event(Event({
+                                            func = function()
+                                                other_card:change_suit(new_suit)
+                                                other_card:juice_up(0.5, 0.5) -- funni shake
+                                                return true
+                                            end
+                                        }))
+                                    end
+                                end
+                                card_eval_status_text(card, 'extra', nil, nil, nil, { message = "Randomized!" })
+                            end
+                        end
+                    }
                 end
-                return {
-                    message = "Randomized!",
-                }
-            end
-        end
     end
 }
 -- ekko
@@ -159,7 +160,7 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas', -- made by LuckyAF on displate
 	pos = { x = 3, y = 0 },
 
-	rarity = 3,
+	rarity = 2,
 	cost = 6,
     pools = {["Bitter"] = true},
 
@@ -228,7 +229,7 @@ SMODS.Joker {
 
     loc_txt = {
         name = "GlitchKat10",
-        text = {"Create #1# random Polychrome consumeables at end of round", "(Must have room)"}
+        text = {"Create #1# random {C:enhanced,T:e_polychrome}Polychrome{} consumeables at end of round", "(Must have room)"}
     },
 
     blueprint_compat = true,
@@ -251,14 +252,15 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.end_of_round then
             -- main if statement
-            for i=1, card.ability.extra.cards  do
+            for _=1, card.ability.extra.cards  do
                 -- card will look like {card = key, negative = boolean}
                 if #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then
                     -- check for space
                     goto continue
                 end
+
                 
-                local other_card = SMODS.create_card({ key = pseudorandom_element(G.P_CENTER_POOLS.Consumable, "glitchkatcard").key, area = G.consumeables })
+                local other_card = SMODS.create_card({ key = pseudorandom_element(G.P_CENTER_POOLS[""], "glitchkatcard").key, area = G.consumeables })
                 other_card:set_edition("e_polychrome")
 
                 -- so we can skip the card incase
@@ -284,7 +286,7 @@ SMODS.Joker {
 	end,
     
 	atlas = 'JokeJokersAtlas',
-	pos = { x = 0, y = 0 },
+	pos = { x = 4, y = 2 },
 
 	rarity = 1,
 	cost = 1,
@@ -378,7 +380,7 @@ SMODS.Joker {
     key = "bitterjoker",
 
     loc_txt = {
-        name = "{f:Bitters_ComicSans, C:edition}BitterDoes{}",
+        name = "{f:Bitters_ComicSans, C:edition}BitterDoes",
         text = {"Copies abilities of all {C:attention}jokers{}"}
     },
     pronouns = "he_him",
@@ -631,7 +633,7 @@ SMODS.Joker {
     end
 }
 
--- |
+-- |~~
 -- |        other funnies
 -- |
 
@@ -807,6 +809,9 @@ SMODS.Joker {
                     xmult = card.ability.extra.xmult,
                     xchips = card.ability.extra.xchips
                 }
+            end
+            Set_card_type_badge = function(self, card, badges)
+ 		        badges[#badges+1] = create_badge("Idiot", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
             end
         end
     end
