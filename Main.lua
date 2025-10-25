@@ -41,18 +41,37 @@ end
 Bitterstuff.Load_Dir("Scripts")
 
 function Bitterstuff.reset_game_globals(init) -- i needed to put this somewhere, and this is the first thing that came to mind
+	Reset_card_picker_selection()
 	Bitterstuff.ModsUsing = 0
 	for _, mod in pairs(SMODS.Mods) do
-		if mod.disabled == nil then goto continue end
+		if mod.disabled ~= nil then goto continue end
 		
 		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
 	    ::continue::
 	end
 end
 
+function Reset_card_picker_selection()
+    G.GAME.current_round.card_picker_selection = { rank = 'Ace', suit = 'Spades' }
+    local valid_cards = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
+            valid_cards[#valid_cards + 1] = playing_card
+        end
+    end
+    local picked_card = pseudorandom_element(valid_~cards, 'card_picker' .. G.GAME.round_resets.ante)
+    if picked_card then
+        G.GAME.current_round.card_picker_selection = {
+            rank = picked_card.base.value,
+            suit = picked_card.base.suit,
+            id = picked_card.base.id
+        }
+    end
+end
+
 Bitterstuff.ModsUsing = 0
 for _, mod in pairs(SMODS.Mods) do
-	if mod.disabled == nil then goto continue end
+	if mod.disabled ~= nil then goto continue end
 	
 	Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
     ::continue::

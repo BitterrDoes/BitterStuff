@@ -1,3 +1,39 @@
+--[[
+template
+SMODS.Joker {
+    key = "temp",
+
+    loc_txt = {
+        name = "Template",
+        text = {"{X:mult,C:white}x#1#{} Mult{}"}
+    },
+
+    blueprint_compat = true,
+	config = { extra = {mult = 2} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.mult}}
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 0, y = 0 },
+
+	rarity = 1,
+	cost = 1,
+
+    set_badges = function(self, card, badges) -- delete if not a balala member
+ 		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
+ 	end,
+
+    calculate = function(self, card, context)
+        if context.post_joker then
+            return {
+                xmult = card.ability.extra.mult
+            }  
+        end
+    end
+}
+
+--]]
 -- |
 -- |        people from balatro and smods server
 -- |
@@ -21,7 +57,8 @@ SMODS.Joker {
 	pos = { x = 0, y = 1 },
 
 	rarity = 1,
-	cost = 3, -- for now tickets = money / 2
+	cost = 3,
+    pools = {["Bitter"] = true},
 
     set_badges = function(self, card, badges)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -62,7 +99,8 @@ SMODS.Joker {
 	pos = { x = 0, y = 0 },
 
 	rarity = 2,
-	cost = 4, -- for now tickets = money / 2
+	cost = 4,
+    pools = {["Bitter"] = true},
 
     set_badges = function(self, card, badges)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -122,7 +160,8 @@ SMODS.Joker {
 	pos = { x = 3, y = 0 },
 
 	rarity = 3,
-	cost = 6, -- for now tickets = money / 2
+	cost = 6,
+    pools = {["Bitter"] = true},
 
     set_badges = function(self, card, badges)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -165,10 +204,11 @@ SMODS.Joker {
 	end,
     
 	atlas = 'JokeJokersAtlas', 
-	pos = { x = 4, y = 2 },
+	pos = { x = 4, y = 3 },
 
 	rarity = 3,
-	cost = 12, -- for now tickets = money / 2
+	cost = 12,
+    pools = {["Bitter"] = true},
 
     set_badges = function(self, card, badges)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -201,7 +241,8 @@ SMODS.Joker {
 	pos = { x = 2, y = 2 },
 
 	rarity = 3,
-	cost = 13, -- for now tickets = money / 2
+	cost = 13,
+    pools = {["Bitter"] = true},
 
     set_badges = function(self, card, badges)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -226,6 +267,56 @@ SMODS.Joker {
         end
     end
 }
+-- im breeding
+SMODS.Joker {
+    key = "breeder",
+
+    loc_txt = {
+        name = "Nxkoo",
+        text = {"Spawns #1# random {E:2,f:Bitters_ComicSans}bitter's stuff{} joker after beating blind"}
+    },
+    pronouns = "were_was",
+
+    blueprint_compat = true,
+	config = { extra = {cards = 1} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.cards}}
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 0, y = 0 },
+
+	rarity = 1,
+	cost = 1,
+    pools = {["Bitter"] = true},
+
+    set_badges = function(self, card, badges) -- delete if not a balala member
+ 		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
+ 	end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+            local jokers_to_create = math.min(card.ability.extra.cards, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+            G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    for _ = 1, jokers_to_create do
+                        SMODS.add_card {
+                            set = "Bitters_Bitter",
+                            legendary = true,
+                            key_append = 'NxkooBreeder' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+                        }
+                        G.GAME.joker_buffer = 0
+                    end
+                    return true
+                end
+            }))
+            return {
+                message = "Im breeding"
+            }  
+        end
+    end
+}
 -- Jamirror
 SMODS.Joker {
     key = "jamirror",
@@ -234,6 +325,7 @@ SMODS.Joker {
         name = "Jamirror",
         text = {"{C:green}#1# in #3#{} to add 1 operation (^) to mult after beating boss blind", "{C:inactive}(Currently {X:mult,C:white}#2#{}){}"}
     },
+    pronouns = "he_him",
 
     blueprint_compat = true,
 	config = { extra = {operation = 0, hip = 1.25, description = "X1.25", Chance = 4} },
@@ -243,9 +335,10 @@ SMODS.Joker {
     
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 2, y = 1 },
+    pools = {["Bitter"] = true},
 
 	rarity = 4,
-	cost = 16, -- for now tickets = money / 2
+	cost = 16,
 
     set_badges = function(self, card, badges)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -285,7 +378,7 @@ SMODS.Joker {
     key = "bitterjoker",
 
     loc_txt = {
-        name = "BitterDoes",
+        name = "{f:Bitters_ComicSans, C:edition}BitterDoes{}",
         text = {"Copies abilities of all {C:attention}jokers{}"}
     },
     pronouns = "he_him",
@@ -299,9 +392,10 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 3, y = 1 },
 	soul_pos = { x = 4, y = 1 },
+    pools = {["Bitter"] = true},
 
-	rarity = 4,
-	cost = 27, -- for now tickets = money / 2
+	rarity = "Bitters_gay",
+	cost = 27,
 
     set_badges = function(self, card, badges)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -328,36 +422,6 @@ SMODS.Joker {
 -- |        funny controversial developers
 -- |
 
--- Normie
-SMODS.Joker {
-    key = "normie",
-
-    loc_txt = {
-        name = "Normie",
-        text = {"{X:mult,C:white}+#1#{} Mult{}"}
-    },
-    pronouns = "it_its",
-
-    blueprint_compat = true,
-	config = { extra = {mult = 20} },
-	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.mult}}
-	end,
-    
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 1, y = 1 },
-
-	rarity = 1,
-	cost = 3, -- for now tickets = money / 2
-
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                mult = card.ability.extra.mult
-            }    
-        end
-    end
-}
 -- piratesoftware
 SMODS.Joker {
     key = "piratesoftware",
@@ -374,11 +438,12 @@ SMODS.Joker {
 		return { vars = {G.GAME.probabilities.normal, card.ability.extra.mult}}
 	end,
 
-	atlas = 'JokeJokersAtlas', -- made by daynan77
+	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 0 },
 
-	rarity = 2,
-	cost = 6, -- for now tickets = money / 2
+	rarity = "Bitters_baddev",
+    cost = 6,
+    pools = {["Bitter"] = true},
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -417,11 +482,12 @@ SMODS.Joker {
 		return { vars = {card.ability.extra.jokersUsed}}
 	end,
 
-	atlas = 'JokeJokersAtlas', -- made by daynan77
+	atlas = 'JokeJokersAtlas',
 	pos = { x = 4, y = 0 },
 
-	rarity = 2,
-	cost = 6, -- for now tickets = money / 2
+	rarity = "Bitters_baddev",
+	cost = 6,
+    pools = {["Bitter"] = true},
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -497,6 +563,37 @@ SMODS.Joker {
         end
     end
 }
+-- Normie
+SMODS.Joker {
+    key = "normie",
+
+    loc_txt = {
+        name = "Normie",
+        text = {"{X:mult,C:white}+#1#{} Mult{}"}
+    },
+    pronouns = "it_its",
+
+    blueprint_compat = true,
+	config = { extra = {mult = 20} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.mult}}
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 1, y = 1 },
+
+	rarity = 1,
+	cost = 3,
+    pools = {["Bitter"] = true},
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }    
+        end
+    end
+}
 
 -- |
 -- |        joker suggestions
@@ -520,8 +617,9 @@ SMODS.Joker {
 
     rarity = 3,
     cost = 5,
+    pools = {["Bitter"] = true},
 
-	atlas = 'JokeJokersAtlas', -- made by daynan77
+	atlas = 'JokeJokersAtlas',
 	pos = { x = 2, y = 0 },
 
     calculate = function(self, card, context)
@@ -566,6 +664,7 @@ SMODS.Joker {
     blueprint_compat = true,
     rarity = 2,
     cost = 9,
+    pools = {["Bitter"] = true},
 
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 2 },
@@ -582,3 +681,142 @@ SMODS.Joker {
         end
     end,
 }
+
+local function bear5check(card) -- taken from joker forge dont @ me
+    if (function()
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i].config.center.key == "j_tngt_dingaling" then
+                    print(G.jokers.cards[i])
+                    G.jokers.cards[i]:remove()
+                    print("Found Dingaling")
+                    return true
+                end
+            end
+        return false
+    end)() then
+        -- print(self)
+            card:remove()
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                SMODS.add_card({key = "j_Bitters_BEAR5"})
+                return true
+            end
+        }))
+    end
+end
+
+
+SMODS.Joker { -- shamelessly stolenw
+    key = "goldding",
+
+    loc_txt = {
+        name = "when they touchse yo {C:attention}golden{} {C:gold}dingaling{}",
+        text = {
+            "{X:blue,C:white}X#1#{} Chips and {X:mult,C:white}X#2#{} Mult",
+            "if you touched their {C:attention}#3#{}",
+            "{C:inactive}({C:attention}dingaling suit{} {C:inactive}changes every round.)"
+        }
+    },
+
+    blueprint_compat = true,
+	config = { extra = {xchips = 1.5, xmult = 1.2} },
+	loc_vars = function(self, info_queue, card)
+        local picked_card = G.GAME.current_round.card_picker_selection or { rank = 'Ace', suit = 'Spades' }
+		return { vars = {card.ability.extra.xchips, card.ability.extra.xmult, localize(picked_card.suit, 'suits_plural'),
+            colours = { HEX('0000FF') }
+        }
+    }
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 0, y = 3 },
+
+	rarity = 3,
+	cost = 6,
+    discovered = true,
+    unlocked = true,
+    eternal_compat = true,
+
+    add_to_deck = function(self, card, from_debuff)
+        bear5check(card)
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and G.GAME.current_round.card_picker_selection then
+            if context.other_card:is_suit(G.GAME.current_round.card_picker_selection.suit) then
+                return {
+                    xmult = card.ability.extra.xmult,
+                    xchips = card.ability.extra.xchips
+                }
+            end
+        elseif context.card_added and context.cardarea == G.jokers then
+            bear5check(card)
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "BEAR5",
+
+    loc_txt = {
+        name = "{B:1}BEAR5",
+        text = {
+            "{X:blue,C:white}X#1#{} {V:1}Chips and {X:mult,C:white}X#2#{} {V:1}Mult",
+            "{V:1}if you touched their {C:attention}#3#{} {V:1}or any {C:attention}#4#{}",
+            "{C:inactive}({C:attention}dingaling suit{} {V:2}changes every round.)"
+        }
+    },
+
+    blueprint_compat = true,
+	config = { extra = {xchips = 3, xmult = 3} },
+	loc_vars = function(self, info_queue, card)
+        local picked_card = G.GAME.current_round.card_picker_selection or { rank = 'Ace', suit = 'Spades' }
+		return { vars = {card.ability.extra.xchips, card.ability.extra.xmult, localize(picked_card.suit, 'suits_plural', localize(picked_card.rank, 'ranks')),
+            colours = { HEX("0000FF"), HEX("2424b3") }
+        }
+    }
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 1, y = 3 },
+
+	rarity = "Bitters_bear5rare",
+	cost = 0,
+    discovered = true,
+    unlocked = true,
+    eternal_compat = true,
+
+    add_to_deck = function()
+        -- check for j_tgnt_dingaling
+        play_sound("Bitters_bear5scream", 1, 0.3) -- too louhd!
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and G.GAME.current_round.card_picker_selection then
+            if context.other_card:is_suit(G.GAME.current_round.card_picker_selection.suit) or context.other_card:get_id() == G.GAME.current_round.card_picker_selection.id then
+                return {
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                play_sound("Bitters_bear5scream", math.random(90,110) / 100, 0.3)
+                                card:juice_up(3.5, 3.5) -- oh god what do these values do
+                                return true
+                            end
+                        })) 
+                    end,
+                    xmult = card.ability.extra.xmult,
+                    xchips = card.ability.extra.xchips
+                }
+            end
+        end
+    end
+}
+
+-- ideas rightt
+
+-- tiktok water filter, that one that makes you look like you're drowning in liquid metal right, but gives crazy mult, oh also will randomly rise, (bucket to get rid of some??)
+-- The family's fighting again, X15 mult if theres a king and queen of different suits
+-- all ultrakill layers
+
+
+-- crashes | nxkoo bad argument #1 in ipairs

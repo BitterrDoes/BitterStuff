@@ -1,0 +1,27 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS tangent "stuff/wankers/unCUMmon/aintfree.lua"]'
+pattern = '''
+            context.other_card:is_suit(G.GAME.current_round.card_picker_selection.suit) then
+'''
+position = "at"
+payload = ''' true then
+
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS tangent "stuff/wankers/unCUMmon/aintfree.lua"]'
+pattern = '''
+            "if you touched their {C:attention}#3#{} of {C:attention}#4#.{}",
+'''
+position = "at"
+payload = '''
+            "if you touched any of their {C:attention}#3#{}",
+'''
+match_indent = true
