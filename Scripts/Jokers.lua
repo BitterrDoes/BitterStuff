@@ -19,6 +19,7 @@ SMODS.Joker {
 
 	rarity = 1,
 	cost = 1,
+    pools = {["Bitter"] = true},
 
     set_badges = function(self, card, badges) -- delete if not a balala member
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
@@ -275,7 +276,7 @@ SMODS.Joker {
 
     loc_txt = {
         name = "Nxkoo",
-        text = {"Spawns #1# random {E:2,f:Bitters_ComicSans}bitter's stuff{} joker after beating blind"}
+        text = {"Spawns #1# random {E:2,f:Bitters_ComicSans}bitter's stuff{} objects after beating blind"}
     },
     pronouns = "were_was",
 
@@ -773,7 +774,9 @@ SMODS.Joker {
 	config = { extra = {xchips = 3, xmult = 3} },
 	loc_vars = function(self, info_queue, card)
         local picked_card = G.GAME.current_round.card_picker_selection or { rank = 'Ace', suit = 'Spades' }
-		return { vars = {card.ability.extra.xchips, card.ability.extra.xmult, localize(picked_card.suit, 'suits_plural', localize(picked_card.rank, 'ranks')),
+		return { 
+            vars = {
+                card.ability.extra.xchips, card.ability.extra.xmult, localize(picked_card.suit, 'suits_plural', localize(picked_card.rank, 'ranks')),
             colours = { HEX("0000FF"), HEX("2424b3") }
         }
     }
@@ -787,6 +790,7 @@ SMODS.Joker {
     discovered = true,
     unlocked = true,
     eternal_compat = true,
+    pools = {["Bitter"] = true},
 
     add_to_deck = function()
         -- check for j_tgnt_dingaling
@@ -813,6 +817,36 @@ SMODS.Joker {
             Set_card_type_badge = function(self, card, badges)
  		        badges[#badges+1] = create_badge("Idiot", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
             end
+        end
+    end
+}
+-- amerbijfgr smith
+SMODS.Joker {
+    key = "elliottsmith",
+
+    loc_txt = {
+        name = "Elliot Smith",
+        text = {"{X:mult,C:white}x#2#{} Mult{} for each song on spotify by Elliot Smith", "{C:inactive}(Currently 196 for {X:mult,C:white}x#1#{} {C:inactive}Mult)", "{C:inactive,s:0.6}(Reacts in real time!)"}
+    },
+
+    blueprint_compat = true,
+	config = { extra = {mult = 147, add = 0.75} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.mult, card.ability.extra.add}}
+	end,
+    
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 2, y = 3 },
+    pools = {["Bitter"] = true},
+
+	rarity = 2,
+	cost = 5,
+
+    calculate = function(self, card, context)
+        if context.post_joker then
+            return {
+                xmult = card.ability.extra.mult
+            }  
         end
     end
 }

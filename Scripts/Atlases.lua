@@ -9,14 +9,28 @@ SMODS.Atlas { -- not the best practice
 	key = "backatlas",
 	path = "Backs.png",
 	px = 52,
-	py = 75 -- haha wrong size
+	py = 75
 }
 
 SMODS.Atlas { -- not the best practice
 	key = "voucherAtlas",
 	path = "Vouchers.png",
 	px = 71,
-	py = 95 -- haha wrong size
+	py = 95
+}
+
+SMODS.Atlas { -- not the best practice
+	key = "consumableatlas",
+	path = "Consumables.png",
+	px = 71,
+	py = 95
+}
+
+SMODS.Atlas { -- not the best practice
+	key = "brickatlas",
+	path = "Brick.png",
+	px = 300,
+	py = 300
 }
 
 -- sounds

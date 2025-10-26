@@ -1,6 +1,7 @@
 -- variables
 Bitterstuff = SMODS.current_mod
 Bitterstuff.ModsUsing = 0
+G.effectmanager = {}
 -- Fucntions
 
 function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
