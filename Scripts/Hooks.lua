@@ -32,7 +32,7 @@ function decrementingTickEvent(type,tick)
 end
 
 local drawhook = love.draw
-function love.draw() -- taken from yahi, editted by bitter
+function love.draw() -- all functions were taken from yahi then, edited by bitter to work better for the circumstance
     drawhook()
 
     function loadImage(fn) -- fn = file name | Loads specified file and returns loaded image
@@ -100,12 +100,6 @@ function love.draw() -- taken from yahi, editted by bitter
                     _xscale = _xscale * 4
                     _yscale = _yscale * 4
 
-                    
-                    if G.effectmanager[i][1].duration > 77 then 
-                        love.graphics.setColor(255,255,255,0.5)
-                        love.graphics.rectangle( "fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight() )
-                    end
-
                     love.graphics.setColor(1, 1, 1, 1)
                 end
                 
@@ -132,6 +126,6 @@ function Game:update(dt)
         Bitterstuff.ticks = Bitterstuff.ticks + 1
         Bitterstuff.dtcounter = Bitterstuff.dtcounter - 0.010
 
-        if #G.effectmanager > 0 then print(G.effectmanager) decrementingTickEvent("G.effectmanager",0) end
+        if #G.effectmanager > 0 then decrementingTickEvent("G.effectmanager",0) end
     end
 end

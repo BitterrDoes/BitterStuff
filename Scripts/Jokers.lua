@@ -26,7 +26,7 @@ SMODS.Joker {
  	end,
 
     calculate = function(self, card, context)
-        if context.post_joker then
+        if context.joker_main then
             return {
                 xmult = card.ability.extra.mult
             }  
@@ -501,7 +501,7 @@ SMODS.Joker {
             local effect = pseudorandom_element({ "n_mult", "n_xmult", "n_chips", "n_xchips", "n_dollars", "n_xdollars", "randSuits", "randRank", "speed", "restart"}, pseudoseed("yandevRand"))
             print(string.sub(effect, 0, 2), string.sub(effect, 2, 3), string.sub(effect, 2, -1))
             if string.sub(effect, 0, 2) == "n_" then
-                local number = math.floor(pseudorandom("yandevNumber") * 100 / string.sub(effect, 3, 3) == "x" and 5 or 1)
+                local number = math.floor(pseudorandom("yandevNumber") * 100 / string.sub(effect, 3, 3)  == "x" and 5 or 1)
                 -- ahahahahaha
                 local variable = string.sub(effect, 3, -1)
                 if variable == "mult" then
@@ -843,10 +843,10 @@ SMODS.Joker {
 	cost = 5,
 
     calculate = function(self, card, context)
-        if context.post_joker then
+        if context.joker_main then
             return {
                 xmult = card.ability.extra.mult
-            }  
+            }
         end
     end
 }

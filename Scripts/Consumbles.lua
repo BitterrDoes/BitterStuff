@@ -3,15 +3,18 @@ SMODS.Consumable {
     set = "Tarot",
 
     loc_txt = {
-        name = "{V:1}Brick Thrower",
+        name = "{V:1}Guy with brick",
         text = {"When bought, throws brick", "1 in 4 chance to make a Joker negative", "otherwise throw brick at you"}
     },
     atlas = 'consumableatlas', pos = { x = 0, y = 0 },
 
-    config = {colours = {HEX("C14A09")}}, unlocked = true, discovered = true,
+    config = {
+        extra = {Chance = 4},
+        colours = {HEX("C14A09")}
+    },
+    unlocked = true, discovered = true,
 
     loc_vars = function(self, info_queue, card)
-        local picked_card = G.GAME.current_round.card_picker_selection or { rank = 'Ace', suit = 'Spades' }
 		return { 
             vars = {
                 colours = { HEX("C14A09"), HEX("2424b3") }
@@ -30,26 +33,36 @@ SMODS.Consumable {
     end,
 
     use = function(self, card, area)
-        if not G.effectmanager then G.effectmanager = {} end
-        G.effectmanager[1] = {
-            -- requires 
-            [1] = {
-            --[[
-                name = "",
-                frame = 0,
-                xpos = 0,
-                ypos = 0,
-                duration = 0,
-            ]]
-                name = "brick", -- CaSe SeNsItIvE
-                frame = 1, -- no idea if it starts on frame 0 or not
-                maxframe = 43,
-                xpos = 0, -- position on screen ??
-                ypos = 0, -- ^^^^^^
-                duration = 107, -- i think in frames
-                fps = 60,
-                tfps = 60, -- ticks per frame per second
+        if SMODS.pseudorandom_probability(card, 'BrickThrower', G.GAME.probabilities.normal, card.ability.extra.Chance, 'identifier') then
+            local joker = G.jokers.cards[math.ceil(pseudorandom("yandevNumber") * #G.jokers.cards)]:set_edition("e_negative")
+        else
+            if not G.effectmanager then G.effectmanager = {} end
+                G.effectmanager[1] = {
+                -- requires 
+                    [1] = {
+                    --[[
+                        name = "",
+                        frame = 0,
+                        xpos = 0,
+                        ypos = 0,
+                        duration = 0,
+                    ]]
+                        name = "brick", -- CaSe SeNsItIvE
+                        frame = 1, -- no idea if it starts on frame 0 or not
+                        maxframe = 43,
+                        xpos = 480, -- position on screen ??
+                        ypos = 120, -- ^^^^^^
+                        duration = 80, -- i dont know how works, just keep trying
+                        fps = 60,
+                        tfps = 60, -- ticks per frame per second
+                    },
+                }
+            return {
+                message = "Nope!",
+                func = function()
+                    play_sound("Bitters_legobreaksound")
+                end
             }
-        }
+        end
     end
 }

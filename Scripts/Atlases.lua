@@ -1,32 +1,32 @@
-SMODS.Atlas { -- not the best practice
+SMODS.Atlas {
 	key = "JokeJokersAtlas",
 	path = "JokeJokers.png",
 	px = 71,
 	py = 95
 }
 
-SMODS.Atlas { -- not the best practice
+SMODS.Atlas {
 	key = "backatlas",
 	path = "Backs.png",
 	px = 52,
 	py = 75
 }
 
-SMODS.Atlas { -- not the best practice
+SMODS.Atlas {
 	key = "voucherAtlas",
 	path = "Vouchers.png",
 	px = 71,
 	py = 95
 }
 
-SMODS.Atlas { -- not the best practice
+SMODS.Atlas {
 	key = "consumableatlas",
 	path = "Consumables.png",
 	px = 71,
 	py = 95
 }
 
-SMODS.Atlas { -- not the best practice
+SMODS.Atlas {
 	key = "brickatlas",
 	path = "Brick.png",
 	px = 300,
@@ -53,6 +53,11 @@ SMODS.Sound {
 SMODS.Sound {
 	key = "bear5scream",
 	path = "bear5.mp3",
+}
+-- lego krkvkkrvkr
+SMODS.Sound {
+	key = "legobreaksound",
+	path = "legobrick.mp3",
 }
 
 -- fonts
