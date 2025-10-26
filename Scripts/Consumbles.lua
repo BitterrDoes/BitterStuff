@@ -43,10 +43,10 @@ SMODS.Consumable {
             ]]
                 name = "brick", -- CaSe SeNsItIvE
                 frame = 1, -- no idea if it starts on frame 0 or not
-                maxframe = 86,
+                maxframe = 43,
                 xpos = 0, -- position on screen ??
                 ypos = 0, -- ^^^^^^
-                duration = 43, -- i think in frames
+                duration = 107, -- i think in frames
                 fps = 60,
                 tfps = 60, -- ticks per frame per second
             }
