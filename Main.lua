@@ -1,11 +1,11 @@
 -- variables
-Bitterstuff = SMODS.current_mod
-Bitterstuff.ModsUsing = 0
+BitterTestingtuff = SMODS.current_mod
+BitterTestingtuff.ModsUsing = 0
 G.effectmanager = {}
 -- Fucntions
 
-function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
-	local chunk = SMODS.load_file(file, "BitterJokers")
+function BitterTestingtuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
+	local chunk = SMODS.load_file(file, "Bittertest_Jokers")
 	if chunk then
 		local ok, func = pcall(chunk)
 		if ok then
@@ -18,15 +18,15 @@ function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but saf
 	return nil
 end
 
-function Bitterstuff.Load_Dir(directory)
-	local files = NFS.getDirectoryItems(Bitterstuff.path .. "/" .. directory)
+function BitterTestingtuff.Load_Dir(directory)
+	local files = NFS.getDirectoryItems(BitterTestingtuff.path .. "/" .. directory)
 	local regular_files = {}
 
 	for _, filename in ipairs(files) do -- iterate over all files in the directory
 		local file_path = directory .. "/" .. filename
 		if file_path:match(".lua$") then -- check if its lua
 			if filename:match("^_") then -- i dont even know
-				Bitterstuff.Load_file(file_path) -- load lua file
+				BitterTestingtuff.Load_file(file_path) -- load lua file
 			else
 				table.insert(regular_files, file_path) -- add non lua to other table
 			end
@@ -34,20 +34,20 @@ function Bitterstuff.Load_Dir(directory)
 	end
 
 	for _, file_path in ipairs(regular_files) do
-		Bitterstuff.Load_file(file_path) -- load the other things
+		BitterTestingtuff.Load_file(file_path) -- load the other things
 	end
 end
 
 -- okay okay, actually load the objects now
-Bitterstuff.Load_Dir("Scripts")
+BitterTestingtuff.Load_Dir("Scripts")
 
-function Bitterstuff.reset_game_globals(init) -- i needed to put this somewhere, and this is the first thing that came to mind
+function BitterTestingtuff.reset_game_globals(init) -- i needed to put this somewhere, and this is the first thing that came to mind
 	Reset_card_picker_selection()
-	Bitterstuff.ModsUsing = 0
+	BitterTestingtuff.ModsUsing = 0
 	for _, mod in pairs(SMODS.Mods) do
 		if mod.disabled ~= nil then goto continue end
 		
-		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
+		BitterTestingtuff.ModsUsing = BitterTestingtuff.ModsUsing + 1
 	    ::continue::
 	end
 end
@@ -70,10 +70,10 @@ function Reset_card_picker_selection()
     end
 end
 
-Bitterstuff.ModsUsing = 0
+BitterTestingtuff.ModsUsing = 0
 for _, mod in pairs(SMODS.Mods) do
 	if mod.disabled ~= nil then goto continue end
 	
-	Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
+	BitterTestingtuff.ModsUsing = BitterTestingtuff.ModsUsing + 1
     ::continue::
 end

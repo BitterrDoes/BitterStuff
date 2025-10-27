@@ -60,7 +60,7 @@ SMODS.Consumable {
             return {
                 message = "Nope!",
                 func = function()
-                    play_sound("Bitters_legobreaksound")
+                    play_sound("BitterTesting_legobreaksound")
                 end
             }
         end

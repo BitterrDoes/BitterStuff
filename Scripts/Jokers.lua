@@ -200,9 +200,9 @@ SMODS.Joker {
     },
 
     blueprint_compat = true,
-	config = {extra = {mods = Bitterstuff.ModsUsing, times = 1}},
+	config = {extra = {mods = BitterTestingtuff.ModsUsing, times = 1}},
 	loc_vars = function(self, info_queue, card)
-		return { vars = {Bitterstuff.ModsUsing, card.ability.extra.times}}
+		return { vars = {BitterTestingtuff.ModsUsing, card.ability.extra.times}}
 	end,
     
 	atlas = 'JokeJokersAtlas', 
@@ -219,7 +219,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                xchips = Bitterstuff.ModsUsing * card.ability.extra.times
+                xchips = BitterTestingtuff.ModsUsing * card.ability.extra.times
             }
         end
     end
@@ -276,7 +276,7 @@ SMODS.Joker {
 
     loc_txt = {
         name = "Nxkoo",
-        text = {"Spawns #1# random {E:2,f:Bitters_ComicSans}bitter's stuff{} objects after beating blind"}
+        text = {"Spawns #1# random {E:2,f:BitterTesting_ComicSans}bitter's stuff{} objects after beating blind"}
     },
     pronouns = "were_was",
 
@@ -305,7 +305,7 @@ SMODS.Joker {
                 func = function()
                     for _ = 1, jokers_to_create do
                         SMODS.add_card {
-                            set = "Bitters_Bitter",
+                            set = "BitterTesting_Bitter",
                             key_append = 'NxkooBreeder' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                         }
                         local card = create_card("Cat", G.Jokers, nil, nil, nil, nil, nil, 'cardboardbox')
@@ -382,7 +382,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "arcjoker",
     loc_txt = {
-        name = "{f:Bitters_papyrus, C:edition}arc",
+        name = "{f:BitterTesting_papyrus, C:edition}arc",
         text = {
             "Multiply xmult gain by Pi per card played.",
             "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
@@ -402,7 +402,7 @@ SMODS.Joker {
     atlas = 'JokeJokersAtlas',
 	pos = { x = 3, y = 3 },
 	soul_pos = { x = 4, y = 3 },
-    rarity = "Bitters_autism",
+    rarity = "BitterTesting_autism",
     cost = 26,
     pools = {["Bitter"] = true},
 
@@ -432,7 +432,7 @@ SMODS.Joker {
     key = "bitterjoker",
 
     loc_txt = {
-        name = "{f:Bitters_ComicSans, C:edition}BitterDoes",
+        name = "{f:BitterTesting_ComicSans, C:edition}BitterDoes",
         text = {"Copies abilities of all {C:attention}jokers{}"}
     },
     pronouns = "he_him",
@@ -448,7 +448,7 @@ SMODS.Joker {
 	soul_pos = { x = 4, y = 1 },
     pools = {["Bitter"] = true},
 
-	rarity = "Bitters_gay",
+	rarity = "BitterTesting_gay",
 	cost = 27,
 
     set_badges = function(self, card, badges)
@@ -495,7 +495,7 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 0 },
 
-	rarity = "Bitters_baddev",
+	rarity = "BitterTesting_baddev",
     cost = 6,
     pools = {["Bitter"] = true},
 
@@ -539,7 +539,7 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 4, y = 0 },
 
-	rarity = "Bitters_baddev",
+	rarity = "BitterTesting_baddev",
 	cost = 6,
     pools = {["Bitter"] = true},
 
@@ -752,7 +752,7 @@ local function bear5check(card) -- taken from joker forge dont @ me
             card:remove()
         G.E_MANAGER:add_event(Event({
             func = function()
-                SMODS.add_card({key = "j_Bitters_BEAR5"})
+                SMODS.add_card({key = "j_BitterTesting_BEAR5"})
                 return true
             end
         }))
@@ -838,7 +838,7 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 3 },
 
-	rarity = "Bitters_bear5rare",
+	rarity = "BitterTesting_bear5rare",
 	cost = 0,
     discovered = true,
     unlocked = true,
@@ -847,7 +847,7 @@ SMODS.Joker {
 
     add_to_deck = function()
         -- check for j_tgnt_dingaling
-        play_sound("Bitters_bear5scream", 1, 0.3) -- too louhd!
+        play_sound("BitterTesting_bear5scream", 1, 0.3) -- too louhd!
     end,
 
     calculate = function(self, card, context)
@@ -857,7 +857,7 @@ SMODS.Joker {
                     func = function()
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                play_sound("Bitters_bear5scream", math.random(90,110) / 100, 0.3)
+                                play_sound("BitterTesting_bear5scream", math.random(90,110) / 100, 0.3)
                                 card:juice_up(3.5, 3.5) -- oh god what do these values do
                                 return true
                             end

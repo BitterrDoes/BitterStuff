@@ -24,7 +24,7 @@ local function hitParry(card)
     play_sound("tarot1")
     card.ability.extra.xchips = card.ability.extra.xchips + card.ability.extra.additional
     card.ability.extra.pleasetrigger = true
-    play_sound("Bitters_ParrySound")
+    play_sound("BitterTesting_ParrySound")
     card_eval_status_text(card, 'extra', nil, nil, nil, { message = "PARRIED!" })
 end
 
@@ -34,7 +34,7 @@ local function missParry(card)
     G.parrying = nil
     card.ability.extra.xchips = 2
     card.ability.extra.pleasetrigger = false
-    play_sound("Bitters_soundForIdiots", 1, 0.5)
+    play_sound("BitterTesting_soundForIdiots", 1, 0.5)
     card_eval_status_text(card, 'extra', nil, nil, nil, { message = "IDIOT!" })
 end
 
@@ -46,7 +46,7 @@ G.FUNCS.play_cards_from_highlighted = function(e)
 
     for i = 1, #G.jokers.cards do
         local c = G.jokers.cards[i]
-        if c.config.center_key == "j_Bitters_v1ultrakill" and not c.debuff then
+        if c.config.center_key == "j_BitterTesting_v1ultrakill" and not c.debuff then
             parry_joker = c
             break
         end
@@ -54,7 +54,7 @@ G.FUNCS.play_cards_from_highlighted = function(e)
 
     if parry_joker and not G.hasparrybeenthrown then
         card_eval_status_text(parry_joker, 'extra', nil, nil, nil, { message = "PARRY!" })
-        play_sound("Bitters_CoinThrow")
+        play_sound("BitterTesting_CoinThrow")
         beginParry()
     end
 
