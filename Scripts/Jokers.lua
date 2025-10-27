@@ -384,7 +384,7 @@ SMODS.Joker {
     loc_txt = {
         name = "{f:Bitters_papyrus, C:edition}arc",
         text = {
-            "Gains {X:mult,C:white}X#2#{} Mult per card played.",
+            "Multiply xmult gain by Pi per card played.",
             "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
         }
     },
@@ -419,9 +419,9 @@ SMODS.Joker {
         end
 
         if context.individual and context.cardarea == G.play and not context.blueprint then
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+            card.ability.extra.mult = card.ability.extra.mult * math.pi
             return {
-                message = "+X1 Mult!",
+                message = "pi!",
                 card = card
             }
         end
@@ -910,6 +910,6 @@ SMODS.Joker {
 -- tiktok water filter, that one that makes you look like you're drowning in liquid metal right, but gives crazy mult, oh also will randomly rise, (bucket to get rid of some??)
 -- The family's fighting again, X15 mult if theres a king and queen of different suits
 -- all ultrakill layers
-
+-- deck where all values are doubled but difficulty is put to 5x
 
 -- crashes | nxkoo bad argument #1 in ipairs
