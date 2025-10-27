@@ -206,7 +206,7 @@ SMODS.Joker {
 	end,
     
 	atlas = 'JokeJokersAtlas', 
-	pos = { x = 4, y = 3 },
+	pos = { x = 4, y = 5 },
 
 	rarity = 3,
 	cost = 12,
@@ -306,9 +306,11 @@ SMODS.Joker {
                     for _ = 1, jokers_to_create do
                         SMODS.add_card {
                             set = "Bitters_Bitter",
-                            legendary = true,
                             key_append = 'NxkooBreeder' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                         }
+                        local card = create_card("Cat", G.Jokers, nil, nil, nil, nil, nil, 'cardboardbox')
+                        card:add_to_deck()
+                        G.jokers:emplace(card)
                         G.GAME.joker_buffer = 0
                     end
                     return true
@@ -373,6 +375,55 @@ SMODS.Joker {
                 end
                 card.ability.extra.description = tostring(number.. card.ability.extra.hip)
             end
+        end
+    end
+}
+-- Arcadiseudf
+SMODS.Joker {
+    key = "arcjoker",
+    loc_txt = {
+        name = "{f:Bitters_papyrus, C:edition}arc",
+        text = {
+            "Gains {X:mult,C:white}X#2#{} Mult per card played.",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+        }
+    },
+    pronouns = "he_him",
+    blueprint_compat = true,
+    config = { 
+        extra = {
+            mult = 1,
+            mult_gain = 2
+        } 
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.mult, card.ability.extra.mult_gain}}
+    end,
+    atlas = 'JokeJokersAtlas',
+	pos = { x = 3, y = 3 },
+	soul_pos = { x = 4, y = 3 },
+    rarity = "Bitters_autism",
+    cost = 26,
+    pools = {["Bitter"] = true},
+
+    set_badges = function(self, card, badges)
+        badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
+    end,
+
+    calculate = function(self, card, context)
+
+        if context.joker_main then
+            return { 
+                xmult = card.ability.extra.mult
+            }
+        end
+
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+            return {
+                message = "+X1 Mult!",
+                card = card
+            }
         end
     end
 }
@@ -608,14 +659,14 @@ SMODS.Joker {
     
     loc_txt = {
         name = "Spinel",
-        text = {"{X:mult,C:white}X#1#{} Mult{}", "{C:inactive,s:0.6}Suggested by FirstTry.{}"}
+        text = {"{C:mult}+#1#{} Mult", "{C:inactive,s:0.6}Suggested by FirstTry.{}"}
     },
     pronouns = "she_her",
 
     blueprint_compat = true,
-    config = { extra = {xmult = 6000} },
+    config = { extra = {mult = 6000} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.xmult}}
+		return { vars = {card.ability.extra.mult}}
 	end,
 
     rarity = 3,
@@ -628,7 +679,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult
+                mult = card.ability.extra.xmult
             }
         end
     end
@@ -720,6 +771,7 @@ SMODS.Joker { -- shamelessly stolenw
             "{C:inactive}({C:attention}dingaling suit{} {C:inactive}changes every round.)"
         }
     },
+    pronouns = "its_me",
 
     blueprint_compat = true,
 	config = { extra = {xchips = 1.5, xmult = 1.2} },
@@ -769,6 +821,7 @@ SMODS.Joker {
             "{C:inactive}({C:attention}dingaling suit{} {V:2}changes every round.)"
         }
     },
+    pronouns = "bear_5",
 
     blueprint_compat = true,
 	config = { extra = {xchips = 3, xmult = 3} },
@@ -834,6 +887,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.mult, card.ability.extra.add}}
 	end,
+    pronouns = "he_him",
     
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 2, y = 3 },

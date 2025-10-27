@@ -22,6 +22,29 @@ SMODS.Rarity {
 }
 
 SMODS.Rarity {
+    key = "autism",
+    pools = {
+        ["Joker"] = true
+    },
+    default_weight = 0.2,
+    badge_colour = SMODS.Gradient({
+        key = "autismgrad",
+        colours = {
+        HEX("283044"),
+        HEX("78A1BB"),
+        HEX("EBF5EE"),
+        },
+        cycle = 20
+    }),
+    loc_txt = {
+        name = "autism"
+    },
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
+
+SMODS.Rarity {
     key = "baddev",
     pools = {
         ["Joker"] = true
