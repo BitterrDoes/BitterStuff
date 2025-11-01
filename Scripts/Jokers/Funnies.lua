@@ -150,6 +150,7 @@ SMODS.Joker { -- shamelessly stolenw
     discovered = true,
     unlocked = true,
     eternal_compat = true,
+    pools = {["BitterPool"] = true},
 
     add_to_deck = function(self, card, from_debuff)
         Bitterstuff.bear5check(card)
