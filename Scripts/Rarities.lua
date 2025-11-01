@@ -3,7 +3,7 @@ SMODS.Rarity {
     pools = {
         ["Joker"] = true
     },
-    default_weight = 0.015,
+    default_weight = 0.005,
     badge_colour = SMODS.Gradient({
         key = "BitterGay",
         colours = {
@@ -26,7 +26,7 @@ SMODS.Rarity {
     pools = {
         ["Joker"] = true
     },
-    default_weight = 0.025,
+    default_weight = 0.005,
     badge_colour = SMODS.Gradient({
         key = "autismgrad",
         colours = {
@@ -49,7 +49,7 @@ SMODS.Rarity {
     pools = {
         ["Joker"] = true
     },
-    default_weight = 0.1,
+    default_weight = 0.05,
     badge_colour = HEX("ff2222"),
     loc_txt = {
         name = "Bad Developer"
@@ -68,6 +68,21 @@ SMODS.Rarity {
     badge_colour = HEX("0000FF"),
     loc_txt = {
         name = "BEAR5"
+    },
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
+
+SMODS.Rarity {
+    key = "1.5",
+    pools = {
+        ["Joker"] = true
+    },
+    default_weight = 0.475/2,
+    badge_colour = HEX("007792"),
+    loc_txt = {
+        name = "Kinda Common?"
     },
     get_weight = function(self, weight, object_type)
         return weight

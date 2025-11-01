@@ -33,6 +33,16 @@ SMODS.Atlas {
 	py = 300
 }
 
+-- Icon!
+SMODS.Atlas {
+    key = "modicon",
+    path = "icon.png",
+    px = 250,
+    py = 250,
+    frames = 28,
+    atlas_table = 'ANIMATION_ATLAS'
+}
+
 -- sounds
 -- coin
 SMODS.Sound {
@@ -53,6 +63,10 @@ SMODS.Sound {
 SMODS.Sound {
 	key = "bear5scream",
 	path = "bear5.mp3",
+}
+SMODS.Sound {
+	key = "Fullbear5",
+	path = "fullbear5.mp3",
 }
 -- lego krkvkkrvkr
 SMODS.Sound {
@@ -82,3 +96,9 @@ SMODS.Font({
     squish = 1,                 -- Horizontal stretch (default: 1)
     DESCSCALE = 1               -- Description scale (default: 1)
 })
+
+-- objectTypes
+SMODS.ObjectType {
+	key = "BitterPool",
+	default = "j_Bitters_bitterjoker"
+}

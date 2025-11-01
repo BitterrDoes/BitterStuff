@@ -1,11 +1,11 @@
 -- variables
-BitterTestingtuff = SMODS.current_mod
-BitterTestingtuff.ModsUsing = 0
+Bitterstuff = SMODS.current_mod
+Bitterstuff.ModsUsing = 0
 G.effectmanager = {}
 -- Fucntions
 
-function BitterTestingtuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
-	local chunk = SMODS.load_file(file, "Bittertest_Jokers")
+function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
+	local chunk = SMODS.load_file(file, "Bitters_Jokers")
 	if chunk then
 		local ok, func = pcall(chunk)
 		if ok then
@@ -18,15 +18,15 @@ function BitterTestingtuff.Load_file(file) -- basically just SMODS.load_file() b
 	return nil
 end
 
-function BitterTestingtuff.Load_Dir(directory)
-	local files = NFS.getDirectoryItems(BitterTestingtuff.path .. "/" .. directory)
+function Bitterstuff.Load_Dir(directory)
+	local files = NFS.getDirectoryItems(Bitterstuff.path .. "/" .. directory)
 	local regular_files = {}
 
 	for _, filename in ipairs(files) do -- iterate over all files in the directory
 		local file_path = directory .. "/" .. filename
 		if file_path:match(".lua$") then -- check if its lua
 			if filename:match("^_") then -- i dont even know
-				BitterTestingtuff.Load_file(file_path) -- load lua file
+				Bitterstuff.Load_file(file_path) -- load lua file
 			else
 				table.insert(regular_files, file_path) -- add non lua to other table
 			end
@@ -34,21 +34,28 @@ function BitterTestingtuff.Load_Dir(directory)
 	end
 
 	for _, file_path in ipairs(regular_files) do
-		BitterTestingtuff.Load_file(file_path) -- load the other things
+		Bitterstuff.Load_file(file_path) -- load the other things
 	end
 end
 
 -- okay okay, actually load the objects now
-BitterTestingtuff.Load_Dir("Scripts")
-
-function BitterTestingtuff.reset_game_globals(init) -- i needed to put this somewhere, and this is the first thing that came to mind
-	Reset_card_picker_selection()
-	BitterTestingtuff.ModsUsing = 0
+Bitterstuff.Load_Dir("Scripts")
+function Bitterstuff.reset_game_globals(init, _GAME) -- i needed to put this somewhere, and this is the first thing that came to mind
+	if not _GAME then 
+		Reset_card_picker_selection()
+	end
+	Bitterstuff.ModsUsing = 0
 	for _, mod in pairs(SMODS.Mods) do
-		if mod.disabled ~= nil then goto continue end
-		
-		BitterTestingtuff.ModsUsing = BitterTestingtuff.ModsUsing + 1
-	    ::continue::
+		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
+	end
+
+	local dir = Bitterstuff.path -- should be C:\Users\[player name]\AppData\Roaming\Balatro\Mods\Bitterstuff
+    local changeddir = string.sub(dir, 0, #dir - 41).. "Downloads" -- becomes C:\Users\[player name]\Downloads
+	local items = NFS.getDirectoryItems(changeddir)
+	if #items < 15 then
+    	Bitterstuff.Downloads = 15
+	else
+    	Bitterstuff.Downloads = #items
 	end
 end
 
@@ -70,10 +77,4 @@ function Reset_card_picker_selection()
     end
 end
 
-BitterTestingtuff.ModsUsing = 0
-for _, mod in pairs(SMODS.Mods) do
-	if mod.disabled ~= nil then goto continue end
-	
-	BitterTestingtuff.ModsUsing = BitterTestingtuff.ModsUsing + 1
-    ::continue::
-end
+Bitterstuff.reset_game_globals(false, true)

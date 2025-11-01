@@ -1,9 +1,9 @@
 {
-    "id": "Bittertest_Jokers",
+    "id": "Bitters_Jokers",
     "name": "Angled Bitterness",
     "author": ["BitterDoes"],
     "description": "wawa",
-    "prefix": "BitterTesting",
+    "prefix": "Bitters",
 	"priority": 27,
     "main_file": "Main.lua",
     "badge_colour": "321a70",

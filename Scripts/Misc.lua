@@ -9,7 +9,7 @@ SMODS.Back {
 
     atlas = "backatlas",
     pos = { x = 0, y = 0 },
-    config = { card = "j_BitterTesting_piratesoftware" },
+    config = { card = "j_Bitters_piratesoftware" },
     loc_vars = function(self, info_queue, back)
         return { vars = { self.config.card } }
     end,
@@ -18,7 +18,7 @@ SMODS.Back {
         delay(0.4)
         G.E_MANAGER:add_event(Event({
             func = function()
-                SMODS.add_card({ key = self.config.card, edition = "e_BitterTesting_unlucky", stickers = {'eternal'}, force_stickers = true })
+                SMODS.add_card({ key = self.config.card, edition = "e_Bitters_unlucky", stickers = {'eternal'}, force_stickers = true })
                 return true
             end
         }))
@@ -63,7 +63,7 @@ SMODS.Back {
 --         text = {"All {C:}Negative{} {C:attention}jokers{} are retriggered once"}
 --     },
 
---     requires = "v_BitterTesting_negvouch1",
+--     requires = "v_Bitters_negvouch1",
 --     atlas = 'voucherAtlas',
 --     pos = { x = 0, y = 0 },
 
@@ -125,18 +125,18 @@ SMODS.Scoring_Parameter({
     colour = mix_colours(G.C.PURPLE, G.C.YELLOW, 0.5),
     calculation_keys = {'exvert'},
     hands = {
-        ['Pair'] = {['BitterTesting_exvert'] = 10, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 10},
-        ['Four of a Kind'] = {['BitterTesting_exvert'] = 10, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 10},
-        ["Flush Five"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Flush House"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Five of a Kind"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Straight Flush"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Full House"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Flush"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Straight"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Three of a Kind"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["Two Pair"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
-        ["High Card"] = {['BitterTesting_exvert'] = 1, ['l_BitterTesting_exvert'] = 5, ['s_BitterTesting_exvert'] = 1},
+        ['Pair'] = {['Bitters_exvert'] = 10, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 10},
+        ['Four of a Kind'] = {['Bitters_exvert'] = 10, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 10},
+        ["Flush Five"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Flush House"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Five of a Kind"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Straight Flush"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Full House"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Flush"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Straight"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Three of a Kind"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["Two Pair"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
+        ["High Card"] = {['Bitters_exvert'] = 1, ['l_Bitters_exvert'] = 5, ['s_Bitters_exvert'] = 1},
     },
     calc_effect = function(self, effect, scored_card, key, amount, from_edition)
         if not SMODS.Calculation_Controls.chips then return end

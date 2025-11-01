@@ -1,4 +1,4 @@
-BitterTestingtuff = SMODS.current_mod
+Bitterstuff = SMODS.current_mod
 
 function decrementingTickEvent(type,tick)
     --event manager
@@ -36,7 +36,7 @@ function love.draw() -- all functions were taken from yahi then, edited by bitte
     drawhook()
 
     function loadImage(fn) -- fn = file name | Loads specified file and returns loaded image
-        local full_path = (BitterTestingtuff.path 
+        local full_path = (Bitterstuff.path 
         .. "Assets/gifs/" .. fn)
         local file_data = assert(NFS.newFileData(full_path),("Epic fail"))
         local tempimagedata = assert(love.image.newImageData(file_data),("Epic fail 2"))
@@ -45,7 +45,7 @@ function love.draw() -- all functions were taken from yahi then, edited by bitte
     end
 
     function loadSpritesheet(fn,px,py,subimg,orientation) -- fn = file name, px = pixels x, py = think about it, subimg = amount of images, orientation = direction of sprite sheet | returns loaded image spritesheet
-        local full_path = (BitterTestingtuff.path 
+        local full_path = (Bitterstuff.path 
         .. "Assets/gifs/" .. fn)
         local file_data = assert(NFS.newFileData(full_path),("Epic fail"))
         local tempimagedata = assert(love.image.newImageData(file_data),("Epic fail 2"))
@@ -70,16 +70,17 @@ function love.draw() -- all functions were taken from yahi then, edited by bitte
     local _xscale = love.graphics.getWidth()/1920
     local _yscale = love.graphics.getHeight()/1080
 
-    -- fish | example for still image 
+    --[[ fish | example for still image 
     -- if G.showfish and (G.showfish > 0) then
-    --     --love.graphics.print("ticks:" .. BitterTestingtuff.ticks, 500, 35)
-    --     if BitterTestingtuff.fishpng == nil then BitterTestingtuff.fishpng = loadImage("fishondafloo.png") end
+    --     --love.graphics.print("ticks:" .. Bitterstuff.ticks, 500, 35)
+    --     if Bitterstuff.fishpng == nil then Bitterstuff.fishpng = loadImage("fishondafloo.png") end
     --     love.graphics.setColor(1, 1, 1, 1) 
-    --     love.graphics.draw(BitterTestingtuff.fishpng, 0*_xscale*2, 0*_yscale*2,0,_xscale*2*2,_yscale*2*2)
+    --     love.graphics.draw(Bitterstuff.fishpng, 0*_xscale*2, 0*_yscale*2,0,_xscale*2*2,_yscale*2*2)
     -- end
 
     -- EFFECT MANAGER!!! 
     -- this is where on-screen little gifs play
+    --]]
 
     if G.effectmanager then
         
@@ -88,10 +89,10 @@ function love.draw() -- all functions were taken from yahi then, edited by bitte
             --print("G.effectmanager[i].name".. G.effectmanager[i][1].name)
             if G.effectmanager[i] then
                 if G.effectmanager[i][1].name == "brick" then
-                    BitterTestingtuff.imagebrick = loadImage("Brick.png")
-                    BitterTestingtuff.imagebricksprite = loadSpritesheet("Brick.png",300,300,86,1)
-                    imagetodraw = BitterTestingtuff.imagebrick
-                    quadtodraw = BitterTestingtuff.imagebricksprite
+                    Bitterstuff.imagebrick = loadImage("Brick.png")
+                    Bitterstuff.imagebricksprite = loadSpritesheet("Brick.png",300,300,86,1)
+                    imagetodraw = Bitterstuff.imagebrick
+                    quadtodraw = Bitterstuff.imagebricksprite
                     _imgindex = G.effectmanager[i][1].frame
                     --print("_imgindex".. _imgindex)
                     _xpos = G.effectmanager[i][1].xpos
@@ -117,14 +118,14 @@ function Game:update(dt)
     upd(self, dt)
 
     -- tick based events
-    if BitterTestingtuff.ticks == nil then BitterTestingtuff.ticks = 0 end
-    if BitterTestingtuff.dtcounter == nil then BitterTestingtuff.dtcounter = 0 end
-    BitterTestingtuff.dtcounter = BitterTestingtuff.dtcounter+dt
-    BitterTestingtuff.dt = dt
+    if Bitterstuff.ticks == nil then Bitterstuff.ticks = 0 end
+    if Bitterstuff.dtcounter == nil then Bitterstuff.dtcounter = 0 end
+    Bitterstuff.dtcounter = Bitterstuff.dtcounter+dt
+    Bitterstuff.dt = dt
 
-    while BitterTestingtuff.dtcounter >= 0.010 do
-        BitterTestingtuff.ticks = BitterTestingtuff.ticks + 1
-        BitterTestingtuff.dtcounter = BitterTestingtuff.dtcounter - 0.010
+    while Bitterstuff.dtcounter >= 0.010 do
+        Bitterstuff.ticks = Bitterstuff.ticks + 1
+        Bitterstuff.dtcounter = Bitterstuff.dtcounter - 0.010
 
         if #G.effectmanager > 0 then decrementingTickEvent("G.effectmanager",0) end
     end
@@ -138,9 +139,9 @@ end
 --         key = "exvertial",
 --         func = function(self, chips, mult, flames)
 --             print("wawa")
---             return chips * mult * SMODS.get_scoring_parameter('BitterTesting_exvert', flames)
+--             return chips * mult * SMODS.get_scoring_parameter('Bitters_exvert', flames)
 --         end,
---         parameters = {'chips', 'mult', 'BitterTesting_exvert'},
+--         parameters = {'chips', 'mult', 'Bitters_exvert'},
 --         replace_ui = function(self)
 --             local scale = 0.3
 --             return
@@ -164,9 +165,9 @@ end
 --                     })
 --                 }},
 --                 SMODS.GUI.operator(scale*0.75),
---                 {n=G.UIT.C, config={align = 'cm', id = 'hand_BitterTesting_exvertial'}, nodes = {
+--                 {n=G.UIT.C, config={align = 'cm', id = 'hand_Bitters_exvertial'}, nodes = {
 --                     SMODS.GUI.score_container({
---                         type = 'BitterTesting_exvertial',
+--                         type = 'Bitters_exvertial',
 --                         align = 'cl',
 --                         w = 1.1,
 --                         scale = scale
