@@ -397,9 +397,9 @@ SMODS.Joker {
     pronouns = "he_him",
 
     blueprint_compat = true,
-	config = { extra = {requirement = 2, count = 0} },
+	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.requirement, card.ability.extra.count}}
+		return { vars = {}}
 	end,
     
 	atlas = 'JokeJokersAtlas',
@@ -429,3 +429,40 @@ SMODS.Joker {
         return SMODS.merge_effects(results)
     end
 }
+
+
+-- SMODS.Joker {
+--     key = "milk",
+
+--     loc_txt = {
+--         name = "Milky",
+--         text = {"{C:attention,s:1.2}Placeholder Text"}
+--     },
+--     pronouns = "they_them",
+
+--     blueprint_compat = true,
+-- 	config = { extra = {} },
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return { vars = {}}
+-- 	end,
+    
+-- 	atlas = 'JokeJokersAtlas',
+-- 	pos = { x = 3, y = 1 },
+-- 	soul_pos = { x = 4, y = 1 },
+--     pools = {["BitterPool"] = true},
+
+-- 	rarity = 1,
+-- 	cost = 27,
+    
+--     set_badges = function(self, card, badges)
+--  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
+--  	end,
+    
+--     calculate = function(self, card, context)
+--         if context.joker_main then
+--             return {
+--                 mult = 20
+--             }
+--         end
+--     end
+-- }

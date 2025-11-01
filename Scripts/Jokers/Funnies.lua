@@ -28,7 +28,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                mult = card.ability.extra.xmult
+                mult = card.ability.extra.mult
             }
         end
     end
