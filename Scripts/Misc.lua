@@ -3,7 +3,7 @@ SMODS.Back {
     key = "pirateback",
 
     loc_txt = {
-        name = "Snowy Deck",
+        name = "Blizzard Deck",
         text = {"Starts with an", "{C:enhanced,E:1}Eternal, Unlucky{}", "Pirate Software", "win ante is 7", "{C:inactive,s:0.75} 'There's snow on my face' {}"}
     },
 
