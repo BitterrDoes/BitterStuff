@@ -40,6 +40,7 @@ end
 
 -- okay okay, actually load the objects now
 Bitterstuff.Load_Dir("Scripts")
+Bitterstuff.Load_Dir("Scripts/Jokers")
 function Bitterstuff.reset_game_globals(init, _GAME) -- i needed to put this somewhere, and this is the first thing that came to mind
 	if not _GAME then 
 		Reset_card_picker_selection()

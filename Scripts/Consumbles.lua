@@ -40,13 +40,6 @@ SMODS.Consumable {
                 G.effectmanager[1] = {
                 -- requires 
                     [1] = {
-                    --[[
-                        name = "",
-                        frame = 0,
-                        xpos = 0,
-                        ypos = 0,
-                        duration = 0,
-                    ]]
                         name = "brick", -- CaSe SeNsItIvE
                         frame = 1, -- no idea if it starts on frame 0 or not
                         maxframe = 43,
