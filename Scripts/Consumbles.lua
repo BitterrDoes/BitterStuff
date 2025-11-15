@@ -34,7 +34,7 @@ SMODS.Consumable {
 
     use = function(self, card, area)
         if SMODS.pseudorandom_probability(card, 'BrickThrower', G.GAME.probabilities.normal, card.ability.extra.Chance, 'identifier') then
-            local joker = G.jokers.cards[math.ceil(pseudorandom("yandevNumber") * #G.jokers.cards)]:set_edition("e_negative")
+            G.jokers.cards[math.ceil(pseudorandom("bricks") * #G.jokers.cards)]:set_edition("e_negative")
         else
             if not G.effectmanager then G.effectmanager = {} end
                 G.effectmanager[1] = {

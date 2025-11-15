@@ -1,0 +1,37 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS cardpronouns "pronouns.lua"]'
+pattern = '''
+    key = "neutral",
+    pronouns = { "They", "Them", "Theirs", "It", "Its"
+'''
+position = "after"
+payload = ''', "zi", "zem"'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS cardpronouns "pronouns.lua"]'
+pattern = '''
+    end,
+    key = "he_they"
+}
+'''
+position = "after"
+payload = ''' 
+CardPronouns.Pronoun {
+    colour = HEX("11FFC7"),
+    text_colour = G.C.WHITE,
+    pronoun_table = { "Zi", "Zem" },
+    in_pool = function()
+        return false
+    end,
+    key = "zi_zem"
+}
+
+'''
+match_indent = true

@@ -72,7 +72,7 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.playing_card_added and not context.blueprint then
-            print(context.cards)
+            -- print(context.cards)
             for _, other_card in pairs(context.cards) do
                 SMODS.change_base(other_card, pseudorandom_element(SMODS.Suits, 'yandev_suit').key, pseudorandom_element(SMODS.Ranks, 'yandev_rank').key)
 

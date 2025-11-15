@@ -8,20 +8,27 @@ SMODS.Atlas {
 SMODS.Atlas {
 	key = "backatlas",
 	path = "Backs.png",
-	px = 52,
-	py = 75
+	px = 71,
+	py = 95
 }
 
+-- SMODS.Atlas {
+-- 	key = "voucherAtlas",
+-- 	path = "Vouchers.png",
+-- 	px = 71,
+-- 	py = 95
+-- }
+
 SMODS.Atlas {
-	key = "voucherAtlas",
-	path = "Vouchers.png",
+	key = "consumableatlas",
+	path = "Consumables.png",
 	px = 71,
 	py = 95
 }
 
 SMODS.Atlas {
-	key = "consumableatlas",
-	path = "Consumables.png",
+	key = "tempsealAtlas",
+	path = "tempseals.png",
 	px = 71,
 	py = 95
 }
@@ -97,8 +104,30 @@ SMODS.Font({
     DESCSCALE = 1               -- Description scale (default: 1)
 })
 
+SMODS.Font({
+    key = 'Jokerman',
+    path = 'Jokerman.otf',
+    render_scale = 200,         -- Base size in pixels (default: 200)
+    TEXT_HEIGHT_SCALE = 0.83,   -- Line spacing (default: 0.83)
+    TEXT_OFFSET = {x = 0, y = 0}, -- Alignment tweak (default: {0,0})
+    FONTSCALE = 0.1,           	 -- Scale multiplier (default: 0.1)
+    squish = 1,                 -- Horizontal stretch (default: 1)
+    DESCSCALE = 1               -- Description scale (default: 1)
+})
+
 -- objectTypes
 SMODS.ObjectType {
 	key = "BitterPool",
 	default = "j_Bitters_bitterjoker"
 }
+
+-- Gradients
+SMODS.Gradient({
+        key = "ExoticGrad",
+        colours = {
+        HEX("42f5cb"),
+        HEX("42adf5"),
+        HEX("424dfc"),
+        },
+        cycle = 10
+})

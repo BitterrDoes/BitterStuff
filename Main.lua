@@ -46,13 +46,14 @@ function Bitterstuff.reset_game_globals(init, _GAME) -- i needed to put this som
 		Reset_card_picker_selection()
 	end
 	Bitterstuff.ModsUsing = 0
-	for _, mod in pairs(SMODS.Mods) do
+	for _,_ in pairs(SMODS.Mods) do
 		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
 	end
 
 	local dir = Bitterstuff.path -- should be C:\Users\[player name]\AppData\Roaming\Balatro\Mods\Bitterstuff
-    local changeddir = string.sub(dir, 0, #dir - 41).. "Downloads" -- becomes C:\Users\[player name]\Downloads
-	local items = NFS.getDirectoryItems(changeddir)
+    G.DwnldsDir = string.sub(dir, 0, #dir - 41).. "Downloads" -- becomes C:\Users\[player name]\Downloads
+    G.DocDir = string.sub(dir, 0, #dir - 41).. "Videos" -- for tom foolery
+	local items = NFS.getDirectoryItems(G.DwnldsDir)
 	if #items < 15 then
     	Bitterstuff.Downloads = 15
 	else

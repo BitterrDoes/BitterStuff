@@ -8,7 +8,7 @@ SMODS.Joker {
 
     loc_txt = {
         name = "Jambatro",
-        text = {"{X:mult,C:white}x#1#{} Mult{} if score is divisible by #2#."}
+        text = {"{X:mult,C:white}x#1#{} Mult{} if base score is divisible by #2#."}
     },
     pronouns = "she_her",
 
@@ -30,7 +30,7 @@ SMODS.Joker {
  	end,
 
     calculate = function(self, card, context)
-        if context.post_joker then
+        if context.joker_main then
             -- main if statement
             if G.GAME.chips * G.GAME.current_round.current_hand.mult % card.ability.extra.divide ~= 0 then
                 return {
@@ -352,7 +352,7 @@ SMODS.Joker {
             "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
         }
     },
-    pronouns = "he_him",
+    pronouns = "zi_zem",
     blueprint_compat = true,
     config = { 
         extra = {
@@ -370,6 +370,7 @@ SMODS.Joker {
     pools = {["BitterPool"] = true},
 
     set_badges = function(self, card, badges)
+        badges[1] = create_badge("Autism", SMODS.Gradients["ExoticGrad"], G.C.WHITE, 1)
         badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
     end,
 
@@ -411,6 +412,7 @@ SMODS.Joker {
 	cost = 27,
 
     set_badges = function(self, card, badges)
+        badges[1] = create_badge("Gay", SMODS.Gradients["ExoticGrad"], G.C.WHITE, 1)
  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
  	end,
 
@@ -429,40 +431,40 @@ SMODS.Joker {
         return SMODS.merge_effects(results)
     end
 }
-
-
+-- swag, temporarially scrapped since idea is too hard to implement
 -- SMODS.Joker {
---     key = "milk",
-
+--     key = "swagless",
 --     loc_txt = {
---         name = "Milky",
---         text = {"{C:attention,s:1.2}Placeholder Text"}
+--         name = "{f:Bitters_Jokerman, C:edition}Swagless",
+--         text = {
+--             "{E:1}{C:attention}Joker{} to the left of this one", "now activates per card scored.",
+--         }
 --     },
---     pronouns = "they_them",
-
---     blueprint_compat = true,
--- 	config = { extra = {} },
--- 	loc_vars = function(self, info_queue, card)
--- 		return { vars = {}}
--- 	end,
-    
--- 	atlas = 'JokeJokersAtlas',
--- 	pos = { x = 3, y = 1 },
--- 	soul_pos = { x = 4, y = 1 },
+--     pronouns = "he_him",
+--     blueprint_compat = false,
+--     config = { 
+--         extra = {
+--             tick = 6,
+--             joker = nil,
+--         } 
+--     },
+--     loc_vars = function(self, info_queue, card)
+--         return { vars = {}}
+--     end,
+--     atlas = 'JokeJokersAtlas',
+-- 	pos = { x = 3, y = 3 },
+-- 	soul_pos = { x = 4, y = 3 },
+--     rarity = "Bitters_exotic",
+--     cost = 14,
 --     pools = {["BitterPool"] = true},
 
--- 	rarity = 1,
--- 	cost = 27,
-    
 --     set_badges = function(self, card, badges)
---  		badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
---  	end,
-    
+--         badges[1] = create_badge("Bitchless", SMODS.Gradients["ExoticGrad"], G.C.WHITE, 1)
+--         badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
+--     end,
 --     calculate = function(self, card, context)
---         if context.joker_main then
---             return {
---                 mult = 20
---             }
+--         if context.individual and context.cardarea == G.play then
+--            
 --         end
---     end
+-- 	end,
 -- }

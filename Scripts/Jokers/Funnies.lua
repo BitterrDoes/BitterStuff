@@ -198,12 +198,16 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 3 },
 
-	rarity = "Bitters_bear5rare",
+	rarity = 2,
 	cost = 0,
     discovered = true,
     unlocked = true,
     eternal_compat = true,
-    pools = {["BitterPool"] = true},
+    pools = {["BitterPool"] = true, ["Joker"] = false},
+
+    set_badges = function(self, card, badges)
+        badges[1] = create_badge("BEAR5", HEX("0000FF"), G.C.WHITE, 1)
+ 	end,
 
     add_to_deck = function()
         -- check for j_tgnt_dingaling
@@ -226,9 +230,6 @@ SMODS.Joker {
                     xmult = card.ability.extra.xmult,
                     xchips = card.ability.extra.xchips
                 }
-            end
-            Set_card_type_badge = function(self, card, badges)
- 		        badges[#badges+1] = create_badge("Idiot", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
             end
         end
     end
@@ -292,6 +293,128 @@ SMODS.Joker {
         if context.joker_main then
             return {
                 xmult = Bitterstuff.Downloads
+            }
+        end
+    end
+}
+-- CLicker from cloverpit
+SMODS.Seal {
+    key = "tempRed",
+
+    config = { extra = { retriggers = 1 } },
+
+    atlas = 'tempsealAtlas',
+    pos = { x = 0, y = 0 },
+    loc_txt = {
+        name = "Temporary Red Seal",
+        text = {
+            "Retrigger this",
+            "card {C:attention}#1#{} time",
+        },
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.extra.retriggers } }
+    end,
+    set_badges = function(self, card, badges)
+ 		badges[#badges+1] = create_badge("Red Seal?", G.C.RED)
+ 	end,
+
+    calculate = function(self, card, context)
+        if context.repetition then
+            return {
+                repetitions = card.ability.seal.extra.retriggers,
+            }
+        elseif context.playing_card_post_joker then
+            print("a")
+            return {
+                message = "Melted!",
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        delay = 1,
+                        func = function()
+                            card.seal = nil
+                        end
+                    }))
+                end
+            }
+        end
+    end,
+}
+
+SMODS.Joker {
+    key = 'clicker',
+	loc_txt = {
+		name = 'Clicker',
+		text = {
+			".+#1# in 5 chance for drawn playing cards to have a temporary red seal.",
+		}
+	},
+    blueprint_compat = false,
+	config = { extra = {Chance = 15} },
+	rarity = 2,
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 4, y = 0 },
+	cost = 6, -- for now tickets = money / 2
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.Numerator, card.ability.extra.Denominator}}
+	end,
+
+    calculate = function(self, card, context)
+        if context.hand_drawn and context.hand_drawn then
+            print("drawing cards")
+            for i, other_card in pairs(context.hand_drawn) do
+                if SMODS.pseudorandom_probability(card, 'clicker', card.ability.extra.Chance, 100, 'identifier') then
+                    other_card:set_seal(card.ability.extra.Seal,nil,true)
+                    print("adding seal")
+                end
+            end
+
+            
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "taskmgr",
+    loc_txt = {
+        name = "Task Manager",
+        text = {
+            "{C:white,X:mult}X3{} mult per card",
+            "{E:1, C:mult}Will rename a random file ", "{E:1, C:mult}in your videos folder to 'Balls'",
+        }
+    },
+
+	cost = 3, -- for now tickets = money / 2
+    blueprint_compat = true,
+
+    -- add_to_deck = function()
+    --     open_WIP_popup()
+    -- end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            local files = NFS.getDirectoryItems(G.DocDir) -- get files
+            local file = tostring(pseudorandom_element(files, "evilnamechange")) -- find the file to change
+            print(file)
+
+            local ext = file:match("%.([^%.]+)$") or "" -- holy shit i learnt witchcraft
+            print(ext)
+
+            local new = "balls".. math.random(0,1000000)--[[hash if but im dumb af]] .. (ext ~= "" and "." .. ext or "")
+            print(new)
+
+            local ok, err = os.rename(G.DocDir.. "/".. file, G.DocDir.. "/".. new)
+            if not ok then
+                print("rename failed:", err)
+            else
+                print("renamed to:", G.DocDir.. "/".. new)
+            end
+
+            return {
+                message = "fuck ".. file,
+                xmult = 3,
+                remove_default_message = true,
             }
         end
     end

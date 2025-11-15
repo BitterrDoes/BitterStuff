@@ -3,23 +3,31 @@
 
 -- bear5check
 Bitterstuff.bear5check = function(card) -- taken from joker forge dont @ me
-    if (function()
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].config.center.key == "j_tngt_dingaling" then
-                    G.jokers.cards[i]:remove()
-                    return true
-                end
+    G.E_MANAGER:add_event(Event({
+        trigger = "after",
+        delay = 0.5,
+        func = function()
+            if (function()
+                    for i = 1, #G.jokers.cards do
+                        if G.jokers.cards[i].config.center.key == "j_tngt_dingaling" then
+                            G.jokers.cards[i]:remove()
+                            return true
+                        end
+                    end
+                return false 
+            end)() then
+                
+
+                card:remove()
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.add_card({key = "j_Bitters_BEAR5"})
+                        return true
+                    end
+                }))
             end
-        return false
-    end)() then
-            card:remove()
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                SMODS.add_card({key = "j_Bitters_BEAR5"})
-                return true
-            end
-        }))
-    end
+        end
+    }))
 end
 
 -- v1 stuff

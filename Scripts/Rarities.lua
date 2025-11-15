@@ -45,6 +45,21 @@ SMODS.Rarity {
 }
 
 SMODS.Rarity {
+    key = "exotic",
+    pools = {
+        ["Joker"] = true
+    },
+    default_weight = 0.005,
+    badge_colour = SMODS.Gradients["ExoticGrad"],
+    loc_txt = {
+        name = "Exotic"
+    },
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
+
+SMODS.Rarity {
     key = "baddev",
     pools = {
         ["Joker"] = true
