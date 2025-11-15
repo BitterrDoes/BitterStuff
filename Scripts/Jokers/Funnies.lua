@@ -1,15 +1,7 @@
--- |
--- |        joker suggestions
--- |
-
 -- Spinel (first try)
 SMODS.Joker {
     key = "FirstTry",
-    
-    loc_txt = {
-        name = "Spinel",
-        text = {"{C:mult}+#1#{} Mult", "{C:inactive,s:0.6}Suggested by FirstTry.{}"}
-    },
+    name = "Spinel",
     pronouns = "she_her",
 
     blueprint_compat = true,
@@ -34,18 +26,10 @@ SMODS.Joker {
     end
 }
 
--- |
--- |        other funnies
--- |
-
 -- Normie
 SMODS.Joker {
     key = "normie",
-
-    loc_txt = {
-        name = "Normie",
-        text = {"{X:mult,C:white}+#1#{} Mult{}"}
-    },
+    name = "Normie",
     pronouns = "it_its",
 
     blueprint_compat = true,
@@ -73,15 +57,7 @@ SMODS.Joker {
 -- yes this was inspired by yahi | john ultrakill
 SMODS.Joker {
     key = "v1ultrakill",
-    
-    loc_txt = {
-        name = "John Ultrakill",
-        text = {
-            "{X:chips,C:white}X#1#{} chips after parrying",
-            "Add +X#2# per parry",
-            "{C:inactive}(press f to parry)"
-        },
-    },
+    name = "John Ultrakill",
     pronouns = "it_its",
 
     config = { extra = {
@@ -121,16 +97,8 @@ SMODS.Joker {
 -- dingaling
 SMODS.Joker { -- shamelessly stolenw
     key = "goldding",
-
-    loc_txt = {
-        name = "when they touchse yo {C:attention}golden{} {C:gold}dingaling{}",
-        text = {
-            "{X:blue,C:white}X#1#{} Chips and {X:mult,C:white}X#2#{} Mult",
-            "if you touched their {C:attention}#3#{}",
-            "{C:inactive}({C:attention}dingaling suit{} {C:inactive}changes every round.)"
-        }
-    },
-    pronouns = "its_me",
+    name = "when they touchse yo {C:attention}golden{} {C:gold}dingaling{}",
+    pronouns = "it_its", -- its_me
 
     blueprint_compat = true,
 	config = { extra = {xchips = 1.5, xmult = 1.2} },
@@ -172,16 +140,8 @@ SMODS.Joker { -- shamelessly stolenw
 -- bear 5
 SMODS.Joker {
     key = "BEAR5",
-
-    loc_txt = {
-        name = "{B:1}BEAR5",
-        text = {
-            "{X:blue,C:white}X#1#{} {V:1}Chips and {X:mult,C:white}X#2#{} {V:1}Mult",
-            "{V:1}if you touched their {C:attention}#3#{} {V:1}or any {C:attention}#4#{}",
-            "{C:inactive}({C:attention}dingaling suit{} {V:2}changes every round.)"
-        }
-    },
-    pronouns = "bear_5",
+    name = "BEAR5",
+    pronouns = "it_its",
 
     blueprint_compat = true,
 	config = { extra = {xchips = 3, xmult = 3} },
@@ -237,18 +197,14 @@ SMODS.Joker {
 -- amerbijfgr smith
 SMODS.Joker {
     key = "elliottsmith",
-
-    loc_txt = {
-        name = "Elliot Smith",
-        text = {"{X:mult,C:white}x#2#{} Mult{} for each song on spotify by Elliot Smith", "{C:inactive}(Currently 196 for {X:mult,C:white}x#1#{} {C:inactive}Mult)", "{C:inactive,s:0.6}(Reacts in real time!)"}
-    },
+    name = "Elliot Smith",
+    pronouns = "he_him",
 
     blueprint_compat = true,
 	config = { extra = {mult = 147, add = 0.75} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.mult, card.ability.extra.add}}
 	end,
-    pronouns = "he_him",
     
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 2, y = 3 },
@@ -268,11 +224,7 @@ SMODS.Joker {
 -- urself
 SMODS.Joker {
     key = "yourself",
-
-    loc_txt = {
-        name = "Yourself",
-        text = {"+1 {X:mult,C:white}xmult{} for every file in your {C:Blue, E:1}downloads{}", "{C:inactive}(Currently {X:mult,C:white}x#1#{})"}
-    },
+    name = "Yourself",
     pronouns = "any_all",
 
     atlas = 'JokeJokersAtlas',
@@ -297,100 +249,93 @@ SMODS.Joker {
         end
     end
 }
--- CLicker from cloverpit
-SMODS.Seal {
-    key = "tempRed",
 
-    config = { extra = { retriggers = 1 } },
+--[[
+    CLicker from cloverpit
+    SMODS.Seal {                 -- the reason broken
+        key = "tempRed",
 
-    atlas = 'tempsealAtlas',
-    pos = { x = 0, y = 0 },
-    loc_txt = {
-        name = "Temporary Red Seal",
-        text = {
-            "Retrigger this",
-            "card {C:attention}#1#{} time",
+        config = { extra = { retriggers = 1 } },
+
+        atlas = 'tempsealAtlas',
+        pos = { x = 0, y = 0 },
+        loc_txt = {
+            name = "Temporary Red Seal",
+            text = {
+                "Retrigger this",
+                "card {C:attention}#1#{} time",
+            },
         },
-    },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { self.config.extra.retriggers } }
-    end,
-    set_badges = function(self, card, badges)
- 		badges[#badges+1] = create_badge("Red Seal?", G.C.RED)
- 	end,
+        loc_vars = function(self, info_queue, card)
+            return { vars = { self.config.extra.retriggers } }
+        end,
+        set_badges = function(self, card, badges)
+     		badges[#badges+1] = create_badge("Red Seal?", G.C.RED)
+     	end,
 
-    calculate = function(self, card, context)
-        if context.repetition then
-            return {
-                repetitions = card.ability.seal.extra.retriggers,
-            }
-        elseif context.playing_card_post_joker then
-            print("a")
-            return {
-                message = "Melted!",
-                func = function()
-                    G.E_MANAGER:add_event(Event({
-                        trigger = "after",
-                        delay = 1,
-                        func = function()
-                            card.seal = nil
-                        end
-                    }))
-                end
-            }
-        end
-    end,
-}
-
-SMODS.Joker {
-    key = 'clicker',
-	loc_txt = {
-		name = 'Clicker',
-		text = {
-			".+#1# in 5 chance for drawn playing cards to have a temporary red seal.",
-		}
-	},
-    blueprint_compat = false,
-	config = { extra = {Chance = 15} },
-	rarity = 2,
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 4, y = 0 },
-	cost = 6, -- for now tickets = money / 2
-	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.Numerator, card.ability.extra.Denominator}}
-	end,
-
-    calculate = function(self, card, context)
-        if context.hand_drawn and context.hand_drawn then
-            print("drawing cards")
-            for i, other_card in pairs(context.hand_drawn) do
-                if SMODS.pseudorandom_probability(card, 'clicker', card.ability.extra.Chance, 100, 'identifier') then
-                    other_card:set_seal(card.ability.extra.Seal,nil,true)
-                    print("adding seal")
-                end
+        calculate = function(self, card, context)
+            if context.repetition then
+                return {
+                    repetitions = card.ability.seal.extra.retriggers,
+                }
+            elseif context.playing_card_post_joker then
+                print("a")
+                return {
+                    message = "Melted!",
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            trigger = "after",
+                            delay = 1,
+                            func = function()
+                                card.seal = nil
+                            end
+                        }))
+                    end
+                }
             end
+        end,
+    }
 
-            
+    SMODS.Joker {                -- Broken
+        key = 'clicker',
+    	loc_txt = {
+    		name = 'Clicker',
+    		text = {
+    			".+#1# in 5 chance for drawn playing cards to have a temporary red seal.",
+    		}
+    	},
+        blueprint_compat = false,
+    	config = { extra = {Chance = 15} },
+    	rarity = 2,
+    	atlas = 'JokeJokersAtlas',
+    	pos = { x = 4, y = 0 },
+    	cost = 6, -- for now tickets = money / 2
+    	loc_vars = function(self, info_queue, card)
+    		return { vars = {card.ability.extra.Numerator, card.ability.extra.Denominator}}
+    	end,
+
+        calculate = function(self, card, context)
+            if context.hand_drawn and context.hand_drawn then
+                print("drawing cards")
+                for i, other_card in pairs(context.hand_drawn) do
+                    if SMODS.pseudorandom_probability(card, 'clicker', card.ability.extra.Chance, 100, 'identifier') then
+                        other_card:set_seal(card.ability.extra.Seal,nil,true)
+                        print("adding seal")
+                    end
+                end
+
+                
+            end
         end
-    end
-}
+    }
+--]]
 
 SMODS.Joker {
     key = "taskmgr",
-    loc_txt = {
-        name = "Task Manager",
-        text = {
-            "{C:white,X:mult}X3{} mult per card",
-            "{E:1, C:mult}Will rename a random file ", "{E:1, C:mult}in your videos folder to 'Balls'",
-        }
-    },
+    name = "Task Manager",
 
 	cost = 3, -- for now tickets = money / 2
     blueprint_compat = true,
-
-    -- add_to_deck = function()
-    --     open_WIP_popup()
-    -- end,
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
@@ -418,4 +363,42 @@ SMODS.Joker {
             }
         end
     end
+}
+
+SMODS.Joker {
+    key = "squid",
+    name = "squid+",
+
+    atlas = "SquidAtAss",
+    display_size = { w = 96, h = 96 },
+	pos = { x = 0, y = 0 },
+    pronouns = "any_all",
+
+	cost = 6, -- for now tickets = money / 2
+    blueprint_compat = true,
+
+	config = { extra = {frame = 1, secondthingidk = 0} },
+
+    update = function(self, card, dt) -- animated joker pog
+        card.ability.extra.frame = card.ability.extra.frame + 1 * dt
+
+        if card.ability.extra.frame >= 1.02 then
+            card.ability.extra.frame = 1
+            card.ability.extra.secondthingidk = card.ability.extra.secondthingidk + 1
+            if card.ability.extra.secondthingidk == 17 then
+               card.ability.extra.secondthingidk = 0
+            end
+
+            -- set pos
+            card.config.center.pos.x = card.ability.extra.secondthingidk
+        end
+    end,
+
+    calculate = function(self, card, context)
+        local other_joker = nil
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i - 1] end
+        end
+        return SMODS.merge_effects {SMODS.blueprint_effect(card, other_joker, context) or {}, SMODS.blueprint_effect(card, other_joker, context) or {}}
+    end,
 }

@@ -5,11 +5,7 @@
 -- Jambatro
 SMODS.Joker {
     key = "Jambatro",
-
-    loc_txt = {
-        name = "Jambatro",
-        text = {"{X:mult,C:white}x#1#{} Mult{} if base score is divisible by #2#."}
-    },
+    name = "Jambatro",
     pronouns = "she_her",
 
     blueprint_compat = true,
@@ -47,11 +43,7 @@ SMODS.Joker {
 -- astro
 SMODS.Joker {
     key = "Astro", -- i dont wanna get it mixed with the other 15 astros
-
-    loc_txt = {
-        name = "Astro",
-        text = {"If played hand has a scoring spade", "randomize suit of all unscored cards."}
-    },
+    name = "Astro",
     pronouns = "guy_guy",
 
     blueprint_compat = false,
@@ -110,11 +102,7 @@ SMODS.Joker {
 -- ekko
 SMODS.Joker {
     key = "Ekko", -- i rly need to get a real suffix for the joke jokers
-
-    loc_txt = {
-        name = "Ekko",
-        text = {"Creates the last used Tarot or Planet card after skipping a blind", "{C:inactive}(Must have room)", "{C:inactive,s:0.6} 'it says gullible on the ceiling' {}"}
-    },
+    name = "Ekko",
 
     blueprint_compat = true,
 	config = { extra = {} },
@@ -153,11 +141,7 @@ SMODS.Joker {
 -- astra
 SMODS.Joker {
     key = "Astra",
-
-    loc_txt = {
-        name = "Astra",
-        text = {"+#2# xchips per mod installed", "{C:inactive}(Currently {X:chips,C:white}X#1#{}){}"}
-    },
+    name = "Astra",
 
     blueprint_compat = true,
 	config = {extra = {mods = Bitterstuff.ModsUsing, times = 1}},
@@ -187,11 +171,7 @@ SMODS.Joker {
 -- glitchkat
 SMODS.Joker {
     key = "glitchkat",
-
-    loc_txt = {
-        name = "GlitchKat10",
-        text = {"Create #1# random {C:enhanced,T:e_polychrome}Polychrome{} consumeables at end of round", "{C:inactive}(Must have room)"}
-    },
+    name = "GlitchKat10",
 
     blueprint_compat = true,
 	config = { extra = {cards = 2} },
@@ -238,12 +218,8 @@ SMODS.Joker {
 -- im breeding
 SMODS.Joker {
     key = "breeder",
-
-    loc_txt = {
-        name = "Nxkoo",
-        text = {"Spawns #1# random {E:2,f:Bitters_ComicSans}bitter's stuff{} objects after beating blind"}
-    },
-    pronouns = "were_was",
+    name = "Nxkoo",
+    pronouns = "any_all",
 
     blueprint_compat = true,
 	config = { extra = {cards = 1} },
@@ -289,11 +265,7 @@ SMODS.Joker {
 -- Jamirror
 SMODS.Joker {
     key = "jamirror",
-
-    loc_txt = {
-        name = "Jamirror",
-        text = {"{C:green}#1# in #3#{} to add 1 operation (^) to mult after beating boss blind", "{C:inactive}(Currently {X:mult,C:white}#2#{}){}"}
-    },
+    name = "Jamirror",
     pronouns = "he_him",
 
     blueprint_compat = true,
@@ -345,13 +317,8 @@ SMODS.Joker {
 -- Arcadiseudf
 SMODS.Joker {
     key = "arcjoker",
-    loc_txt = {
-        name = "{f:Bitters_papyrus, C:edition}arc",
-        text = {
-            "Mult is multiplied by πΠ per card played.",
-            "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
-        }
-    },
+    name = "arc",
+
     pronouns = "zi_zem",
     blueprint_compat = true,
     config = { 
@@ -362,6 +329,7 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.mult, card.ability.extra.mult_gain}}
     end,
+
     atlas = 'JokeJokersAtlas',
 	pos = { x = 3, y = 3 },
 	soul_pos = { x = 4, y = 3 },
@@ -390,11 +358,8 @@ SMODS.Joker {
 -- Bitter (THATS ME!!!)
 SMODS.Joker {
     key = "bitterjoker",
+    name = "BitterDoes",
 
-    loc_txt = {
-        name = "{f:Bitters_ComicSans, C:edition}BitterDoes",
-        text = {"Copies abilities of all {C:attention}jokers{}"}
-    },
     pronouns = "he_him",
 
     blueprint_compat = true,

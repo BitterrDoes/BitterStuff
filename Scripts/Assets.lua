@@ -5,6 +5,15 @@ SMODS.Atlas {
 	py = 95
 }
 
+-- squid
+SMODS.Atlas {
+    key = "SquidAtAss",
+    path = "SquidSheet.png",
+    px = 96,
+    py = 96,
+    frames = 17,
+}
+
 SMODS.Atlas {
 	key = "backatlas",
 	path = "Backs.png",
@@ -87,7 +96,7 @@ SMODS.Font({
     path = 'skeleton.ttf',
     render_scale = 200,         -- Base size in pixels (default: 200)
     TEXT_HEIGHT_SCALE = 0.83,   -- Line spacing (default: 0.83)
-    TEXT_OFFSET = {x = 0, y = 15}, -- Alignment tweak (default: {0,0})
+    TEXT_OFFSET = {x = 0, y = -33}, -- Alignment tweak (default: {0,0})
     FONTSCALE = 0.1,           	 -- Scale multiplier (default: 0.1)
     squish = .75,                 -- Horizontal stretch (default: 1)
     DESCSCALE = 1               -- Description scale (default: 1)

@@ -1,11 +1,7 @@
 -- backs
 SMODS.Back {
     key = "pirateback",
-
-    loc_txt = {
-        name = "Blizzard Deck",
-        text = {"Starts with an", "{C:enhanced,E:1}Eternal, Unlucky{}", "Pirate Software", "win ante is #1#", "{C:inactive,s:0.75} 'There's snow on my face' {}"}
-    },
+    name = "Blizzard Deck",
 
     atlas = "backatlas",
     pos = { x = 0, y = 0 },
@@ -28,11 +24,7 @@ SMODS.Back {
 
 SMODS.Back {
     key = "BitterBack",
-
-    loc_txt = {
-        name = "Bitter Deck",
-        text = {"Start with BitterDoes", "{C:inactive}Super Faster Scaling per new ante"}
-    },
+    name = "Bitter Deck",
 
     atlas = "backatlas",
     pos = { x = 1, y = 0 },
@@ -56,11 +48,7 @@ SMODS.Back {
 
 SMODS.Back {
     key = "BrokenBack",
-
-    loc_txt = {
-        name = "Broken Deck",
-        text = {"Start with only five cards,", "win ante is #1#"}
-    },
+    name = "Broken Deck",
 
     atlas = "backatlas",
     pos = { x = 2, y = 0 },
