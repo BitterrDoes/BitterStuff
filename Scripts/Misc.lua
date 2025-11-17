@@ -87,6 +87,33 @@ SMODS.Back {
     end,
 }
 
+-- Seals
+-- SMODS.Seal {
+--     key = "crypto",
+
+--     config = { extra = { mining = false } },
+
+--     atlas = 'tempsealAtlas',
+--     pos = { x = 1, y = 0 },
+
+--     loc_txt = {
+--         name = "Crypto Seal",
+--         text = "'Mines' Crypto on your device"
+--     },
+
+--     -- set_badges = function(self, card, badges)
+--     --     badges[#badges+1] = create_badge("Crypto Seal", G.C.RED)
+--     -- end,
+
+--     update = function(self, card, dt) -- animated joker pog
+--         if not card.ability.seal.extra.mining then
+--             while true do
+--                 delay()
+--             end
+--         end
+--     end
+-- }
+
 -- vouchers
 -- SMODS.Voucher {
 --     key = "negvouch1",

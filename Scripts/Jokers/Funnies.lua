@@ -5,12 +5,12 @@ SMODS.Joker {
     pronouns = "she_her",
 
     blueprint_compat = true,
-    config = { extra = {mult = 6000} },
+    config = { extra = {chips = 60} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.mult}}
 	end,
 
-    rarity = 3,
+    rarity = 1,
     cost = 5,
     pools = {["BitterPool"] = true},
 
@@ -20,7 +20,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult
+                chips = card.ability.extra.chips
             }
         end
     end
@@ -158,12 +158,12 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 3 },
 
-	rarity = 2,
+	rarity = 4,
 	cost = 0,
     discovered = true,
     unlocked = true,
     eternal_compat = true,
-    pools = {["BitterPool"] = true, ["Joker"] = false},
+    -- pools = {["BitterPool"] = true, ["Joker"] = false},
 
     set_badges = function(self, card, badges)
         badges[1] = create_badge("BEAR5", HEX("0000FF"), G.C.WHITE, 1)
@@ -231,7 +231,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 4 },
     
     blueprint_compat = true,
-	config = { extra = {mult = 15} },
+	config = {},
 	loc_vars = function(self, info_queue, card)
 		return { vars = {Bitterstuff.Downloads}}
 	end,
@@ -239,7 +239,6 @@ SMODS.Joker {
     pools = {["BitterPool"] = true},
 	rarity = 3,
     cost = 5,
-
     
     calculate = function(self, card, context)
         if context.joker_main then
@@ -335,6 +334,7 @@ SMODS.Joker {
     name = "Task Manager",
 
 	cost = 3, -- for now tickets = money / 2
+    rarity = 3,
     blueprint_compat = true,
 
     calculate = function(self, card, context)
@@ -346,7 +346,7 @@ SMODS.Joker {
             local ext = file:match("%.([^%.]+)$") or "" -- holy shit i learnt witchcraft
             print(ext)
 
-            local new = "balls".. math.random(0,1000000)--[[hash if but im dumb af]] .. (ext ~= "" and "." .. ext or "")
+            local new = "balls".. math.random(0,1000000)--[[hash but im dumb]] .. (ext ~= "" and "." .. ext or "")
             print(new)
 
             local ok, err = os.rename(G.DocDir.. "/".. file, G.DocDir.. "/".. new)
@@ -375,30 +375,58 @@ SMODS.Joker {
     pronouns = "any_all",
 
 	cost = 6, -- for now tickets = money / 2
+    rarity = 4,
     blueprint_compat = true,
 
-	config = { extra = {frame = 1, secondthingidk = 0} },
+	config = { extra = {frame = 1, secondthingidk = 0, target = nil, storage = {atlas = "Bitters_SquidAtAss", scale = {x=96, y=96}}} },
 
     update = function(self, card, dt) -- animated joker pog
-        card.ability.extra.frame = card.ability.extra.frame + 1 * dt
+        local config = card.ability.extra
+        config.frame = config.frame + 1 * dt
 
-        if card.ability.extra.frame >= 1.02 then
-            card.ability.extra.frame = 1
-            card.ability.extra.secondthingidk = card.ability.extra.secondthingidk + 1
-            if card.ability.extra.secondthingidk == 17 then
-               card.ability.extra.secondthingidk = 0
+        if config.frame >= 1.02 then
+            config.frame = 1
+
+            local other_joker = nil
+            if G.jokers and G.jokers.cards then
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i] == card then 
+                        other_joker = G.jokers.cards[i - 1] 
+                    end
+                end
             end
 
-            -- set pos
-            card.config.center.pos.x = card.ability.extra.secondthingidk
+            card.ability.extra.target = other_joker
+            -- Update sprite
+            if G.GAME.playing and other_joker then
+                local center = other_joker.children.center
+
+                -- card.children.center = center
+                card.children.center.atlas = G.ASSET_ATLAS[center.atlas.name]
+                card.children.center:set_sprite_pos({ x=center.sprite_pos.x, y= center.sprite_pos.y })
+                card.children.center.scale = {x=center.scale.x, y=center.scale.y}
+
+            else
+                -- my game crashed so hope this works
+
+                -- reset
+                card.children.center.atlas = G.ASSET_ATLAS[config.storage.atlas]
+                card.children.center.scale = {x=config.storage.scale.x, y=config.storage.scale.y}
+
+                -- set frame
+                config.secondthingidk = config.secondthingidk + 1
+                if config.secondthingidk == 17 then
+                    config.secondthingidk = 0
+                end
+
+                -- set pos
+                card.children.center:set_sprite_pos({ x=config.secondthingidk, y=0 })
+            end
         end
     end,
 
     calculate = function(self, card, context)
-        local other_joker = nil
-        for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i - 1] end
-        end
+        local other_joker = card.ability.extra.target
         return SMODS.merge_effects {SMODS.blueprint_effect(card, other_joker, context) or {}, SMODS.blueprint_effect(card, other_joker, context) or {}}
     end,
 }

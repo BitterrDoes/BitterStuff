@@ -139,14 +139,14 @@ SMODS.Joker {
     end
 }
 -- astra
-SMODS.Joker {
+SMODS.Joker { -- fixed
     key = "Astra",
     name = "Astra",
 
     blueprint_compat = true,
-	config = {extra = {mods = Bitterstuff.ModsUsing, times = 1}},
+	config = {extra = {}},
 	loc_vars = function(self, info_queue, card)
-		return { vars = {Bitterstuff.ModsUsing, card.ability.extra.times}}
+		return { vars = {Bitterstuff.ModsUsing}}
 	end,
     
 	atlas = 'JokeJokersAtlas', 
@@ -163,7 +163,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                xchips = Bitterstuff.ModsUsing * card.ability.extra.times
+                xchips = Bitterstuff.ModsUsing
             }
         end
     end
@@ -365,7 +365,7 @@ SMODS.Joker {
     blueprint_compat = true,
 	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {}}
+		return { vars = {G.GAME.probabilities.normal, G.GAME.probabilities.normal*4}}
 	end,
     
 	atlas = 'JokeJokersAtlas',
@@ -387,7 +387,7 @@ SMODS.Joker {
         for i, other_joker in pairs(G.jokers.cards) do
             if other_joker ~= card then
                 local ret = SMODS.blueprint_effect(card, other_joker, context)
-                if ret then
+                if ret and SMODS.pseudorandom_probability(card, 'BitterCheck', G.GAME.probabilities.normal, G.GAME.probabilities.normal * 4, 'identifier') then
                     table.insert(results, ret)
                 end
             end

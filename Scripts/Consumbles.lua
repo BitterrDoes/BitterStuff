@@ -37,25 +37,20 @@ SMODS.Consumable {
             G.jokers.cards[math.ceil(pseudorandom("bricks") * #G.jokers.cards)]:set_edition("e_negative")
         else
             if not G.effectmanager then G.effectmanager = {} end
-                G.effectmanager[1] = {
-                -- requires 
-                    [1] = {
-                        name = "brick", -- CaSe SeNsItIvE
-                        frame = 1, -- no idea if it starts on frame 0 or not
-                        maxframe = 43,
-                        xpos = 480, -- position on screen ??
-                        ypos = 120, -- ^^^^^^
-                        duration = 80, -- i dont know how works, just keep trying
-                        fps = 60,
-                        tfps = 60, -- ticks per frame per second
-                    },
-                }
-            return {
-                message = "Nope!",
-                func = function()
-                    play_sound("Bitters_legobreaksound")
-                end
+            G.effectmanager[1] = {
+            -- requires 
+                [1] = {
+                    name = "brick", -- CaSe SeNsItIvE
+                    frame = 1, -- no idea if it starts on frame 0 or not
+                    maxframe = 43,
+                    xpos = 480, -- position on screen ??
+                    ypos = 120, -- ^^^^^^
+                    duration = 80, -- i dont know how works, just keep trying
+                    fps = 60,
+                    tfps = 60, -- ticks per frame per second
+                },
             }
+            play_sound("Bitters_legobreaksound")
         end
     end
 }

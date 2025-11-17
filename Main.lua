@@ -4,6 +4,17 @@ Bitterstuff.ModsUsing = 0
 G.effectmanager = {}
 -- Fucntions
 
+Bitterstuff.calculate = function(self, context)
+	if not G.GAME then return end
+	if context.setting_blind then
+		G.GAME.playing = true
+		print("Main.lua | wawa ", G.GAME.playing)
+	elseif context.end_of_round and context.main_eval then
+		G.GAME.playing = false
+		print("Main.lua | not wawa ", G.GAME.playing)
+	end
+end
+
 function Bitterstuff.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
 	local chunk = SMODS.load_file(file, "Bitters_Jokers")
 	if chunk then
@@ -41,28 +52,29 @@ end
 -- okay okay, actually load the objects now
 Bitterstuff.Load_Dir("Scripts")
 Bitterstuff.Load_Dir("Scripts/Jokers")
+Bitterstuff.Load_Dir("Scripts/Assets")
 function Bitterstuff.reset_game_globals(init, _GAME) -- i needed to put this somewhere, and this is the first thing that came to mind
 	if not _GAME then 
 		Reset_card_picker_selection()
 	end
 	Bitterstuff.ModsUsing = 0
-	for _,_ in pairs(SMODS.Mods) do
-		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + 1
+	for i,_ in pairs(SMODS.Mods) do
+		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + (1 / 15)
 	end
+	Bitterstuff.ModsUsing = math.floor(Bitterstuff.ModsUsing)
 
 	local dir = Bitterstuff.path -- should be C:\Users\[player name]\AppData\Roaming\Balatro\Mods\Bitterstuff
     G.DwnldsDir = string.sub(dir, 0, #dir - 41).. "Downloads" -- becomes C:\Users\[player name]\Downloads
     G.DocDir = string.sub(dir, 0, #dir - 41).. "Videos" -- for tom foolery
-	local items = NFS.getDirectoryItems(G.DwnldsDir)
-	if #items < 15 then
+	local items = #NFS.getDirectoryItems(G.DwnldsDir) / 20
+	if items < 15 then
     	Bitterstuff.Downloads = 15
 	else
-    	Bitterstuff.Downloads = #items
+    	Bitterstuff.Downloads = items
 	end
 end
 
 function Reset_card_picker_selection()
-    G.GAME.current_round.card_picker_selection = { rank = 'Ace', suit = 'Spades' }
     local valid_cards = {}
     for _, playing_card in ipairs(G.playing_cards) do
         if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
@@ -79,4 +91,4 @@ function Reset_card_picker_selection()
     end
 end
 
-Bitterstuff.reset_game_globals(false, true)
+Bitterstuff.reset_game_globals(false, true) -- so sketch

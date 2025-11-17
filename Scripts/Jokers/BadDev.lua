@@ -4,17 +4,17 @@
 -- |
 
 -- piratesoftware
-SMODS.Joker {
+SMODS.Joker { -- fixed
     key = "piratesoftware",
     
     loc_txt = {
         name = "Pirate Software",
-        text = {"{C:green}#1# in 2{} Chance of 'crashing' your game", "Otherwise {X:mult,C:white}+#2#{} Mult{}"}
+        text = {"{C:green}#1# in 2{} Chance of 'crashing' your game", "Otherwise {X:mult,C:white}X#2#{} Mult{}"}
     },
     pronouns = "he_him",
 
     blueprint_compat = true,
-	config = { extra = {chance = 1, mult = 1337} },
+	config = { extra = {xmult = 5} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = {G.GAME.probabilities.normal, card.ability.extra.mult}}
 	end,
@@ -22,9 +22,13 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 0 },
 
-	rarity = "Bitters_baddev",
+	rarity = 2,
     cost = 6,
     pools = {["BitterPool"] = true},
+
+    set_badges = function(self, card, badges)
+ 		badges[1] = create_badge("Bad Dev", HEX("ff2222"), G.C.WHITE, 1)
+ 	end,
 
     calculate = function(self, card, context)
         if context.joker_main then
@@ -41,14 +45,14 @@ SMODS.Joker {
                 }
             else
                 return {
-                    mult = card.ability.extra.mult
+                    xmult = card.ability.extra.xmult
                 }
             end
         end
     end
 }
 -- yandev
-SMODS.Joker {
+SMODS.Joker { -- fixed
     key = "yandev",
     
     loc_txt = {
@@ -66,9 +70,13 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 4, y = 0 },
 
-	rarity = "Bitters_baddev",
+	rarity = 3,
 	cost = 6,
     pools = {["BitterPool"] = true},
+
+    set_badges = function(self, card, badges)
+ 		badges[1] = create_badge("Bad Dev", HEX("ff2222"), G.C.WHITE, 1)
+ 	end,
 
     calculate = function(self, card, context)
         if context.playing_card_added and not context.blueprint then

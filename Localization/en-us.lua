@@ -92,7 +92,8 @@ return {
             j_Bitters_yourself = {
                 name = "Yourself",
                 text = {
-                    "+1 {X:mult,C:white}xmult{} for every file in your {C:Blue, E:1}downloads{}", 
+                    "+1 {X:mult,C:white}xmult{} for every 20 files in your {E:1, C:blue}downloads{}", 
+                    "This number cant be below X3", 
                     "{C:inactive}(Currently {X:mult,C:white}x#1#{})"
                 }
             },
@@ -136,7 +137,7 @@ return {
             j_Bitters_Astra = {
                 name = "Astra",
                 text = {
-                    "+#2# xchips per mod installed", 
+                    "+1 xchips per 15 mods installed", 
                     "{C:inactive}(Currently {X:chips,C:white}X#1#{C:inactive})"
                 }
             },
@@ -165,7 +166,8 @@ return {
             j_Bitters_bitterjoker = {
                 name = "{f:Bitters_ComicSans}BitterDoes",
                 text = {
-                    "{E:1}Copies abilities of all {E:1,C:attention}jokers"
+                    "{E:1}Copies abilities of all {E:1,C:attention}jokers",
+                    "{C:green}1 in 4{} chance to succeed"
                 }
             },
             j_Bitters_arcjoker = {
