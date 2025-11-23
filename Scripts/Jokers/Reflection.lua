@@ -3,7 +3,7 @@
 -- |
 
 -- Jambatro
-SMODS.Joker {
+SMODS.Joker { -- Broken btw
     key = "Jambatro",
     name = "Jambatro",
     pronouns = "she_her",
@@ -99,15 +99,15 @@ SMODS.Joker {
         end
     end
 }
--- ekko
+-- rice
 SMODS.Joker {
-    key = "Ekko", -- i rly need to get a real suffix for the joke jokers
-    name = "Ekko",
+    key = "Rice", -- i rly need to get a real suffix for the joke jokers
+    name = "Rice Shower",
 
     blueprint_compat = true,
 	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.requirement, card.ability.extra.count}}
+		return { vars = {G.GAME.probabilities.normal}}
 	end,
     
 	atlas = 'JokeJokersAtlas', -- made by LuckyAF on displate
@@ -122,7 +122,7 @@ SMODS.Joker {
  	end,
 
     calculate = function(self, card, context)
-        if context.skip_blind then
+        if context.skip_blind and SMODS.pseudorandom_probability(card, 'BitterCheck', G.GAME.probabilities.normal, 2, 'identifier') then
             G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.4,
@@ -149,8 +149,8 @@ SMODS.Joker { -- fixed
 		return { vars = {Bitterstuff.ModsUsing}}
 	end,
     
-	atlas = 'JokeJokersAtlas', 
-	pos = { x = 4, y = 5 },
+	-- atlas = 'JokeJokersAtlas', 
+	-- pos = { x = 4, y = 5 },
 
 	rarity = 3,
 	cost = 12,
@@ -174,7 +174,7 @@ SMODS.Joker {
     name = "GlitchKat10",
 
     blueprint_compat = true,
-	config = { extra = {cards = 2} },
+	config = { extra = {cards = 1} },
 	loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.cards}}
 	end,
@@ -333,9 +333,10 @@ SMODS.Joker {
     atlas = 'JokeJokersAtlas',
 	pos = { x = 3, y = 3 },
 	soul_pos = { x = 4, y = 3 },
-    rarity = "Bitters_autism",
+    rarity = "Bitters_BitterRarity",
     cost = 26,
-    pools = {["BitterPool"] = true},
+    pools = {["BitterPool"] = true, ["BitterJokers"] = true},
+    -- contemplating removing from bitter pool but eh
 
     set_badges = function(self, card, badges)
         badges[1] = create_badge("Autism", SMODS.Gradients["ExoticGrad"], G.C.WHITE, 1)
@@ -363,17 +364,16 @@ SMODS.Joker {
     pronouns = "he_him",
 
     blueprint_compat = true,
-	config = { extra = {} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {G.GAME.probabilities.normal, G.GAME.probabilities.normal*4}}
+		return { vars = {G.GAME.probabilities.normal, G.GAME.probabilities.normal*2}}
 	end,
     
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 3, y = 1 },
 	soul_pos = { x = 4, y = 1 },
-    pools = {["BitterPool"] = true},
+    pools = {["BitterPool"] = true, ["BitterJokers"] = true},
 
-	rarity = "Bitters_gay",
+	rarity = "Bitters_BitterRarity",
 	cost = 27,
 
     set_badges = function(self, card, badges)
@@ -387,8 +387,14 @@ SMODS.Joker {
         for i, other_joker in pairs(G.jokers.cards) do
             if other_joker ~= card then
                 local ret = SMODS.blueprint_effect(card, other_joker, context)
-                if ret and SMODS.pseudorandom_probability(card, 'BitterCheck', G.GAME.probabilities.normal, G.GAME.probabilities.normal * 4, 'identifier') then
-                    table.insert(results, ret)
+                if ret then
+                    if SMODS.pseudorandom_probability(card, 'BitterCheck', G.GAME.probabilities.normal, G.GAME.probabilities.normal * 2, 'identifier') then
+                        table.insert(results, ret)
+                    else
+                        return {
+                            message = localize('k_nope_ex')
+                        }
+                    end
                 end
             end
         end
@@ -396,40 +402,65 @@ SMODS.Joker {
         return SMODS.merge_effects(results)
     end
 }
--- swag, temporarially scrapped since idea is too hard to implement
--- SMODS.Joker {
---     key = "swagless",
---     loc_txt = {
---         name = "{f:Bitters_Jokerman, C:edition}Swagless",
---         text = {
---             "{E:1}{C:attention}Joker{} to the left of this one", "now activates per card scored.",
---         }
---     },
---     pronouns = "he_him",
---     blueprint_compat = false,
---     config = { 
---         extra = {
---             tick = 6,
---             joker = nil,
---         } 
---     },
---     loc_vars = function(self, info_queue, card)
---         return { vars = {}}
---     end,
---     atlas = 'JokeJokersAtlas',
--- 	pos = { x = 3, y = 3 },
--- 	soul_pos = { x = 4, y = 3 },
---     rarity = "Bitters_exotic",
---     cost = 14,
---     pools = {["BitterPool"] = true},
+-- swag
+SMODS.Joker {
+    key = "swagless",
+    atlas = 'JokeJokersAtlas',
+	pos = { x = 3, y = 4 },
+	soul_pos = { x = 4, y = 4 },
 
---     set_badges = function(self, card, badges)
---         badges[1] = create_badge("Bitchless", SMODS.Gradients["ExoticGrad"], G.C.WHITE, 1)
---         badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
---     end,
---     calculate = function(self, card, context)
---         if context.individual and context.cardarea == G.play then
---            
---         end
--- 	end,
--- }
+    pronouns = "he_him",
+    blueprint_compat = true,
+
+	config = { extra = {xmult = 1.5} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.xmult}}
+	end,
+
+    rarity = "Bitters_BitterRarity",
+    cost = 14,
+    pools = {["BitterPool"] = true, ["BitterJokers"] = true},
+
+    set_badges = function(self, card, badges)
+        badges[1] = create_badge("Bitchless", SMODS.Gradients["ExoticGrad"], G.C.WHITE, 1)
+        badges[#badges+1] = create_badge("Reflection", G.C.SECONDARY_SET.Planet, G.C.WHITE, 1)
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if not next(SMODS.get_enhancements(context.other_card)) then
+                return {
+                    xmult = card.ability.extra.xmult
+                }  
+            elseif not context.blueprint then
+                card.ability.extra.xmult = card.ability.extra.xmult + 0.25
+                return {
+                    message = "Bitch!",
+                    colour = G.C.GOLD
+                }
+            end
+        end
+	end,
+}
+
+local potSprite
+SMODS.DrawStep {
+    key = "SwaglessPotStep",
+    order = 60,
+    func = function(card, layer)
+        if card and card.config.center == G.P_CENTERS["j_Bitters_swagless"] then
+            local ltime = G.TIMERS.REAL + 1000
+
+            local _xOffset = 0
+            local _yOffset = 0
+            local scale_mod = 0.07 + 0.02*math.sin(1.8*ltime) + 0.00*math.sin((ltime - math.floor(ltime))*math.pi*14)*(1 - (ltime - math.floor(ltime)))^3
+            local rotate_mod = 0.05*math.sin(1.219*ltime) + 0.00*math.sin((ltime)*math.pi*5)*(1 - (ltime - math.floor(ltime)))^2
+
+            potSprite = potSprite or Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS["Bitters_JokeJokersAtlas"], {x=4, y=5})
+            potSprite.role.draw_major = card
+            potSprite:draw_shader('dissolve', 1, nil, nil, card.children.center,scale_mod, rotate_mod, _xOffset, 0.1 + 0.03*math.sin(1.8*ltime) + _yOffset,nil, 0.3)
+            potSprite:draw_shader('dissolve', nil, nil, nil, card.children.center, scale_mod, rotate_mod, _xOffset, _yOffset)
+            -- (_shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
+        end
+    end,
+    conditions = {vortex = false, facing = 'front'}
+}

@@ -2,6 +2,7 @@
 Bitterstuff = SMODS.current_mod
 Bitterstuff.ModsUsing = 0
 G.effectmanager = {}
+
 -- Fucntions
 
 Bitterstuff.calculate = function(self, context)

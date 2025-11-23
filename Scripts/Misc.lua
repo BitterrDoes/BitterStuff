@@ -87,13 +87,26 @@ SMODS.Back {
     end,
 }
 
+SMODS.Sticker {
+    key = "s_target",
+    loc_txt = {
+        name = "Targeted",
+        text = {"This card has been {E:1,C:attention}targeted{}!", "this relates to all {C:attention}target Jokers"}
+    },
+
+    atlas = "MiscAtlas",
+    pos = {x=2,y=0},
+
+    rate = 0,
+}
+
 -- Seals
 -- SMODS.Seal {
 --     key = "crypto",
 
 --     config = { extra = { mining = false } },
 
---     atlas = 'tempsealAtlas',
+--     atlas = 'MiscAtlas',
 --     pos = { x = 1, y = 0 },
 
 --     loc_txt = {

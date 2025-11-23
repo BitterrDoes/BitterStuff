@@ -21,6 +21,13 @@ SMODS.Atlas {
 	py = 95
 }
 
+SMODS.Atlas {
+	key = "cat",
+	path = "cat.png",
+	px = 71,
+	py = 95
+}
+
 -- SMODS.Atlas {
 -- 	key = "voucherAtlas",
 -- 	path = "Vouchers.png",
@@ -36,8 +43,8 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-	key = "tempsealAtlas",
-	path = "tempseals.png",
+	key = "MiscAtlas",
+	path = "misc.png",
 	px = 71,
 	py = 95
 }

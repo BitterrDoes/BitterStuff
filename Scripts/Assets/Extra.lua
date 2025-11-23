@@ -2,6 +2,10 @@ SMODS.ObjectType {
 	key = "BitterPool",
 	default = "j_Bitters_bitterjoker"
 }
+SMODS.ObjectType {
+	key = "BitterJokers",
+	default = "j_Bitters_bitterjoker"
+}
 
 -- Gradients
 SMODS.Gradient({
