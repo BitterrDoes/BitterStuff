@@ -69,7 +69,6 @@ SMODS.Joker {
     pronouns = "it_its",
 
     config = { extra = {
-        xmult = 2,
         xchips = 2,
         additional = 0.5,
         hit = false,
@@ -91,16 +90,16 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.pleasetrigger then
             return {
-                x_chips = card.ability.extra.xchips
+                xchips = card.ability.extra.xchips
             }
         elseif context.post_joker and not context.blueprint then
-            G.hasparrytriggered = nil
-            G.hasparrybeenthrown = nil
+            G.QTE_ResetVars("j_Bitters_v1ultrakill")
             card.ability.extra.pleasetrigger = false
         end
     end,
 }
 
+-- salsaman
 SMODS.Joker {
     key = "saleman",
     name = "Salesman",
@@ -147,6 +146,41 @@ SMODS.Joker {
     end
 }
 
+-- english major
+SMODS.Joker {
+    key = "english",
+    name = "English Major",
+    pronouns = "she_her",
+
+    atlas = 'JokeJokersAtlas',
+	pos = { x = 0, y = 2 },
+    
+    blueprint_compat = true,
+    config = { extra = {
+        mult = 15,
+        additional = 1.5,
+        hit = false,
+        pleasetrigger = false
+    }},
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.mult, card.ability.extra.additional}}
+	end,
+    
+    pools = {["BitterPool"] = true},
+	rarity = 3,
+    cost = 7,
+    
+    calculate = function(self, card, context)
+        if context.joker_main and card.ability.extra.pleasetrigger then
+            return {
+                mult = card.ability.extra.mult
+            }
+        elseif context.post_joker and not context.blueprint then
+            G.QTE_ResetVars("j_Bitters_v1ultrakill")
+            card.ability.extra.pleasetrigger = false
+        end
+    end
+}
 
 -- Rare Jokers
 
@@ -154,6 +188,9 @@ SMODS.Joker {
 SMODS.Joker {
     key = "taskmgr",
     name = "Task Manager",
+
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 1, y = 4 },
 
 	cost = 3, -- for now tickets = money / 2
     rarity = 3,
@@ -415,6 +452,7 @@ SMODS.Joker {
         end
     end
 }   
+
 
 --[[
     CLicker from cloverpit

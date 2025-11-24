@@ -75,6 +75,14 @@ return {
                     "retrigger {C:attention}3{} times"
                 },
             },
+            j_Bitters_english = { -- Doesnt need to be balanced
+                name = "English Major",
+                text = {
+                    "{C:mult}+#1#{} mult if displayed word", 
+                    "is typed sucessfully",
+                    "Times mult by {C:mult}x#2#{} per completion",
+                },
+            },
             j_Bitters_taskmgr = { -- Fair Downside | Balanced
                 name = "Task Manager",
                 text = {
@@ -188,7 +196,7 @@ return {
                 name = "{f:Bitters_papyrus}Arc",
                 text = {
                     "{E:1}Mult is multiplied by {E:1,f:Bitters_arial,C:attention}π{E:1} per card played.",
-                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+                    "{C:inactive}(Currently {C:mult}X#1#{C:inactive} Mult)"
                 }
             },
             j_Bitters_bitterjoker = {

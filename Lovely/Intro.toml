@@ -2,6 +2,7 @@
 version = "1.0.0"
 priority = -2
 
+# cIKIRS
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
@@ -16,6 +17,7 @@ payload = '''
 '''
 match_indent = true
 
+# aKK THE CARDS FLYING
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
@@ -26,6 +28,7 @@ card_size*G.CARD_W, card_size*G.CARD_H, pseudorandom_element(G.P_CENTER_POOLS.Bi
 '''
 match_indent = true
 
+# bitterdoes
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
