@@ -3,6 +3,10 @@ Art:
 
 Code:
     Icyethics/Ice (gave code for swagless' extra pot soul thingy)
+    oinite (misc help from dev-help)
+    Ali (Finally fixed my even and odd problems)
 
 Extra:
     swagless (was there)
+    nimsi (Joker Idea: Joker Idea)
+    Snonc (Joker Idea: Retro joker)

@@ -28,12 +28,19 @@ return {
         Blind = {},
         Enhanced = {},
         Joker = {
-            -- bad developers
+            j_Bitters_v2goober = {
+                name = "{C:red}Goober V2",
+                text = {
+                    "Doesn't do much, just kinda sits there",
+                    "Doesn't take any slots", -- Because he cant
+                },
+            },
+            -- Funnys
             j_Bitters_piratesoftware = {
                 name = "Pirate Software",
                 text = {
                     "{C:green}#1# in 2{} Chance of 'crashing' your game",
-                    "Otherwise {X:mult,C:white}+#2#{} Mult"
+                    "Otherwise {X:mult,C:white}X#2#{} Mult"
                 }
             },
             j_Bitters_yandev = { -- balanced
@@ -43,8 +50,6 @@ return {
                     "everything {E:1}randomized"
                 }
             },
-
-            -- Funnys
             j_Bitters_FirstTry = { -- Balanced
                 name = "Spinel",
                 text = {
@@ -52,10 +57,19 @@ return {
                     "{C:inactive,s:0.6}Suggested by FirstTry.{}"
                 }
             },
+            j_Bitters_jidea = { -- Comparable to riff raff
+                name = "Joker Idea",
+                text = {
+                    "Sell this {C:attention}joker{} to", 
+                    "make {C:attention}#1#{} perishable jokers",
+                    "{C:inactive}(Must have space)"
+                }
+            },
             j_Bitters_normie = {
                 name = "Normie",
                 text = {
-                    "{X:mult,C:white}+#1#{} Mult{}"
+                    "{C:mult}+#1#{} Mult{} if hand played is",
+                    "your highest played hand"
                 }
             },
             j_Bitters_v1ultrakill = { -- Doesnt need to be balanced
@@ -111,7 +125,7 @@ return {
                 text = {
                     "{X:blue,C:white}X#1#{} {V:1}Chips and {X:mult,C:white}X#2#{} {V:1}Mult",
                     "{V:1}if you touched their {C:attention}#3#{} {V:1}or any {C:attention}#4#{}",
-                    "{C:inactive}({C:attention}dingaling suit{} {V:2}changes every round.)"
+                    "{C:inactive}({C:attention}suit{} {V:2}changes every round.)"
                 }
             },
             j_Bitters_elliottsmith = { -- Is legendary
@@ -130,10 +144,20 @@ return {
             },
 
             -- Cool people
-            j_Bitters_Jambatro = { -- hard to get, balanced ig | needs to be coded
+            j_Bitters_Jambatro = {
                 name = "Jambatro",
                 text = {
-                    "{X:mult,C:white}x#1#{} Mult{} if base score is divisible by #2#."
+                    "{X:mult,C:white}x#1#{} Mult{} if base",
+                    "score is odd."
+                }
+            },
+            j_Bitters_crabus = {
+                name = "Crabus",
+                text = {
+                    "{C:inactive}destroys all numberslop jokers",
+                    "{C:chips}+1{} chips for each explosion",
+                    "{C:attention}Left Click{} to explode",
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)",
                 }
             },
             j_Bitters_Astro = { -- I mean its astro I cant not keep it like this
@@ -142,6 +166,23 @@ return {
                     "If played hand has a scoring spade",
                     "randomize suit of all unscored cards."
                 }
+            },
+            j_Bitters_cass = { -- oh god...
+                name = "cassknows",
+                text = {
+                    {
+                        "spawns {V:4}a{} Perishable {C:attention}Crafty Joker{}, when {V:4}a{} {C:purple}Tarot{} card is used;", 
+                        "{C:green}A{C:inactive}(#1#){C:green} in B{C:inactive}(#2#){E:1} chance to spawn {V:4}a{} random {C:planet}Planet{} card",
+                        "where {C:green}A{} is the number of {C:planet}Planet{} cards used and {C:green}B{} is number of {C:purple}Tarots{} used",
+                        "when {V:4}a{} {C:red}non-{C:dark_edition}Negative{} {C:attention}Joker{} is {B:1}destroyed{}, create {V:4}a{} {C:attention}3 of {C:spades}Spades{}",
+                        "if you have at least {C:attention}4{} different suits in hand when scoring",
+                        "turn {V:4}a{} {V:1}random{} card in deck into {C:hearts}Hearts{} and make it {C:attention}Glass{}",
+                        "while holding exactly {C:attention}1 {C:purple}Tarot{} card, {C:green}uncommon{} {C:attention}Jokers{} and even ranks can't be debuffed",
+                        "after holding {V:4}a{} this {C:attention}Joker{} for {C:attention}5{} rounds {C:inactive}(#3#){}, create another {X:default,C:white}cassknows{} {C:attention}Joker{} and {E:2,C:red}self destruct{}", 
+                        "if {C:chips}chips{} are {E:1}even{}, {E:2}divide{} them by {C:attention}2{}, {B:3}otherwise{} {C:mult}mult{}iply by {X:chips,C:white}X3{} and subtract {C:chips}-1",
+                        "{V:2}selling {V:4}a{} {C:red}rare{C:attention} Joker{} has {V:4}a{} {C:green}7%{E:1} chance to create {V:4}a{} {C:dark_edition}Negative{} {C:money}Rental{} copy",
+                    },
+                }   
             },
             j_Bitters_Rice = { -- now a chance | balanced
                 name = "Rice Shower",
@@ -176,11 +217,18 @@ return {
                     "object after beating blind"
                 }
             },
+            j_Bitters_lily = { -- new
+                name = "Lily Felli",
+                text = {
+                    "{C:attention}+1{} Joker slot for",
+                    "each {C:attention}9{} in deck"
+                }
+            },
             j_Bitters_jamirror = { -- purposely unbalanced
                 name = "Jamirror",
                 text = {
-                    "{C:green}#1# in #3#{} to add 1 operation (^) to mult after beating boss blind",
-                    "{C:inactive}(Currently {X:mult,C:white}#2#{}){}"
+                    "Retrigger {C:attention}Joker{} to the left",
+                    "for the next {C:attention}#1#{} rounds"
                 }
             },
 
@@ -193,7 +241,7 @@ return {
                 }
             },
             j_Bitters_arcjoker = {
-                name = "{f:Bitters_papyrus}Arc",
+                name = "{f:Bitters_papyrus}arc",
                 text = {
                     "{E:1}Mult is multiplied by {E:1,f:Bitters_arial,C:attention}π{E:1} per card played.",
                     "{C:inactive}(Currently {C:mult}X#1#{C:inactive} Mult)"
@@ -207,8 +255,56 @@ return {
                 }
             },
 
+
+            -- glop
+            j_Bitters_glopless = {
+                name = "{f:Bitters_Jokerman}Glopless",
+                text = {
+                    "{C:attention}Unenhanced cards{} give {X:green,C:white}X#1#{} Glop when scored",
+                    "Increase by {X:green,C:white}X0.25{} when an {C:attention}Enhanced card{} is scored"
+                }
+            },
+            j_Bitters_arc_glop = {
+                name = "{f:Bitters_papyrus}arc",
+                text = {
+                    "{E:1,C:green}Glop{E:1} is multiplied by {E:1,f:Bitters_arial,C:attention}π{E:1} per card played.",
+                    "{E:1}for every {E:1,C:green}1,000,000{E:1} glop add {E:1,f:Bitters_arial,X:sfark,C:white}Xπ{E:1} Sfark",
+                    "{C:inactive}(Currently {C:green}+#1#{C:inactive} glop and {X:sfark,C:white}X#2#{C:inactive})"
+                }
+            },
+            j_Bitters_glopmirror = { -- purposely unbalanced
+                name = "Glopmirror",
+                text = {
+                    "Retrigger {C:attention}Joker{} to the left",
+                    "for the next {C:attention}#1#{} rounds ",
+                    "give {C:green}+0.5{} glop for every round left",
+                }
+            },
+            j_Bitters_glopself = { -- Balanced
+                name = "Glopself",
+                text = {
+                    "{X:green,C:white}+X1{} XGlop for every 20 files in your {E:1, C:blue}downloads{}", 
+                    "This number cant be below {X:green,C:white}X3", 
+                    "{C:inactive}(Currently {X:green,C:white}x#1#{})"
+                }
+            },
+            j_Bitters_GLOP5 = { -- Dont wanna fix
+                name = "{B:1}GLOP5",
+                text = {
+                    "{X:glop,C:white}X#1#{} {V:1}Glop and {X:chips,C:white}X#2#{} {V:1}Chips",
+                    "{V:1}if you touched their {C:attention}#3#{} {V:1}or any {C:attention}#4#{}",
+                    "{C:inactive}({C:attention}suit{} {V:2}changes every round.)"
+                }
+            },
         },
-        Other = {},
+        Other = {
+            Bitters_CassGlop = {
+                name = "Re:potassium Crossmod",
+                text = {
+                    '{V:1}Spawn{} a {C:dark_edition}negative{} {C:planet}Glopur{} every {C:attention}3{} rounds {B:1,C:inactive}(#1#){}',
+                }
+            }
+        },
         Planet = {},
         Spectral = {},
         Stake = {},

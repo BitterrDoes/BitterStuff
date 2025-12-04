@@ -1,18 +1,29 @@
+--- ahhhhhhhhhhhhhhhhhhh
+to_big = to_big or function(x) return x end
+function len(table)
+	local count = 0
+	for i in pairs(table) do
+		count = count + 1
+	end
+	return count
+end
+
 -- variables
 Bitterstuff = SMODS.current_mod
 Bitterstuff.ModsUsing = 0
 G.effectmanager = {}
 
--- Fucntions
+-- setup
+Bitterstuff.optional_features = {
+	retrigger_joker = true
+}
 
+-- Fucntions
 Bitterstuff.calculate = function(self, context)
-	if not G.GAME then return end
 	if context.setting_blind then
 		G.GAME.playing = true
-		print("Main.lua | wawa ", G.GAME.playing)
 	elseif context.end_of_round and context.main_eval then
 		G.GAME.playing = false
-		print("Main.lua | not wawa ", G.GAME.playing)
 	end
 end
 
@@ -54,10 +65,24 @@ end
 Bitterstuff.Load_Dir("Scripts")
 Bitterstuff.Load_Dir("Scripts/Jokers")
 Bitterstuff.Load_Dir("Scripts/Assets")
+
+Bitterstuff.crossmodded = {}
+
+for _, file in pairs(NFS.getDirectoryItems(Bitterstuff.path .. "/Scripts/Compatibility")) do
+	local mod = SMODS.find_mod(file)
+	if next(mod) then
+		Bitterstuff.crossmodded[mod[1].id] = mod
+		Bitterstuff.Load_Dir("Scripts/Compatibility/".. file)
+	end
+end
+
+-- other stuff
+
 function Bitterstuff.reset_game_globals(init, _GAME) -- i needed to put this somewhere, and this is the first thing that came to mind
 	if not _GAME then 
 		Reset_card_picker_selection()
 	end
+
 	Bitterstuff.ModsUsing = 0
 	for i,_ in pairs(SMODS.Mods) do
 		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + (1 / 15)

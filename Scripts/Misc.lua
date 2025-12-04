@@ -91,98 +91,13 @@ SMODS.Sticker {
     key = "s_target",
     loc_txt = {
         name = "Targeted",
-        text = {"This card has been {E:1,C:attention}targeted{}!", "this relates to all {C:attention}target Jokers"}
+        label = 'Targeted',
+        text = {"This card is {E:1,C:attention}targeted{}"}
     },
+    badge_colour = HEX("EA909C"),
 
     atlas = "MiscAtlas",
     pos = {x=2,y=0},
 
     rate = 0,
 }
-
--- Seals
--- SMODS.Seal {
---     key = "crypto",
-
---     config = { extra = { mining = false } },
-
---     atlas = 'MiscAtlas',
---     pos = { x = 1, y = 0 },
-
---     loc_txt = {
---         name = "Crypto Seal",
---         text = "'Mines' Crypto on your device"
---     },
-
---     -- set_badges = function(self, card, badges)
---     --     badges[#badges+1] = create_badge("Crypto Seal", G.C.RED)
---     -- end,
-
---     update = function(self, card, dt) -- animated joker pog
---         if not card.ability.seal.extra.mining then
---             while true do
---                 delay()
---             end
---         end
---     end
--- }
-
--- vouchers
--- SMODS.Voucher {
---     key = "negvouch1",
-    
---     loc_txt = {
---         name = "Negative Voucher",
---         text = {"All {C:}Negative{} {C:attention}jokers{} are retriggered once"}
---     },
-
---     atlas = 'voucherAtlas',
---     pos = { x = 0, y = 0 },
-
---     calculate = function(self, card, context) -- taken from BitterDoes Joker
---         local results = {}
-
---         for i, other_joker in pairs(G.jokers.cards) do
---             if other_joker.edition and other_joker.edition.key == "e_negative" then
---                 -- print("found one with negative")
---                 local ret = SMODS.blueprint_effect(card, other_joker, context)
---                 if ret then
---                     table.insert(results, ret)
---                 end
---             end
---         end
-
---         -- print("merging effects") 
---         return SMODS.merge_effects(results)
---     end
--- }
-
--- SMODS.Voucher {
---     key = "negvouch2",
-    
---     loc_txt = {
---         name = "Negative Voucher",
---         text = {"All {C:}Negative{} {C:attention}jokers{} are retriggered once"}
---     },
-
---     requires = "v_Bitters_negvouch1",
---     atlas = 'voucherAtlas',
---     pos = { x = 0, y = 0 },
-
---     calculate = function(self, card, context) -- taken from "BitterDoes"
---         local results = {}
-
---         for i, other_joker in pairs(G.jokers.cards) do
---             if other_joker.edition and other_joker.edition.key then
---                 -- print("found one with negative")
---                 local ret = SMODS.blueprint_effect(card, other_joker, context)
---                 if ret then
---                     table.insert(results, ret)
---                 end
---             end
---         end
-
---         -- print("merging effects") 
---         return SMODS.merge_effects(results)
---     end
--- }

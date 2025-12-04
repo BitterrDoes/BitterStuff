@@ -1,0 +1,11 @@
+-- SMODS.Blind {
+--     key = "wordblind",
+--     loc_txt = {
+--         name = "nameblind wip",
+--         text = {"Each hand play a word game", "Losing adds +1X base mult"}
+--     },
+--     mult = 2,
+--     boss_colour = HEX("4CD2AC")
+-- }
+
+-- ^^^ wont be added until im no longer sick (2/12/25)

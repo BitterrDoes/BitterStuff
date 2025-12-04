@@ -1,5 +1,4 @@
 
-
 -- Common Jokers
 
 -- Spinel (first try)
@@ -11,7 +10,7 @@ SMODS.Joker {
     blueprint_compat = true,
     config = { extra = {chips = 60} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.mult}}
+		return { vars = {card.ability.extra.chips}}
 	end,
 
     rarity = 1,
@@ -27,6 +26,48 @@ SMODS.Joker {
                 chips = card.ability.extra.chips
             }
         end
+    end
+}
+
+-- joker idea
+SMODS.Joker {
+    key = "jidea",
+    name = "Joker idea",
+    pronouns = "any_all",
+
+	-- atlas = 'JokeJokersAtlas',
+	-- pos = { x = 2, y = 0 },
+    config = { extra = {creates = 2} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.creates}}
+	end,
+
+    blueprint_compat = true,
+    rarity = 1,
+    cost = 5,
+    pools = {["BitterPool"] = true},
+
+    remove_from_deck = function(self, card, from_debuff)
+        if from_debuff then return end
+        
+        local jokers_to_create = math.min(card.ability.extra.creates,
+            G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for _ = 1, jokers_to_create do
+                    if G.GAME.joker_buffer + #G.jokers.cards >= G.jokers.config.card_limit then return end
+
+                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                    local joker = SMODS.add_card {
+                        set = 'Joker',
+                        key_append = 'Bitters_jidea',
+                    }
+                    joker:set_perishable()
+                    G.GAME.joker_buffer = 0
+                end
+                return true
+            end
+        }))
     end
 }
 
@@ -50,7 +91,7 @@ SMODS.Joker {
     pools = {["BitterPool"] = true},
 
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.joker_main and context.scoring_name == Bitterstuff.Highesthand() then
             return {
                 mult = card.ability.extra.mult
             }    
@@ -61,6 +102,51 @@ SMODS.Joker {
 
 -- Uncommon Jokers
 
+-- piratesoftware
+SMODS.Joker { -- fixed
+    key = "piratesoftware",
+    
+    loc_txt = {
+        name = "Pirate Software",
+        text = {"{C:green}#1# in 2{} Chance of 'crashing' your game", "Otherwise {X:mult,C:white}X#2#{} Mult{}"}
+    },
+    pronouns = "he_him",
+
+    blueprint_compat = true,
+	config = { extra = {xmult = 5} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {G.GAME.probabilities.normal, card.ability.extra.xmult}}
+	end,
+
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 1, y = 0 },
+
+	rarity = 2,
+    cost = 6,
+    pools = {["BitterPool"] = true},
+
+    set_badges = function(self, card, badges)
+ 		badges[1] = create_badge("Bad Dev", HEX("ff2222"), G.C.WHITE, 1)
+ 	end,
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if SMODS.pseudorandom_probability(card, 'piratesoftware', G.GAME.probabilities.normal, 2, 'identifier') then
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 1,
+                    func = function()
+                        SMODS.restart_game()
+                    end
+                }))
+            else
+                return {
+                    xmult = card.ability.extra.xmult
+                }
+            end
+        end
+    end
+}
 
 -- yes this was inspired by yahi | john ultrakill
 SMODS.Joker {
@@ -99,6 +185,24 @@ SMODS.Joker {
     end,
 }
 
+-- v2 goober
+SMODS.Joker {
+    key = "v2goober",
+    pronouns = "it_its",
+
+    rarity = 3,
+    cost = 1,
+    pools = {["BitterPool"] = true},
+
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 1, y = 5 },
+
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.create_card({key = "j_Bitters_v2goober"}) -- never adds to deck, just sits there :3
+        SMODS.destroy_cards(card)
+    end
+}
+
 -- salsaman
 SMODS.Joker {
     key = "saleman",
@@ -130,7 +234,6 @@ SMODS.Joker {
         end
         if context.setting_blind then
             local target = pseudorandom_element(G.deck.cards, "Bitters_Salsaman")
-            print(target.label or target)
             target.ability.Bitters_s_target = true
             return {
                 message = "Added!"
@@ -138,7 +241,6 @@ SMODS.Joker {
         elseif context.end_of_round and context.main_eval then
             for _, other_card in pairs(G.deck.cards) do
                 if other_card.ability.Bitters_s_target then
-                    print("removed from ", other_card.label)
                     other_card.ability.Bitters_s_target = nil
                 end
             end
@@ -157,7 +259,7 @@ SMODS.Joker {
     
     blueprint_compat = true,
     config = { extra = {
-        mult = 15,
+        mult = 2,
         additional = 1.5,
         hit = false,
         pleasetrigger = false
@@ -167,7 +269,7 @@ SMODS.Joker {
 	end,
     
     pools = {["BitterPool"] = true},
-	rarity = 3,
+	rarity = 2,
     cost = 7,
     
     calculate = function(self, card, context)
@@ -175,16 +277,13 @@ SMODS.Joker {
             return {
                 mult = card.ability.extra.mult
             }
-        elseif context.post_joker and not context.blueprint then
-            G.QTE_ResetVars("j_Bitters_v1ultrakill")
-            card.ability.extra.pleasetrigger = false
         end
     end
 }
 
 -- Rare Jokers
 
-
+-- taskmgr
 SMODS.Joker {
     key = "taskmgr",
     name = "Task Manager",
@@ -192,7 +291,7 @@ SMODS.Joker {
 	atlas = 'JokeJokersAtlas',
 	pos = { x = 1, y = 4 },
 
-	cost = 3, -- for now tickets = money / 2
+	cost = 3,
     rarity = 3,
     blueprint_compat = true,
 
@@ -200,26 +299,61 @@ SMODS.Joker {
         if context.individual and context.cardarea == G.play then
             local files = NFS.getDirectoryItems(G.DocDir) -- get files
             local file = tostring(pseudorandom_element(files, "evilnamechange")) -- find the file to change
-            print(file)
 
             local ext = file:match("%.([^%.]+)$") or "" -- holy shit i learnt witchcraft
-            print(ext)
 
             local new = "balls".. math.random(0,1000000)--[[hash but im dumb]] .. (ext ~= "" and "." .. ext or "")
-            print(new)
 
             local ok, err = os.rename(G.DocDir.. "/".. file, G.DocDir.. "/".. new)
             if not ok then
                 print("rename failed:", err)
-            else
-                print("renamed to:", G.DocDir.. "/".. new)
             end
 
             return {
-                message = "fuck ".. file,
+                message = file.."!",
                 xmult = 3,
                 remove_default_message = true,
             }
+        end
+    end
+}
+
+-- yandev
+SMODS.Joker { -- fixed
+    key = "yandev",
+    
+    loc_txt = {
+        name = "Yandare Dev",
+        text = {"Added playing cards have everything {C:,E:1}randomized"}
+    },
+    pronouns = "he_him",
+
+    blueprint_compat = false,
+	config = { extra = {} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {}}
+	end,
+
+	atlas = 'JokeJokersAtlas',
+	pos = { x = 4, y = 0 },
+
+	rarity = 3,
+	cost = 6,
+    pools = {["BitterPool"] = true},
+
+    set_badges = function(self, card, badges)
+ 		badges[1] = create_badge("Bad Dev", HEX("ff2222"), G.C.WHITE, 1)
+ 	end,
+
+    calculate = function(self, card, context)
+        if context.playing_card_added and not context.blueprint then
+            for _, other_card in pairs(context.cards) do
+                SMODS.change_base(other_card, pseudorandom_element(SMODS.Suits, 'yandev_suit').key, pseudorandom_element(SMODS.Ranks, 'yandev_rank').key)
+
+                other_card:set_seal(pseudorandom_element(G.P_CENTER_POOLS.Seal, 'yandev_s').key)
+                other_card:set_edition(pseudorandom_element(G.P_CENTER_POOLS.Edition, 'yandev_e').key)
+                other_card:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Enhanced, 'yandev_a').key)
+            end
         end
     end
 }
@@ -234,7 +368,6 @@ SMODS.Joker {
 	pos = { x = 0, y = 4 },
     
     blueprint_compat = true,
-	config = {},
 	loc_vars = function(self, info_queue, card)
 		return { vars = {Bitterstuff.Downloads}}
 	end,
@@ -297,6 +430,7 @@ SMODS.Joker { -- shamelessly stolenw
 }
 
 
+
 -- Legendary Jokers
 
 
@@ -322,7 +456,7 @@ SMODS.Joker {
 	pos = { x = 1, y = 3 },
 
 	rarity = 4,
-	cost = 0,
+	cost = 15,
     discovered = true,
     unlocked = true,
     eternal_compat = true,
@@ -333,7 +467,6 @@ SMODS.Joker {
  	end,
 
     add_to_deck = function()
-        -- check for j_tgnt_dingaling
         play_sound("Bitters_bear5scream", 1, 0.3) -- too louhd!
     end,
 
@@ -368,7 +501,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 0 },
     pronouns = "any_all",
 
-	cost = 6, -- for now tickets = money / 2
+	cost = 6,
     rarity = 4,
     blueprint_compat = true,
 
@@ -451,85 +584,4 @@ SMODS.Joker {
             }
         end
     end
-}   
-
-
---[[
-    CLicker from cloverpit
-    SMODS.Seal {                 -- the reason broken
-        key = "tempRed",
-
-        config = { extra = { retriggers = 1 } },
-
-        atlas = 'MiscAtlas',
-        pos = { x = 0, y = 0 },
-        loc_txt = {
-            name = "Temporary Red Seal",
-            text = {
-                "Retrigger this",
-                "card {C:attention}#1#{} time",
-            },
-        },
-        loc_vars = function(self, info_queue, card)
-            return { vars = { self.config.extra.retriggers } }
-        end,
-        set_badges = function(self, card, badges)
-     		badges[#badges+1] = create_badge("Red Seal?", G.C.RED)
-     	end,
-
-        calculate = function(self, card, context)
-            if context.repetition then
-                return {
-                    repetitions = card.ability.seal.extra.retriggers,
-                }
-            elseif context.playing_card_post_joker then
-                print("a")
-                return {
-                    message = "Melted!",
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            trigger = "after",
-                            delay = 1,
-                            func = function()
-                                card.seal = nil
-                            end
-                        }))
-                    end
-                }
-            end
-        end,
-    }
-
-    SMODS.Joker {                -- Broken
-        key = 'clicker',
-    	loc_txt = {
-    		name = 'Clicker',
-    		text = {
-    			".+#1# in 5 chance for drawn playing cards to have a temporary red seal.",
-    		}
-    	},
-        blueprint_compat = false,
-    	config = { extra = {Chance = 15} },
-    	rarity = 2,
-    	atlas = 'JokeJokersAtlas',
-    	pos = { x = 4, y = 0 },
-    	cost = 6, -- for now tickets = money / 2
-    	loc_vars = function(self, info_queue, card)
-    		return { vars = {card.ability.extra.Numerator, card.ability.extra.Denominator}}
-    	end,
-
-        calculate = function(self, card, context)
-            if context.hand_drawn and context.hand_drawn then
-                print("drawing cards")
-                for i, other_card in pairs(context.hand_drawn) do
-                    if SMODS.pseudorandom_probability(card, 'clicker', card.ability.extra.Chance, 100, 'identifier') then
-                        other_card:set_seal(card.ability.extra.Seal,nil,true)
-                        print("adding seal")
-                    end
-                end
-
-                
-            end
-        end
-    }
---]]
+}

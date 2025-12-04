@@ -65,7 +65,6 @@ function love.draw() -- all functions were taken from yahi then, edited by bitte
 
         return (spritesheet)
     end
-    
 
     local _xscale = love.graphics.getWidth()/1920
     local _yscale = love.graphics.getHeight()/1080
@@ -78,29 +77,41 @@ function love.draw() -- all functions were taken from yahi then, edited by bitte
     --     love.graphics.draw(Bitterstuff.fishpng, 0*_xscale*2, 0*_yscale*2,0,_xscale*2*2,_yscale*2*2)
     -- end
 
-    -- EFFECT MANAGER!!! 
-    -- this is where on-screen little gifs play
     --]]
 
+    -- EFFECT MANAGER!!! 
+    -- this is where on-screen little gifs play
+    
     if G.effectmanager then
         
-        --print("Effect manager has "..#G.effectmanager)
         for i = 1, #G.effectmanager do
-            --print("G.effectmanager[i].name".. G.effectmanager[i][1].name)
             if G.effectmanager[i] then
+
                 if G.effectmanager[i][1].name == "brick" then
                     Bitterstuff.imagebrick = loadImage("Brick.png")
                     Bitterstuff.imagebricksprite = loadSpritesheet("Brick.png",300,300,86,1)
                     imagetodraw = Bitterstuff.imagebrick
                     quadtodraw = Bitterstuff.imagebricksprite
                     _imgindex = G.effectmanager[i][1].frame
-                    --print("_imgindex".. _imgindex)
                     _xpos = G.effectmanager[i][1].xpos
                     _ypos = G.effectmanager[i][1].ypos
 
                     _xscale = _xscale * 4
                     _yscale = _yscale * 4
 
+                    love.graphics.setColor(1, 1, 1, 1)
+                elseif G.effectmanager[i][1].name == "explosion" then
+                    Bitterstuff.img_explosion = loadImage("Explosion.png")
+                    Bitterstuff.img_explosionsprite = loadSpritesheet("Explosion.png",66,66,17,1)
+                    imagetodraw = Bitterstuff.img_explosion
+                    quadtodraw = Bitterstuff.img_explosionsprite
+                    _imgindex = G.effectmanager[i][1].frame
+                    _xpos = G.effectmanager[i][1].xpos
+                    _ypos = G.effectmanager[i][1].ypos
+
+                    _xscale = _xscale * 4
+                    _yscale = _yscale * 4
+                    
                     love.graphics.setColor(1, 1, 1, 1)
                 end
                 
@@ -128,5 +139,14 @@ function Game:update(dt)
         Bitterstuff.dtcounter = Bitterstuff.dtcounter - 0.010
 
         if #G.effectmanager > 0 then decrementingTickEvent("G.effectmanager",0) end
+    end
+end
+
+-- from cryptid/items/misc_joker.lua
+local lcpref = Controller.L_cursor_press
+function Controller:L_cursor_press(x, y)
+    lcpref(self, x, y)
+    if G and G.jokers and G.jokers.cards and not G.SETTINGS.paused then
+        SMODS.calculate_context({ Bitters_press = true })
     end
 end
