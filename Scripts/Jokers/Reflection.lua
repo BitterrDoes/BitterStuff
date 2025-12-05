@@ -262,67 +262,17 @@ SMODS.Joker {
     end
 }
 
--- crabus
-local function checkslop(table)
-    for _, var in pairs(table) do
-        if type(var) == "table" then
-            return checkslop(var)
-        elseif type(var) == "number" and var > 100 then
-            return true
-        end
+-- local function checkslop(table)
+--     for _, var in pairs(table) do
+--         if type(var) == "table" then
+--             return checkslop(var)
+--         elseif type(var) == "number" and var > 100 then
+--             return true
+--         end
 
-        return false
-    end
-end
-SMODS.Joker {
-    key = "crabus",
-    name = "Crabus",
-    pronouns = "any_all",
-
-	-- atlas = 'JokeJokersAtlas',
-	-- pos = { x = 2, y = 0 },
-    config = { extra = {chips = 0} },
-	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.chips}}
-	end,
-
-    blueprint_compat = true,
-    rarity = 2,
-    cost = 5,
-    pools = {["BitterPool"] = true},
-
-    calculate = function(self, card, context)
-        if context.Bitters_press then
-            if card.states.hover.is == true then
-
-                -- check for slop
-                for _, card in pairs(G.jokers.cards) do
-                    local slop = checkslop(card.ability)
-
-                    if slop then SMODS.destroy_cards(card, false, true) end
-                end
-
-                if not G.effectmanager then G.effectmanager = {} end
-                G.effectmanager[1] = {
-                -- requires 
-                    [1] = { -- Look at consumables for info on what each do
-                        name = "explosion",
-                        frame = 1,
-                        maxframe = 17,
-                        xpos = (card.T.x + ((card.T.w * card.T.scale) / 2)) * 85,
-                        ypos = 0,
-                        duration = 30,
-                        fps = 60,
-                        tfps = 60,
-                    },
-                }
-
-                card.ability.extra.chips = card.ability.extra.chips + 1
-                card:juice_up()
-            end
-        end
-    end,
-}
+--         return false
+--     end
+-- end
 
 -- Jamirror
 SMODS.Joker {

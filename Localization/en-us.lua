@@ -151,15 +151,6 @@ return {
                     "score is odd."
                 }
             },
-            j_Bitters_crabus = {
-                name = "Crabus",
-                text = {
-                    "{C:inactive}destroys all numberslop jokers",
-                    "{C:chips}+1{} chips for each explosion",
-                    "{C:attention}Left Click{} to explode",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)",
-                }
-            },
             j_Bitters_Astro = { -- I mean its astro I cant not keep it like this
                 name = "Astro",
                 text = {
