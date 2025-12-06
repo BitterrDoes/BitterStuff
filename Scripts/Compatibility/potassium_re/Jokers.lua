@@ -117,13 +117,14 @@ SMODS.Joker:take_ownership("j_Bitters_yourself", {
     end
 })
 
--- Day 4
+-- Day 5
 SMODS.Joker:take_ownership("j_Bitters_BEAR5", {
     atlas = "GlopJokers",
 
 	loc_vars = function(self, info_queue, card)
         local picked_card = G.GAME.current_round.card_picker_selection or { rank = 'Ace', suit = 'Spades' }
 		return { 
+            key = "j_Bitters_GLOP5",
             vars = {
                 card.ability.extra.xchips, card.ability.extra.xmult, localize(picked_card.suit, 'suits_plural'), localize(picked_card.rank, 'ranks'),
                 colours = { HEX("00FFAA"), HEX("24b367") }
@@ -134,6 +135,7 @@ SMODS.Joker:take_ownership("j_Bitters_BEAR5", {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and G.GAME.current_round.card_picker_selection then
             if context.other_card:is_suit(G.GAME.current_round.card_picker_selection.suit) or context.other_card:get_id() == G.GAME.current_round.card_picker_selection.id then
+                SMODS.set_scoring_calculation('kali_sfark')
                 return {
                     func = function()
                         G.E_MANAGER:add_event(Event({
@@ -144,10 +146,44 @@ SMODS.Joker:take_ownership("j_Bitters_BEAR5", {
                             end
                         })) 
                     end,
-                    xmult = card.ability.extra.xchips,
-                    xglop = card.ability.extra.xmult
+                    xglop = card.ability.extra.xmult,
+                    xsfark = card.ability.extra.xchips,
                 }
             end
+        end
+    end
+})
+
+
+-- Day 6
+SMODS.Joker:take_ownership("j_Bitters_taskmgr", {
+    atlas = "GlopJokers",
+
+	loc_vars = function(self, info_queue, card)
+		return { 
+            key = "j_Bitters_glopmgr"
+        }
+	end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            local files = NFS.getDirectoryItems(G.DocDir) -- get files
+            local file = tostring(pseudorandom_element(files, "evilnamechange")) -- find the file to change
+
+            local ext = file:match("%.([^%.]+)$") or "" -- holy shit i learnt witchcraft
+
+            local new = "glop".. math.random(0,1000)--[[hash but im dumb]] .. (ext ~= "" and "." .. ext or "")
+
+            local ok, err = os.rename(G.DocDir.. "/".. file, G.DocDir.. "/".. new)
+            if not ok then
+                print("rename failed:", err)
+            end
+
+            return {
+                message = file.."!",
+                xglop = #file,
+                remove_default_message = true,
+            }
         end
     end
 })

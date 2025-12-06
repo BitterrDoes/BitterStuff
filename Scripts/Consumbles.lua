@@ -55,6 +55,103 @@ SMODS.Consumable {
     end
 }
 
+local presLookup = {
+    {
+        message = "+1 hand",
+        colour = G.C.BLUE,
+        variable = "next_hands",
+        change = 1
+    },
+    {
+        message = "+1 discard",
+        colour = G.C.RED,
+        variable = "discards",
+        change = 1
+    },
+    {
+        message = "+5 dollars",
+        colour = G.C.MONEY,
+        variable = "dollars",
+        change = 5
+    },
+}
+
+SMODS.Consumable {
+    key = "present",
+    set = "Tarot",
+
+    loc_txt = {
+        name = "Present",
+        text = {
+            "gives you a random {C:blue}buff{}",
+            "for the {C:attention}next{} round"
+        }
+    },
+    atlas = 'consumableatlas', pos = { x = 1, y = 0 },
+
+    config = {
+        extra = false,
+    },
+    unlocked = true, discovered = true,
+    cost = 3,
+    pools = {["Bitter"] = true},
+
+    can_use = function(self, card)
+        if not G.GAME.playing then
+            return true
+        end
+        return false
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        -- yay more stolen code from dna
+        local eval = function() return not G.GAME.playing end
+        juice_card_until(card, eval, true)
+    end,
+
+    use = function(self, card, area)
+        local choice = presLookup[math.random(1,#presLookup)]
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                attention_text({
+                    text = choice.message,
+                    scale = 1.3,
+                    hold = 1.4,
+                    major = card,
+                    backdrop_colour = choice.colour,
+                    align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and
+                        'tm' or 'cm',
+                    offset = { x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and -0.2 or 0 },
+                    silent = true
+                })
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.06 * G.SETTINGS.GAMESPEED,
+                    blockable = false,
+                    blocking = false,
+                    func = function()
+                        play_sound('tarot2', 0.76, 0.4)
+                        G.GAME.round_bonus[choice.variable] = G.GAME.round_bonus[choice.variable] + choice.change
+                        return true
+                    end
+                }))
+                play_sound('tarot2', 1, 0.4)
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+    end,
+
+    calculate = function(self, card, context)
+        if context.blind_defeated and context.main_eval then
+            local eval = function() return not G.GAME.playing end
+            juice_card_until(card, eval, true)
+        end
+    end
+}
+
 SMODS.Consumable {
     key = 'meow',
     set = 'Spectral',

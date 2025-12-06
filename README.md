@@ -14,7 +14,7 @@ yes ultrakill joker was inspired by yahi
 yes I will take suggestions, please do give me more things
 
 
-## Changelog
+## Major Changelog | 1.4.8
 date is 4/12/25 aedt, but like late at night
 
 ### New Jokers
@@ -38,3 +38,18 @@ date is 4/12/25 aedt, but like late at night
   - jambatro finally works omg yes
 
 theers some other things that i forgot, or is irrelevant but like have fun playing bitterslop 😛
+
+
+
+### Minor changlog 1 | 1.4.69
+
+added christmas stuff
+  - santa | gives presents
+  - presents | gives random buffs
+
+glopmas day 6 | control
+  - task manager -> glop manager | also changed up the effect
+
+Fixed GLOP5
+cassknows text is even worse
+removal of crabus sadly

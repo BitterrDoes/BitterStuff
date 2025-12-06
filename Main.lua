@@ -22,6 +22,16 @@ Bitterstuff.optional_features = {
 Bitterstuff.calculate = function(self, context)
 	if context.setting_blind then
 		G.GAME.playing = true
+		if G.GAME.round_bonus.dollars and G.GAME.round_bonus.dollars ~= 0 then
+			G.E_MANAGER:add_event(Event({
+				trigger = 'after',
+				delay = 0.4,
+				func = function()
+					ease_dollars(G.GAME.round_bonus.dollars,true)
+					return true
+				end
+			}))
+		end
 	elseif context.end_of_round and context.main_eval then
 		G.GAME.playing = false
 	end
@@ -82,7 +92,9 @@ function Bitterstuff.reset_game_globals(init, _GAME) -- i needed to put this som
 	if not _GAME then 
 		Reset_card_picker_selection()
 	end
-
+	if G.GAME then
+		G.GAME.round_bonus.dollars = 0
+	end
 	Bitterstuff.ModsUsing = 0
 	for i,_ in pairs(SMODS.Mods) do
 		Bitterstuff.ModsUsing = Bitterstuff.ModsUsing + (1 / 15)

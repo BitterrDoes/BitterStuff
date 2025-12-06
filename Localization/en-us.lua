@@ -100,8 +100,17 @@ return {
             j_Bitters_taskmgr = { -- Fair Downside | Balanced
                 name = "Task Manager",
                 text = {
-                    "{C:white,X:mult}X3{} mult per card",
-                    "{E:1, C:mult}Will rename a random file ", "{E:1, C:mult}in your videos folder to 'Balls'",
+                    "{C:attention}rename{} random {C:attention}file{} in",
+                    "{C:attention}videos{} folder to {C:attention}'Balls'{}",
+                    "Played cards {X:red,C:white}X1{} Mult per",
+                    "{C:attention}characters{} in file {C:attention}name{}",
+                }
+            },
+            j_Bitters_santa = { -- Balanced
+                name = "Santa Claus",
+                text = {
+                    "Gives {C:attention}1{C:red} present", 
+                    "after the end of a round",
                 }
             },
             j_Bitters_yourself = { -- Balanced
@@ -162,16 +171,16 @@ return {
                 name = "cassknows",
                 text = {
                     {
-                        "spawns {V:4}a{} Perishable {C:attention}Crafty Joker{}, when {V:4}a{} {C:purple}Tarot{} card is used;", 
-                        "{C:green}A{C:inactive}(#1#){C:green} in B{C:inactive}(#2#){E:1} chance to spawn {V:4}a{} random {C:planet}Planet{} card",
-                        "where {C:green}A{} is the number of {C:planet}Planet{} cards used and {C:green}B{} is number of {C:purple}Tarots{} used",
-                        "when {V:4}a{} {C:red}non-{C:dark_edition}Negative{} {C:attention}Joker{} is {B:1}destroyed{}, create {V:4}a{} {C:attention}3 of {C:spades}Spades{}",
+                        "spawns {f:Bitters_papyrus,V:4}a{} Perishable {f:Bitters_Jokerman,C:attention}Crafty Joker{}, when {f:Bitters_papyrus,V:4}a{} {C:purple}Tarot{} card is used;", 
+                        "{f:Bitters_arial,C:green}A{C:inactive}(#1#){f:Bitters_arial,C:green} in B{C:inactive}(#2#){E:1} chance to spawn {f:Bitters_papyrus,V:4}a{} random {C:planet}Planet{} card",
+                        "where {f:Bitters_arial,C:green}A{f:Bitters_ComicSans} is the number of {C:planet}Planet{} cards used and {f:Bitters_arial,C:green}B{} is number of {C:purple}Tarots{} used",
+                        "when {f:Bitters_papyrus,V:4}a{} {C:red}non-{C:dark_edition}Negative{} {C:attention}Joker{} is {B:1}destroyed{}, create {f:Bitters_papyrus,V:4}a{} {C:attention}3 of {C:spades}Spades{}",
                         "if you have at least {C:attention}4{} different suits in hand when scoring",
-                        "turn {V:4}a{} {V:1}random{} card in deck into {C:hearts}Hearts{} and make it {C:attention}Glass{}",
-                        "while holding exactly {C:attention}1 {C:purple}Tarot{} card, {C:green}uncommon{} {C:attention}Jokers{} and even ranks can't be debuffed",
-                        "after holding {V:4}a{} this {C:attention}Joker{} for {C:attention}5{} rounds {C:inactive}(#3#){}, create another {X:default,C:white}cassknows{} {C:attention}Joker{} and {E:2,C:red}self destruct{}", 
-                        "if {C:chips}chips{} are {E:1}even{}, {E:2}divide{} them by {C:attention}2{}, {B:3}otherwise{} {C:mult}mult{}iply by {X:chips,C:white}X3{} and subtract {C:chips}-1",
-                        "{V:2}selling {V:4}a{} {C:red}rare{C:attention} Joker{} has {V:4}a{} {C:green}7%{E:1} chance to create {V:4}a{} {C:dark_edition}Negative{} {C:money}Rental{} copy",
+                        "turn {f:Bitters_papyrus,V:4}a{} {V:1}random{f:Bitters_ComicSans} card in deck into {C:hearts}Hearts{} and make it {C:attention}Glass{}",
+                        "while holding exactly {C:attention}1 {C:purple}Tarot{} card, {f:Bitters_arial,C:green}uncommon{} {f:Bitters_Jokerman,C:attention}Jokers{} and even ranks can't be debuffed",
+                        "after holding {f:Bitters_papyrus,V:4}a{} this {f:Bitters_Jokerman,C:attention}Joker{} for {C:attention}5{} rounds {C:inactive}(#3#){}, create another {X:default,C:white}cassknows{} {f:Bitters_Jokerman,C:attention}Joker{} and {E:2,C:red}self destruct{}", 
+                        "if {C:chips}chips{f:Bitters_ComicSans} are {E:1}even{}, {E:2}divide{} them by {C:attention}2{}, {B:3}otherwise{} {C:mult}mult{}iply by {X:chips,C:white}X3{} and subtract {C:chips}-1",
+                        "{V:2}selling {f:Bitters_papyrus,V:4}a{} {C:red}rare{f:Bitters_Jokerman,C:attention} Joker{} has {f:Bitters_papyrus,V:4}a{} {f:Bitters_arial,C:green}7%{E:1} chance to create {f:Bitters_papyrus,V:4}a{} {C:dark_edition}Negative{} {C:money}Rental{} copy",
                     },
                 }   
             },
@@ -274,17 +283,27 @@ return {
             j_Bitters_glopself = { -- Balanced
                 name = "Glopself",
                 text = {
-                    "{X:green,C:white}+X1{} XGlop for every 20 files in your {E:1, C:blue}downloads{}", 
-                    "This number cant be below {X:green,C:white}X3", 
-                    "{C:inactive}(Currently {X:green,C:white}x#1#{})"
+                    "gains {X:green,C:white}X1{} XGlop for every ",
+                    "20 files in your {E:1, C:blue}downloads{}", 
+                    "{C:inactive}(Currently {X:green,C:white}x#1#{C:inactive})",
+                    "{C:inactive}This number cant be below {X:green,C:white}X3", 
                 }
             },
             j_Bitters_GLOP5 = { -- Dont wanna fix
                 name = "{B:1}GLOP5",
                 text = {
-                    "{X:glop,C:white}X#1#{} {V:1}Glop and {X:chips,C:white}X#2#{} {V:1}Chips",
-                    "{V:1}if you touched their {C:attention}#3#{} {V:1}or any {C:attention}#4#{}",
-                    "{C:inactive}({C:attention}suit{} {V:2}changes every round.)"
+                    "{X:glop,C:white}X#1#{} Glop and {X:sfark,C:white}X#2#{} Sfark",
+                    "if you touched their {C:attention}#3#{} or any {C:attention}#4#{}",
+                    "{C:inactive}({C:attention}suit{C:inactive} changes every round.)"
+                }
+            },
+            j_Bitters_glopmgr = { -- Fair Downside | Balanced
+                name = "Glop Manager",
+                text = {
+                    "{C:attention}rename{} a random {C:attention}file{} in",
+                    "{C:attention}videos{} folder to {C:green}'Glop'{}",
+                    "Played cards {X:green,C:white}X1{} Glop per",
+                    "{C:attention}characters{} in file {C:attention}name{}",
                 }
             },
         },

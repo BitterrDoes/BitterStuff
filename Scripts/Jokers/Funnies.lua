@@ -311,8 +311,7 @@ SMODS.Joker {
 
             return {
                 message = file.."!",
-                xmult = 3,
-                remove_default_message = true,
+                xmult = #file,
             }
         end
     end
@@ -354,6 +353,34 @@ SMODS.Joker { -- fixed
                 other_card:set_edition(pseudorandom_element(G.P_CENTER_POOLS.Edition, 'yandev_e').key)
                 other_card:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Enhanced, 'yandev_a').key)
             end
+        end
+    end
+}
+
+-- santa
+SMODS.Joker {
+    key = "santa",
+    name = "Santa",
+    pronouns = "she_her",
+
+    -- atlas = 'JokeJokersAtlas',
+	-- pos = { x = 0, y = 2 },
+    
+    blueprint_compat = true,
+    pools = {["BitterPool"] = true},
+	rarity = 2,
+    cost = 7,
+    
+    calculate = function(self, card, context)
+        if context.blind_defeated and context.main_eval then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if G.GAME.consumeable_buffer + #G.consumeables.cards < G.consumeables.config.card_limit then
+                        SMODS.add_card({key = "c_Bitters_present"})
+                    end
+                    return true
+                end
+            }))
         end
     end
 }
