@@ -6,10 +6,11 @@ a mod by and for the balala community 👍👍👍👍👍
 yes ultrakill joker was inspired by yahi
 
 ### current implementations
-  - Jokers such as John Ultrakill, Jamirror, and more!
-  - Guy with a brick
-  - a few new rarities
-  - New Blizzard Deck
+  - your favourite modders
+  - 29 jokers
+  - 3 consumables
+  - 3 decks
+  - 2 other things idk
 
 yes I will take suggestions, please do give me more things
 
@@ -53,3 +54,13 @@ glopmas day 6 | control
 Fixed GLOP5
 cassknows text is even worse
 removal of crabus sadly
+
+
+### Minor changlog 2 | 1.4.420
+
+New joker
+  - Shield | gains +5 mult when round is beaten in 1 hand, loses -10 mult otherwise 
+
+shield also has a glopmas variant, nothing too cool with it
+readd of crabus happily
+cleaned up all of the joker atlas

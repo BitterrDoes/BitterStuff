@@ -4,6 +4,19 @@ SMODS.Atlas {
 	px = 71,
 	py = 95
 }
+SMODS.Atlas {
+	key = "ReflectJokers",
+	path = "Reflection.png",
+	px = 71,
+	py = 95
+}
+SMODS.Atlas {
+	key = "MiscJokers",
+	path = "miscjokers.png",
+	px = 71,
+	py = 95
+}
+
 SMODS.Atlas { -- Gloopy 🤤
 	key = "GlopJokers",
 	path = "GlopJokers.png",

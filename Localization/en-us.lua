@@ -28,15 +28,8 @@ return {
         Blind = {},
         Enhanced = {},
         Joker = {
-            j_Bitters_v2goober = {
-                name = "{C:red}Goober V2",
-                text = {
-                    "Doesn't do much, just kinda sits there",
-                    "Doesn't take any slots", -- Because he cant
-                },
-            },
             -- Funnys
-            j_Bitters_piratesoftware = {
+            j_Bitters_piratesoftware = { -- balanced (??)
                 name = "Pirate Software",
                 text = {
                     "{C:green}#1# in 2{} Chance of 'crashing' your game",
@@ -57,7 +50,15 @@ return {
                     "{C:inactive,s:0.6}Suggested by FirstTry.{}"
                 }
             },
-            j_Bitters_jidea = { -- Comparable to riff raff
+            j_Bitters_shield = { -- Balanced
+                name = "Shield",
+                text = {
+                    "Gains {C:red}+#2#{} mult when round is {C:attention}won",
+                    "in {C:attention}1{} hand, otherwise lose {C:red}-#3#{}",
+                    "{C:inactive}(Currently {C:red}+#1#{C:inactive} mult)"
+                }
+            },
+            j_Bitters_jidea = { -- Comparable to riff raff | balanced
                 name = "Joker Idea",
                 text = {
                     "Sell this {C:attention}joker{} to", 
@@ -65,7 +66,7 @@ return {
                     "{C:inactive}(Must have space)"
                 }
             },
-            j_Bitters_normie = {
+            j_Bitters_normie = { -- balanced
                 name = "Normie",
                 text = {
                     "{C:mult}+#1#{} Mult{} if hand played is",
@@ -80,7 +81,14 @@ return {
                     "{C:inactive}(press f to parry)"
                 },
             },
-            j_Bitters_saleman = { -- Doesnt need to be balanced
+            j_Bitters_v2goober = { -- does nothing
+                name = "{C:red}Goober V2",
+                text = {
+                    "Doesn't do much, just kinda sits there",
+                    "Doesn't take any slots", -- Because he cant
+                },
+            },
+            j_Bitters_saleman = { -- balanced (??)
                 name = "Salesman",
                 text = {
                     "When a {C:attention}Blind{} is selected",
@@ -89,7 +97,7 @@ return {
                     "retrigger {C:attention}3{} times"
                 },
             },
-            j_Bitters_english = { -- Doesnt need to be balanced
+            j_Bitters_english = { -- balanced
                 name = "English Major",
                 text = {
                     "{C:mult}+#1#{} mult if displayed word", 
@@ -97,7 +105,7 @@ return {
                     "Times mult by {C:mult}x#2#{} per completion",
                 },
             },
-            j_Bitters_taskmgr = { -- Fair Downside | Balanced
+            j_Bitters_taskmgr = { -- balanced
                 name = "Task Manager",
                 text = {
                     "{C:attention}rename{} random {C:attention}file{} in",
@@ -106,14 +114,14 @@ return {
                     "{C:attention}characters{} in file {C:attention}name{}",
                 }
             },
-            j_Bitters_santa = { -- Balanced
+            j_Bitters_santa = { -- Balanced (??)
                 name = "Santa Claus",
                 text = {
                     "Gives {C:attention}1{C:red} present", 
                     "after the end of a round",
                 }
             },
-            j_Bitters_yourself = { -- Balanced
+            j_Bitters_yourself = { -- Balanced (??)
                 name = "Yourself",
                 text = {
                     "+1 {X:mult,C:white}xmult{} for every 20 files in your {E:1, C:blue}downloads{}", 
@@ -129,7 +137,7 @@ return {
                     "{C:inactive}({C:attention}dingaling suit{} {C:inactive}changes every round.)"
                 }
             },
-            j_Bitters_BEAR5 = { -- Dont wanna fix
+            j_Bitters_BEAR5 = { -- Dont wanna fix, is a legendary remember that
                 name = "{B:1}BEAR5",
                 text = {
                     "{X:blue,C:white}X#1#{} {V:1}Chips and {X:mult,C:white}X#2#{} {V:1}Mult",
@@ -137,7 +145,7 @@ return {
                     "{C:inactive}({C:attention}suit{} {V:2}changes every round.)"
                 }
             },
-            j_Bitters_elliottsmith = { -- Is legendary
+            j_Bitters_elliottsmith = { -- Is legendary, still not balanced
                 name = "Elliot Smith",
                 text = {
                     "{X:mult,C:white}x#2#{} Mult{} for each song on spotify by Elliot Smith",
@@ -145,7 +153,7 @@ return {
                     "{C:inactive,s:0.6}(Reacts in real time!)"  -- a lie btw
                 }
             },
-            j_Bitters_squid = { -- is legendary
+            j_Bitters_squid = { -- is legendary so fair for its boring effect
                 name = "{f:Bitters_ComicSans}squid+",
                 text = {
                     "Copies the {C:attention}joker{} to the left and do it {C:attention}twice"
@@ -153,21 +161,21 @@ return {
             },
 
             -- Cool people
-            j_Bitters_Jambatro = {
+            j_Bitters_Jambatro = { -- balanced
                 name = "Jambatro",
                 text = {
                     "{X:mult,C:white}x#1#{} Mult{} if base",
                     "score is odd."
                 }
             },
-            j_Bitters_Astro = { -- I mean its astro I cant not keep it like this
+            j_Bitters_Astro = { -- balanced | I mean its astro I cant not keep it like this
                 name = "Astro",
                 text = {
                     "If played hand has a scoring spade",
                     "randomize suit of all unscored cards."
                 }
             },
-            j_Bitters_cass = { -- oh god...
+            j_Bitters_cass = { -- oh god... | not balanced but its fine
                 name = "cassknows",
                 text = {
                     {
@@ -184,7 +192,7 @@ return {
                     },
                 }   
             },
-            j_Bitters_Rice = { -- now a chance | balanced
+            j_Bitters_Rice = { -- balanced
                 name = "Rice Shower",
                 text = {
                     "{C:green}#1# in 2{} Chance to Create the last",
@@ -203,28 +211,28 @@ return {
                     "{C:inactive}(Currently {X:chips,C:white}X#1#{C:inactive})"
                 }
             },
-            j_Bitters_glitchkat = { -- balanced
+            j_Bitters_glitchkat = { -- balanced | could be come a legendary
                 name = "GlitchKat10",
                 text = {
                     "Creates 1 random {C:enhanced,T:e_polychrome}Polychrome{} consumeable at end of round", 
                     "{C:inactive}(Must have room)"
                 }
             },
-            j_Bitters_breeder = { -- For the funzies
+            j_Bitters_breeder = { -- as balanced as my mod | uuh might make it impossible to get exotics
                 name = "Nxkoo",
                 text = {
                     "Spawns #1# random {E:2,f:Bitters_ComicSans}Angled Bitterness{}", 
                     "object after beating blind"
                 }
             },
-            j_Bitters_lily = { -- new
+            j_Bitters_lily = { -- meow | not balanced
                 name = "Lily Felli",
                 text = {
                     "{C:attention}+1{} Joker slot for",
                     "each {C:attention}9{} in deck"
                 }
             },
-            j_Bitters_jamirror = { -- purposely unbalanced
+            j_Bitters_jamirror = { -- balanced
                 name = "Jamirror",
                 text = {
                     "Retrigger {C:attention}Joker{} to the left",
@@ -240,14 +248,14 @@ return {
                     "Increase by {X:mult,C:white}X0.25{} when an {C:attention}Enhanced card{} is scored"
                 }
             },
-            j_Bitters_arcjoker = {
+            j_Bitters_arcjoker = { -- tried to balance but eeh couldnt care, its rare enough to be excused
                 name = "{f:Bitters_papyrus}arc",
                 text = {
                     "{E:1}Mult is multiplied by {E:1,f:Bitters_arial,C:attention}π{E:1} per card played.",
                     "{C:inactive}(Currently {C:mult}X#1#{C:inactive} Mult)"
                 }
             },
-            j_Bitters_bitterjoker = {
+            j_Bitters_bitterjoker = { -- :3
                 name = "{f:Bitters_ComicSans}BitterDoes",
                 text = {
                     "{E:1}Copies abilities of all {E:1,C:attention}jokers",
@@ -272,7 +280,7 @@ return {
                     "{C:inactive}(Currently {C:green}+#1#{C:inactive} glop and {X:sfark,C:white}X#2#{C:inactive})"
                 }
             },
-            j_Bitters_glopmirror = { -- purposely unbalanced
+            j_Bitters_glopmirror = {
                 name = "Glopmirror",
                 text = {
                     "Retrigger {C:attention}Joker{} to the left",
@@ -280,7 +288,7 @@ return {
                     "give {C:green}+0.5{} glop for every round left",
                 }
             },
-            j_Bitters_glopself = { -- Balanced
+            j_Bitters_glopself = {
                 name = "Glopself",
                 text = {
                     "gains {X:green,C:white}X1{} XGlop for every ",
@@ -289,7 +297,7 @@ return {
                     "{C:inactive}This number cant be below {X:green,C:white}X3", 
                 }
             },
-            j_Bitters_GLOP5 = { -- Dont wanna fix
+            j_Bitters_GLOP5 = {
                 name = "{B:1}GLOP5",
                 text = {
                     "{X:glop,C:white}X#1#{} Glop and {X:sfark,C:white}X#2#{} Sfark",
@@ -297,13 +305,21 @@ return {
                     "{C:inactive}({C:attention}suit{C:inactive} changes every round.)"
                 }
             },
-            j_Bitters_glopmgr = { -- Fair Downside | Balanced
+            j_Bitters_glopmgr = {
                 name = "Glop Manager",
                 text = {
                     "{C:attention}rename{} a random {C:attention}file{} in",
                     "{C:attention}videos{} folder to {C:green}'Glop'{}",
                     "Played cards {X:green,C:white}X1{} Glop per",
                     "{C:attention}characters{} in file {C:attention}name{}",
+                }
+            },
+            j_Bitters_shield_glop = {
+                name = "Shield",
+                text = {
+                    "Gains {C:green}+#2#{} glop when round is {C:attention}won",
+                    "in {C:attention}1{} hand, otherwise lose {C:green}-#3#{}",
+                    "{C:inactive}(Currently {C:green}+#1#{C:inactive} glop)"
                 }
             },
         },

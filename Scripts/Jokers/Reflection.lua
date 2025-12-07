@@ -14,8 +14,8 @@ SMODS.Joker { -- Broken?
 		return { vars = {card.ability.extra.xmult}}
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 0, y = 1 },
+	atlas = 'ReflectJokers',
+	pos = { x = 2, y = 0 },
 
 	rarity = 1,
 	cost = 3,
@@ -48,7 +48,7 @@ SMODS.Joker {
 		return { vars = {}}
 	end,
     
-	atlas = 'JokeJokersAtlas', -- made by daynan77
+	atlas = 'ReflectJokers', -- made by daynan77
 	pos = { x = 0, y = 0 },
 
 	rarity = 2,
@@ -95,6 +95,7 @@ SMODS.Joker {
         end
     end
 }
+
 Bitterstuff.set_debuff = function(card)
     local tarots = 0
     for _, v in pairs(G.consumeables.cards) do
@@ -146,8 +147,8 @@ SMODS.Joker {
         }
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = {x=0,y=5},
+	atlas = 'ReflectJokers',
+	pos = {x=3,y=2},
 
 	rarity = 2,
 	cost = 4,
@@ -224,7 +225,7 @@ SMODS.Joker {
 
 -- rice
 SMODS.Joker {
-    key = "Rice", -- i rly need to get a real suffix for the joke jokers
+    key = "Rice",
     name = "Rice Shower",
 
     blueprint_compat = true,
@@ -233,8 +234,8 @@ SMODS.Joker {
 		return { vars = {G.GAME.probabilities.normal}}
 	end,
     
-	atlas = 'JokeJokersAtlas', -- made by LuckyAF on displate
-	pos = { x = 3, y = 0 },
+	atlas = 'ReflectJokers', -- made by LuckyAF on displate
+	pos = { x = 1, y = 0 },
 
 	rarity = 3,
 	cost = 6,
@@ -262,17 +263,65 @@ SMODS.Joker {
     end
 }
 
--- local function checkslop(table)
---     for _, var in pairs(table) do
---         if type(var) == "table" then
---             return checkslop(var)
---         elseif type(var) == "number" and var > 100 then
---             return true
---         end
+-- crabus
+local function checkslop(table)
+    for _, var in pairs(table) do
 
---         return false
---     end
--- end
+        if type(var) == "table" then
+            return checkslop(var)
+        elseif type(var) == "number" and var > 100 then
+            return true
+        end
+
+        return false
+    end
+end
+
+
+SMODS.Joker {
+    key = "crabus",
+    name = "Crabus",
+    pronouns = "any_all",
+
+    config = { extra = {chips = 0} },
+    blueprint_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.chips}}
+	end,
+
+
+    rarity = 2,
+    cost = 5,
+    pools = {["BitterPool"] = true},
+
+    calculate = function(self, card, context)
+        if context.Bitters_press then
+            if card.states.hover.is == true then
+
+                -- check for slop
+                for _, card in pairs(G.jokers.cards) do
+                    local slop = checkslop(card.ability)
+                    if slop then SMODS.destroy_cards(card, false, true) end
+                end
+
+                if not G.effectmanager then G.effectmanager = {} end
+                G.effectmanager[1] = {{ -- Look at consumables for info on what each do
+                    name = "explosion",
+                    frame = 1,
+                    maxframe = 17,
+                    xpos = (card.T.x + ((card.T.w * card.T.scale) / 2)) * 85,
+                    ypos = 0,
+                    duration = 30,
+                    fps = 60,
+                    tfps = 60,
+                },}
+
+                card.ability.extra.chips = card.ability.extra.chips + 1
+                card:juice_up()
+            end
+        end
+    end,
+}
 
 -- Jamirror
 SMODS.Joker {
@@ -286,8 +335,8 @@ SMODS.Joker {
 		return { vars = {card.ability.extra}}
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 2, y = 1 },
+	atlas = 'ReflectJokers',
+	pos = { x = 3, y = 0 },
     pools = {["BitterPool"] = true},
 
 	rarity = 2,
@@ -338,7 +387,7 @@ SMODS.Joker { -- fixed
 		return { vars = {Bitterstuff.ModsUsing}}
 	end,
     
-	-- atlas = 'JokeJokersAtlas', 
+	-- atlas = 'ReflectJokers', 
 	-- pos = { x = 4, y = 5 },
 
 	rarity = 3,
@@ -369,8 +418,8 @@ SMODS.Joker {
 		return { vars = {card.ability.extra.cards}}
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 2, y = 2 },
+	atlas = 'ReflectJokers',
+	pos = { x = 0, y = 2 },
 
 	rarity = 3,
 	cost = 13,
@@ -418,8 +467,8 @@ SMODS.Joker {
 		return { vars = {card.ability.extra.cards}}
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 4, y = 2 },
+	atlas = 'ReflectJokers',
+	pos = { x = 2, y = 2 },
 
 	rarity = 3,
 	cost = 7,
@@ -460,9 +509,9 @@ SMODS.Joker {
     name = "Lily Felli",
     pronouns = "she_her",
 
-	atlas = 'JokeJokersAtlas',
-	pos = {x=2,y=4},
-    soul_pos = {x=2, y=5},
+	atlas = 'ReflectJokers',
+	pos = {x=3,y=1},
+    soul_pos = {x=4, y=4},
 
 	rarity = 3,
 	cost = 9,
@@ -517,9 +566,9 @@ SMODS.Joker {
         return { vars = {card.ability.extra.mult, card.ability.extra.mult_gain}}
     end,
 
-    atlas = 'JokeJokersAtlas',
-	pos = { x = 3, y = 3 },
-	soul_pos = { x = 4, y = 3 },
+    atlas = 'ReflectJokers',
+	pos = { x = 1, y = 1 },
+	soul_pos = { x = 4, y = 1 },
     rarity = "Bitters_BitterRarity",
     cost = 26,
     pools = {["BitterPool"] = true, ["BitterJokers"] = true},
@@ -547,9 +596,9 @@ SMODS.Joker {
 -- swag
 SMODS.Joker {
     key = "swagless",
-    atlas = 'JokeJokersAtlas',
-	pos = { x = 3, y = 4 },
-	soul_pos = { x = 4, y = 4 },
+    atlas = 'ReflectJokers',
+	pos = { x = 2, y = 1 },
+	soul_pos = { x = 4, y = 2 },
 
     pronouns = "he_him",
     blueprint_compat = true,
@@ -596,7 +645,7 @@ SMODS.DrawStep {
             local scale_mod = 0.07 + 0.02*math.sin(1.8*ltime) + 0.00*math.sin((ltime - math.floor(ltime))*math.pi*14)*(1 - (ltime - math.floor(ltime)))^3
             local rotate_mod = 0.05*math.sin(1.219*ltime) + 0.00*math.sin((ltime)*math.pi*5)*(1 - (ltime - math.floor(ltime)))^2
 
-            potSprite = potSprite or Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS["Bitters_JokeJokersAtlas"], {x=4, y=5})
+            potSprite = potSprite or Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS["Bitters_ReflectJokers"], {x=4, y=3})
                                     -- xpos, ypos, width, height, atlas, position
             potSprite.role.draw_major = card
             potSprite:draw_shader('dissolve', 1, nil, nil, card.children.center,scale_mod, rotate_mod, _xOffset, 0.1 + 0.03*math.sin(1.8*ltime) + _yOffset,nil, 0.3)
@@ -619,9 +668,9 @@ SMODS.Joker {
 		return { vars = {G.GAME.probabilities.normal, 2}}
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 3, y = 1 },
-	soul_pos = { x = 4, y = 1 },
+	atlas = 'ReflectJokers',
+	pos = { x = 0, y = 1 },
+	soul_pos = { x = 4, y = 0 },
     pools = {["BitterPool"] = true, ["BitterJokers"] = true},
 
 	rarity = "Bitters_BitterRarity",

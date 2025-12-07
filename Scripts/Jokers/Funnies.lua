@@ -17,7 +17,7 @@ SMODS.Joker {
     cost = 5,
     pools = {["BitterPool"] = true},
 
-	atlas = 'JokeJokersAtlas',
+	atlas = 'MiscJokers',
 	pos = { x = 2, y = 0 },
 
     calculate = function(self, card, context)
@@ -29,13 +29,54 @@ SMODS.Joker {
     end
 }
 
+-- Shield
+SMODS.Joker {
+    key = "shield",
+    name = "Shield",
+    pronouns = "any_all",
+
+    blueprint_compat = true,
+    config = { extra = {mult = 5, gain = 5, lose = 10} },
+	loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.mult, card.ability.extra.gain, card.ability.extra.lose}}
+	end,
+
+    rarity = 1,
+    cost = 8,
+    pools = {["BitterPool"] = true},
+
+	atlas = 'MiscJokers',
+	pos = { x = 1, y = 2 },
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        elseif context.end_of_round and context.main_eval then
+            if G.GAME.current_round.hands_played == 1 then
+                card.ability.extra.mult = card.ability.extra.mult + 5
+                return {
+                    message = "Upgrade!"
+                }
+            else
+                card.ability.extra.mult = card.ability.extra.mult - 10
+                return {
+                    message = "Degrade..",
+                    colour = G.C.RED
+                }
+            end
+        end
+    end
+}
+
 -- joker idea
 SMODS.Joker {
     key = "jidea",
     name = "Joker idea",
     pronouns = "any_all",
 
-	-- atlas = 'JokeJokersAtlas',
+	-- atlas = 'MiscJokers',
 	-- pos = { x = 2, y = 0 },
     config = { extra = {creates = 2} },
 	loc_vars = function(self, info_queue, card)
@@ -83,8 +124,8 @@ SMODS.Joker {
 		return { vars = {card.ability.extra.mult}}
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 1, y = 1 },
+	atlas = 'MiscJokers',
+	pos = { x = 3, y = 0 },
 
 	rarity = 1,
 	cost = 3,
@@ -118,7 +159,7 @@ SMODS.Joker { -- fixed
 		return { vars = {G.GAME.probabilities.normal, card.ability.extra.xmult}}
 	end,
 
-	atlas = 'JokeJokersAtlas',
+	atlas = 'MiscJokers',
 	pos = { x = 1, y = 0 },
 
 	rarity = 2,
@@ -170,8 +211,8 @@ SMODS.Joker {
     cost = 9,
     pools = {["BitterPool"] = true},
 
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 1, y = 2 },
+	atlas = 'MiscJokers',
+	pos = { x = 0, y = 1 },
 
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.pleasetrigger then
@@ -194,8 +235,8 @@ SMODS.Joker {
     cost = 1,
     pools = {["BitterPool"] = true},
 
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 1, y = 5 },
+	atlas = 'MiscJokers',
+	pos = { x = 2, y = 2 },
 
     add_to_deck = function(self, card, from_debuff)
         SMODS.create_card({key = "j_Bitters_v2goober"}) -- never adds to deck, just sits there :3
@@ -223,7 +264,7 @@ SMODS.Joker {
     price = 7,
     pools = {["BitterPool"] = true},
 
-	-- atlas = 'JokeJokersAtlas',
+	-- atlas = 'MiscJokers',
 	-- pos = { x = 1, y = 2 },
 
     calculate = function(self, card, context)
@@ -254,8 +295,8 @@ SMODS.Joker {
     name = "English Major",
     pronouns = "she_her",
 
-    atlas = 'JokeJokersAtlas',
-	pos = { x = 0, y = 2 },
+    atlas = 'MiscJokers',
+	pos = { x = 4, y = 0 },
     
     blueprint_compat = true,
     config = { extra = {
@@ -288,8 +329,8 @@ SMODS.Joker {
     key = "taskmgr",
     name = "Task Manager",
 
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 1, y = 4 },
+	atlas = 'MiscJokers',
+	pos = { x = 0, y = 2 },
 
 	cost = 3,
     rarity = 3,
@@ -333,8 +374,8 @@ SMODS.Joker { -- fixed
 		return { vars = {}}
 	end,
 
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 4, y = 0 },
+	atlas = 'MiscJokers',
+	pos = { x = 0, y = 0 },
 
 	rarity = 3,
 	cost = 6,
@@ -363,7 +404,7 @@ SMODS.Joker {
     name = "Santa",
     pronouns = "she_her",
 
-    -- atlas = 'JokeJokersAtlas',
+    -- atlas = 'MiscJokers',
 	-- pos = { x = 0, y = 2 },
     
     blueprint_compat = true,
@@ -391,8 +432,8 @@ SMODS.Joker {
     name = "Yourself",
     pronouns = "any_all",
 
-    atlas = 'JokeJokersAtlas',
-	pos = { x = 0, y = 4 },
+    atlas = 'MiscJokers',
+	pos = { x = 4, y = 1 },
     
     blueprint_compat = true,
 	loc_vars = function(self, info_queue, card)
@@ -428,8 +469,8 @@ SMODS.Joker { -- shamelessly stolenw
     }
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 0, y = 3 },
+	atlas = 'MiscJokers',
+	pos = { x = 1, y = 1 },
 
 	rarity = 3,
 	cost = 6,
@@ -479,8 +520,8 @@ SMODS.Joker {
     }
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 1, y = 3 },
+	atlas = 'MiscJokers',
+	pos = { x = 2, y = 1 },
 
 	rarity = 4,
 	cost = 15,
@@ -592,13 +633,13 @@ SMODS.Joker {
     pronouns = "he_him",
 
     blueprint_compat = true,
-	config = { extra = {mult = 147, add = 0.75} },
+	config = { extra = {mult = 147} },
 	loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.mult, card.ability.extra.add}}
+		return { vars = {card.ability.extra.mult, 0.75}}
 	end,
     
-	atlas = 'JokeJokersAtlas',
-	pos = { x = 2, y = 3 },
+	atlas = 'MiscJokers',
+	pos = { x = 3, y = 1 },
     pools = {["BitterPool"] = true},
 
 	rarity = 4,

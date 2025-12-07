@@ -1,6 +1,8 @@
 -- Day 1
 SMODS.Joker:take_ownership("j_Bitters_arcjoker", {
     atlas = "GlopJokers",
+    pos = {x=0,y=0},
+    soul_pos = {x=4,y=0},
 
     config = { 
         extra = {
@@ -36,6 +38,9 @@ SMODS.Joker:take_ownership("j_Bitters_arcjoker", {
 -- Day 2
 SMODS.Joker:take_ownership("j_Bitters_swagless", {
     atlas = "GlopJokers",
+    pos = {x=1,y=0},
+    soul_pos = {x=4,y=1},
+    -- pot will just be there because i told it to
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.xmult}, key = "j_Bitters_glopless"}
@@ -61,6 +66,7 @@ SMODS.Joker:take_ownership("j_Bitters_swagless", {
 -- Day 3
 SMODS.Joker:take_ownership("j_Bitters_jamirror", {
     atlas = "GlopJokers",
+    pos = {x=2,y=0},
 
 	loc_vars = function(self, info_queue, card)
 		return {key = "j_Bitters_glopmirror", vars = {card.ability.extra, card.ability.extra / 2}}
@@ -103,6 +109,7 @@ SMODS.Joker:take_ownership("j_Bitters_jamirror", {
 -- Day 4
 SMODS.Joker:take_ownership("j_Bitters_yourself", {
     atlas = "GlopJokers",
+    pos = {x=3,y=0},
 
 	loc_vars = function(self, info_queue, card)
 		return {key = "j_Bitters_glopself", vars = {Bitterstuff.Downloads}}
@@ -120,6 +127,7 @@ SMODS.Joker:take_ownership("j_Bitters_yourself", {
 -- Day 5
 SMODS.Joker:take_ownership("j_Bitters_BEAR5", {
     atlas = "GlopJokers",
+    pos = {x=0,y=1},
 
 	loc_vars = function(self, info_queue, card)
         local picked_card = G.GAME.current_round.card_picker_selection or { rank = 'Ace', suit = 'Spades' }
@@ -158,6 +166,7 @@ SMODS.Joker:take_ownership("j_Bitters_BEAR5", {
 -- Day 6
 SMODS.Joker:take_ownership("j_Bitters_taskmgr", {
     atlas = "GlopJokers",
+    pos = {x=1,y=1},
 
 	loc_vars = function(self, info_queue, card)
 		return { 
@@ -184,6 +193,39 @@ SMODS.Joker:take_ownership("j_Bitters_taskmgr", {
                 xglop = #file,
                 remove_default_message = true,
             }
+        end
+    end
+})
+
+SMODS.Joker:take_ownership("j_Bitters_shield", {
+    atlas = "GlopJokers",
+    pos = {x=2,y=1},
+
+	loc_vars = function(self, info_queue, card)
+		return {
+            key = "j_Bitters_shield_glop",
+            vars = {card.ability.extra.mult, card.ability.extra.gain, card.ability.extra.lose}
+        }
+	end,
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                glop = card.ability.extra.mult
+            }
+        elseif context.end_of_round and context.main_eval then
+            if G.GAME.current_round.hands_played == 1 then
+                card.ability.extra.mult = card.ability.extra.mult + 5
+                return {
+                    message = "Upgrade!"
+                }
+            else
+                card.ability.extra.mult = card.ability.extra.mult - 10
+                return {
+                    message = "Degrade..",
+                    colour = G.C.RED
+                }
+            end
         end
     end
 })
